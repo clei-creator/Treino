@@ -198,25 +198,127 @@ window.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-const PUSH_EX = [
-  { nome: "Supino Reto na Máquina",         prescricao: "4×6-10 reps · Descanso: 2 min",     series: 4 },
-  { nome: "Supino Inclinado Máquina",        prescricao: "4×8-12 reps · Descanso: 2 min",     series: 4 },
-  { nome: "Crossover — Polia Alta",          prescricao: "3×10-15 reps · Descanso: 90 s",     series: 3 },
-  { nome: "Supino Declinado Máquina",        prescricao: "3×8-12 reps · Descanso: 90 s",      series: 3 },
-  { nome: "Face Pulls — Polia Alta",         prescricao: "3×12-15 reps · Descanso: 60-90 s",  series: 3 },
-  { nome: "Elevação Lateral — Cabo/Máquina", prescricao: "3×12-15 reps · Descanso: 60 s",     series: 3 },
-  { nome: "Tríceps na Polia — Corda",        prescricao: "3×10-12 reps · Descanso: 60-90 s",  series: 3 }
+const CICLOS = [
+  {
+    nome: "Ciclo 1 · Mai–Ago 2026",
+    inicio: "2026-05-09",
+    blocos: [
+      { id: 'A',      semanas: 4, cor: '#1d4ed8' },
+      { id: 'B',      semanas: 4, cor: '#b45309' },
+      { id: 'C',      semanas: 3, cor: '#be185d' },
+      { id: 'Deload', semanas: 1, cor: '#047857' }
+    ],
+    push: {
+      A: [
+        { nome: "Supino Reto na Máquina",         prescricao: "4×6-10 reps · Descanso: 2 min",     series: 4 },
+        { nome: "Supino Inclinado Máquina",        prescricao: "4×8-12 reps · Descanso: 2 min",     series: 4 },
+        { nome: "Crossover — Polia Alta",          prescricao: "3×10-15 reps · Descanso: 90 s",     series: 3 },
+        { nome: "Supino Declinado Máquina",        prescricao: "3×8-12 reps · Descanso: 90 s",      series: 3 },
+        { nome: "Face Pulls — Polia Alta",         prescricao: "3×12-15 reps · Descanso: 60-90 s",  series: 3 },
+        { nome: "Elevação Lateral — Cabo/Máquina", prescricao: "3×12-15 reps · Descanso: 60 s",     series: 3 },
+        { nome: "Tríceps na Polia — Corda",        prescricao: "3×10-12 reps · Descanso: 60-90 s",  series: 3 }
+      ],
+      B: [
+        { nome: "Supino Reto na Máquina",         prescricao: "4×6-8 reps · Descanso: 2 min",      series: 4 },
+        { nome: "Supino Inclinado Máquina",        prescricao: "4×8-10 reps · Descanso: 2 min",     series: 4 },
+        { nome: "Crossover — Polia Alta",          prescricao: "3×10-12 reps · Descanso: 90 s",     series: 3 },
+        { nome: "Supino Declinado Máquina",        prescricao: "3×8-10 reps · Descanso: 90 s",      series: 3 },
+        { nome: "Face Pulls — Polia Alta",         prescricao: "3×12-15 reps · Descanso: 60-90 s",  series: 3 },
+        { nome: "Elevação Lateral — Cabo/Máquina", prescricao: "3×12-15 reps · Descanso: 60 s",     series: 3 },
+        { nome: "Tríceps na Polia — Corda",        prescricao: "3×8-10 reps · Descanso: 60-90 s",   series: 3 }
+      ],
+      C: [
+        { nome: "Supino Reto na Máquina",         prescricao: "4×5-6 reps · Descanso: 2 min",      series: 4 },
+        { nome: "Supino Inclinado Máquina",        prescricao: "4×6-8 reps · Descanso: 2 min",      series: 4 },
+        { nome: "Crossover — Polia Alta",          prescricao: "3×8-10 reps · Descanso: 90 s",      series: 3 },
+        { nome: "Supino Declinado Máquina",        prescricao: "3×6-8 reps · Descanso: 90 s",       series: 3 },
+        { nome: "Face Pulls — Polia Alta",         prescricao: "3×12-15 reps · Descanso: 60-90 s",  series: 3 },
+        { nome: "Elevação Lateral — Cabo/Máquina", prescricao: "3×12-15 reps · Descanso: 60 s",     series: 3 },
+        { nome: "Tríceps na Polia — Corda",        prescricao: "3×6-8 reps · Descanso: 60-90 s",    series: 3 }
+      ],
+      Deload: [
+        { nome: "Supino Reto na Máquina",         prescricao: "2×8-10 reps · 70% carga · Descanso: 2 min",    series: 2 },
+        { nome: "Supino Inclinado Máquina",        prescricao: "2×10-12 reps · 70% carga · Descanso: 2 min",   series: 2 },
+        { nome: "Crossover — Polia Alta",          prescricao: "2×12-15 reps · 70% carga · Descanso: 90 s",    series: 2 },
+        { nome: "Supino Declinado Máquina",        prescricao: "2×10-12 reps · 70% carga · Descanso: 90 s",    series: 2 },
+        { nome: "Face Pulls — Polia Alta",         prescricao: "2×15 reps · Descanso: 60 s",                   series: 2 },
+        { nome: "Elevação Lateral — Cabo/Máquina", prescricao: "2×15 reps · Descanso: 60 s",                   series: 2 },
+        { nome: "Tríceps na Polia — Corda",        prescricao: "2×12 reps · 70% carga · Descanso: 60 s",       series: 2 }
+      ]
+    },
+    pull: {
+      A: [
+        { nome: "Puxada Alta na Máquina",          prescricao: "4×8-12 reps · Descanso: 2 min",     series: 4 },
+        { nome: "Remada Sentada na Máquina",       prescricao: "4×8-12 reps · Descanso: 2 min",     series: 4 },
+        { nome: "Leg Press 45°",                   prescricao: "4×8-15 reps · Descanso: 2-3 min",   series: 4 },
+        { nome: "Cadeira Flexora",                 prescricao: "3×10-15 reps · Descanso: 90 s",     series: 3 },
+        { nome: "Stiff na Máquina / Pull-Through", prescricao: "3×8-12 reps · Descanso: 90 s",      series: 3 },
+        { nome: "Hiperextensão Lombar 45°",        prescricao: "3×12-15 reps · Descanso: 60-90 s",  series: 3 },
+        { nome: "Rosca Direta — Máquina ou Scott", prescricao: "3×10-12 reps · Descanso: 60 s",     series: 3 },
+        { nome: "Panturrilha em Pé na Máquina",    prescricao: "3×15-20 reps · Descanso: 45 s",     series: 3 }
+      ],
+      B: [
+        { nome: "Puxada Alta na Máquina",          prescricao: "4×6-10 reps · Descanso: 2 min",     series: 4 },
+        { nome: "Remada Sentada na Máquina",       prescricao: "4×6-10 reps · Descanso: 2 min",     series: 4 },
+        { nome: "Leg Press 45°",                   prescricao: "4×10-12 reps · Descanso: 2-3 min",  series: 4 },
+        { nome: "Cadeira Flexora",                 prescricao: "3×10-12 reps · Descanso: 90 s",     series: 3 },
+        { nome: "Stiff na Máquina / Pull-Through", prescricao: "3×8-10 reps · Descanso: 90 s",      series: 3 },
+        { nome: "Hiperextensão Lombar 45°",        prescricao: "3×12-15 reps · Descanso: 60-90 s",  series: 3 },
+        { nome: "Rosca Direta — Máquina ou Scott", prescricao: "3×8-10 reps · Descanso: 60 s",      series: 3 },
+        { nome: "Panturrilha em Pé na Máquina",    prescricao: "3×15-20 reps · Descanso: 45 s",     series: 3 }
+      ],
+      C: [
+        { nome: "Puxada Alta na Máquina",          prescricao: "4×5-6 reps · Descanso: 2 min",      series: 4 },
+        { nome: "Remada Sentada na Máquina",       prescricao: "4×5-6 reps · Descanso: 2 min",      series: 4 },
+        { nome: "Leg Press 45°",                   prescricao: "4×8-10 reps · Descanso: 2-3 min",   series: 4 },
+        { nome: "Cadeira Flexora",                 prescricao: "3×8-10 reps · Descanso: 90 s",      series: 3 },
+        { nome: "Stiff na Máquina / Pull-Through", prescricao: "3×6-8 reps · Descanso: 90 s",       series: 3 },
+        { nome: "Hiperextensão Lombar 45°",        prescricao: "3×12-15 reps · Descanso: 60-90 s",  series: 3 },
+        { nome: "Rosca Direta — Máquina ou Scott", prescricao: "3×6-8 reps · Descanso: 60 s",       series: 3 },
+        { nome: "Panturrilha em Pé na Máquina",    prescricao: "3×15-20 reps · Descanso: 45 s",     series: 3 }
+      ],
+      Deload: [
+        { nome: "Puxada Alta na Máquina",          prescricao: "2×10-12 reps · 70% carga · Descanso: 2 min",   series: 2 },
+        { nome: "Remada Sentada na Máquina",       prescricao: "2×10-12 reps · 70% carga · Descanso: 2 min",   series: 2 },
+        { nome: "Leg Press 45°",                   prescricao: "2×12-15 reps · 70% carga · Descanso: 2 min",   series: 2 },
+        { nome: "Cadeira Flexora",                 prescricao: "2×12-15 reps · Descanso: 90 s",                series: 2 },
+        { nome: "Stiff na Máquina / Pull-Through", prescricao: "2×10-12 reps · 70% carga · Descanso: 90 s",    series: 2 },
+        { nome: "Hiperextensão Lombar 45°",        prescricao: "2×15 reps · Descanso: 60 s",                   series: 2 },
+        { nome: "Rosca Direta — Máquina ou Scott", prescricao: "2×12 reps · 70% carga · Descanso: 60 s",       series: 2 },
+        { nome: "Panturrilha em Pé na Máquina",    prescricao: "2×20 reps · Descanso: 45 s",                   series: 2 }
+      ]
+    }
+  }
+  // Próximo ciclo: adicione um novo objeto aqui com nova `inicio` e exercícios
 ];
-const PULL_EX = [
-  { nome: "Puxada Alta na Máquina",          prescricao: "4×8-12 reps · Descanso: 2 min",     series: 4 },
-  { nome: "Remada Sentada na Máquina",       prescricao: "4×8-12 reps · Descanso: 2 min",     series: 4 },
-  { nome: "Leg Press 45°",                   prescricao: "4×8-15 reps · Descanso: 2-3 min",   series: 4 },
-  { nome: "Cadeira Flexora",                 prescricao: "3×10-15 reps · Descanso: 90 s",     series: 3 },
-  { nome: "Stiff na Máquina / Pull-Through", prescricao: "3×8-12 reps · Descanso: 90 s",      series: 3 },
-  { nome: "Hiperextensão Lombar 45°",        prescricao: "3×12-15 reps · Descanso: 60-90 s",  series: 3 },
-  { nome: "Rosca Direta — Máquina ou Scott", prescricao: "3×10-12 reps · Descanso: 60 s",     series: 3 },
-  { nome: "Panturrilha em Pé na Máquina",    prescricao: "3×15-20 reps · Descanso: 45 s",     series: 3 }
-];
+
+function getBlocoAtual() {
+  for (const ciclo of CICLOS) {
+    const inicio = new Date(ciclo.inicio);
+    const hoje = new Date(); hoje.setHours(0,0,0,0);
+    const diff = Math.floor((hoje - inicio) / 86400000);
+    if (diff < 0) continue;
+    const semTotal = Math.floor(diff / 7) + 1;
+    let semAcum = 0;
+    for (const bloco of ciclo.blocos) {
+      semAcum += bloco.semanas;
+      if (semTotal <= semAcum) {
+        const semNoBloco = semTotal - (semAcum - bloco.semanas);
+        return { cicloNome: ciclo.nome, cicloObj: ciclo, sem: semTotal, semNoBloco, bloco: bloco.id, cor: bloco.cor };
+      }
+    }
+  }
+  return null;
+}
+
+function getExercicios(tipo) {
+  const b = getBlocoAtual();
+  if (!b) {
+    const ultimo = CICLOS[CICLOS.length - 1];
+    return ultimo[tipo]['C'];
+  }
+  return b.cicloObj[tipo][b.bloco];
+}
 
 function hoje() {
   return new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'2-digit', year:'numeric' });
@@ -226,7 +328,7 @@ function hojeISO() {
 }
 
 function buildForm(tipo) {
-  const exs = tipo === 'push' ? PUSH_EX : PULL_EX;
+  const exs = getExercicios(tipo);
   const saved = JSON.parse(store.get('rascunho_' + tipo) || '{}');
   const hist = JSON.parse(store.get('historico_' + tipo) || '[]');
   const ultima = hist[0] || null;
@@ -272,17 +374,17 @@ function buildForm(tipo) {
   });
   document.getElementById('form-' + tipo).innerHTML = html;
   document.getElementById('data-' + tipo).textContent = hoje();
-  const sem = semanaAtual();
+  const b = getBlocoAtual();
   const badge = document.getElementById('badge-semana-' + tipo);
-  if (sem && badge) {
-    badge.textContent = `Semana ${sem.sem} · Bloco ${sem.bloco}`;
+  if (b && badge) {
+    badge.textContent = `${b.cicloNome} · Sem. ${b.sem} · Bloco ${b.bloco}`;
     badge.className = 'semana-badge';
-    badge.style.background = sem.cor;
+    badge.style.background = b.cor;
   }
 }
 
 function salvarRascunho(tipo) {
-  const exs = tipo === 'push' ? PUSH_EX : PULL_EX;
+  const exs = getExercicios(tipo);
   const data = {};
   exs.forEach((ex, ei) => {
     for (let s = 1; s <= ex.series; s++) {
@@ -296,7 +398,7 @@ function salvarRascunho(tipo) {
 }
 
 function salvarSessao(tipo) {
-  const exs = tipo === 'push' ? PUSH_EX : PULL_EX;
+  const exs = getExercicios(tipo);
   let invalido = false;
   exs.forEach((ex, ei) => {
     for (let s = 1; s <= ex.series; s++) {
@@ -316,7 +418,8 @@ function salvarSessao(tipo) {
     showToast('Preencha ao menos um campo antes de salvar.');
     return;
   }
-  const sessao = { data: hojeISO(), tipo, exercicios: [] };
+  const b = getBlocoAtual();
+  const sessao = { data: hojeISO(), tipo, ciclo: b?.cicloNome || '—', bloco: b?.bloco || '—', exercicios: [] };
   exs.forEach((ex, ei) => {
     const series = [];
     for (let s = 1; s <= ex.series; s++) {
@@ -513,22 +616,6 @@ function copiarSerie(tipo, ei, s) {
   if (kgEl   && kgAcima)   kgEl.value   = kgAcima;
   if (repsEl && repsAcima) repsEl.value = repsAcima;
   salvarRascunho(tipo);
-}
-
-function semanaAtual() {
-  const inicio = new Date('2026-05-09');
-  const hoje = new Date();
-  hoje.setHours(0,0,0,0);
-  const diff = Math.floor((hoje - inicio) / 86400000);
-  if (diff < 0) return null;
-  const sem = Math.floor(diff / 7) + 1;
-  if (sem > 12) return null;
-  const blocos = ['A','A','A','A','B','B','B','B','C','C','C','Deload'];
-  const cores  = ['#1d4ed8','#1d4ed8','#1d4ed8','#1d4ed8',
-                  '#b45309','#b45309','#b45309','#b45309',
-                  '#be185d','#be185d','#be185d',
-                  '#047857'];
-  return { sem, bloco: blocos[sem-1], cor: cores[sem-1] };
 }
 
 // INIT
