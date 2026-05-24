@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Treino v2</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#000;--card:#1c1c1e;--card2:#2c2c2e;--border:#3a3a3c;
+      --text:#fff;--text2:rgba(235,235,245,.8);--text3:rgba(235,235,245,.6);
+      --blue:#0a84ff;--green:#30d158;--yellow:#ffd60a;--orange:#ff9f0a;--red:#ff453a;
+    }
+    body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;min-height:100vh;overflow-x:hidden}
+
+    /* topbar */
+    .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(0,0,0,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:center;padding:0 16px;z-index:100;border-bottom:.5px solid var(--border)}
+    .topbar-title{font-size:17px;font-weight:700;flex:1}
+    .week-badge{display:none;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;color:#fff;margin-left:8px}
+
+    /* tabbar */
+    .tabbar{position:fixed;top:56px;left:0;right:0;height:44px;background:rgba(28,28,30,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;border-bottom:.5px solid var(--border);z-index:99}
+    .tab{flex:1;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;-webkit-tap-highlight-color:transparent}
+    .tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+
+    /* content */
+    .content{padding:120px 16px 110px}
+    .tab-panel{display:none}
+    .tab-panel.active{display:block}
+
+    /* exercise navigation */
+    .ex-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+    .ex-nav-btn{width:40px;height:40px;border-radius:50%;background:var(--card2);border:none;color:var(--text);font-size:22px;cursor:pointer;display:flex;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent}
+    .ex-nav-btn:disabled{opacity:.3}
+    .ex-nav-info{font-size:13px;color:var(--text3);font-weight:500}
+
+    /* exercise card */
+    .ex-card{background:var(--card);border-radius:16px;overflow:hidden;margin-bottom:12px}
+    .ex-header{padding:16px;border-bottom:.5px solid var(--border)}
+    .ex-name{font-size:20px;font-weight:700;line-height:1.2;margin-bottom:4px}
+    .ex-presc{font-size:13px;color:var(--text3)}
+
+    /* machine row */
+    .machine-row{display:flex;align-items:center;gap:8px;padding:10px 14px;border-bottom:.5px solid var(--border);background:var(--card2)}
+    .machine-icon{font-size:14px;flex-shrink:0}
+    .machine-input{flex:1;background:transparent;border:none;color:var(--text2);font-size:14px;font-family:inherit;outline:none}
+    .machine-input::placeholder{color:var(--text3);font-style:italic}
+
+    /* last ref */
+    .last-ref{padding:8px 16px;font-size:12px;color:var(--text3);border-bottom:.5px solid var(--border)}
+    .last-ref strong{color:var(--text2)}
+
+    /* completed series */
+    .completed-list{border-bottom:.5px solid var(--border)}
+    .c-row{display:flex;align-items:baseline;padding:9px 16px;border-bottom:.5px solid var(--border);gap:8px}
+    .c-row:last-child{border-bottom:none}
+    .c-badge{font-size:11px;font-weight:700;color:var(--green);min-width:30px;flex-shrink:0}
+    .c-data{font-size:14px;font-weight:600;flex:1}
+    .c-dur{font-size:11px;color:var(--text3);flex-shrink:0}
+    .c-obs-row{display:flex;padding:2px 16px 8px 54px;font-size:11px;color:var(--text3);font-style:italic}
+
+    /* active section */
+    .active-sec{padding:16px}
+    .serie-label{font-size:12px;font-weight:700;letter-spacing:.6px;color:var(--text3);text-transform:uppercase;margin-bottom:14px}
+
+    /* timers */
+    .timer-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+    .timer-val{font-size:52px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+    .timer-green{color:var(--green)}
+    .timer-yellow{color:var(--yellow)}
+    .plus-btn{background:rgba(255,214,10,.18);border:none;color:var(--yellow);font-size:14px;font-weight:700;padding:8px 14px;border-radius:20px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .dur-line{font-size:12px;color:var(--text3);margin-bottom:14px}
+
+    /* rest form */
+    .rest-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--yellow);margin-bottom:12px}
+    .input-row{display:flex;gap:12px;margin-bottom:12px}
+    .input-group{flex:1;display:flex;flex-direction:column;gap:6px}
+    .input-group label{font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+    .big-input{background:var(--card2);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:32px;font-weight:700;text-align:center;padding:12px 6px;width:100%;font-family:inherit;outline:none;-moz-appearance:textfield}
+    .big-input::-webkit-inner-spin-button,.big-input::-webkit-outer-spin-button{-webkit-appearance:none}
+    .big-input:focus{border-color:var(--blue)}
+    .obs-input{background:var(--card2);border:1.5px solid var(--border);border-radius:10px;color:var(--text2);font-size:15px;padding:10px 12px;width:100%;font-family:inherit;outline:none;resize:none;min-height:44px;display:block}
+    .obs-input:focus{border-color:var(--blue)}
+    .obs-input::placeholder{color:var(--text3)}
+
+    /* buttons */
+    .btn-main{width:100%;padding:18px;border-radius:14px;border:none;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .2s;-webkit-tap-highlight-color:transparent;margin-top:14px}
+    .btn-main:active{opacity:.8}
+    .btn-green{background:var(--green);color:#000}
+    .btn-yellow{background:var(--yellow);color:#000}
+    .btn-idle{background:var(--card2);color:var(--text3)}
+
+    /* done state */
+    .done-box{text-align:center;padding:20px 0}
+    .done-icon{font-size:44px;margin-bottom:8px}
+    .done-text{font-size:16px;color:var(--green);font-weight:600;margin-bottom:16px}
+    .btn-redo{background:transparent;border:1.5px solid var(--border);color:var(--text3);padding:10px 22px;border-radius:10px;font-size:14px;cursor:pointer;font-family:inherit}
+
+    /* next exercise footer */
+    .next-footer{margin-top:12px;padding:12px 14px;background:rgba(255,159,10,.12);border-radius:12px;border:1px solid rgba(255,159,10,.3)}
+    .next-footer-label{font-size:10px;color:var(--orange);font-weight:700;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+    .next-footer-name{font-size:15px;color:var(--orange);font-weight:600}
+
+    /* bottom bar */
+    .bottom-bar{position:fixed;bottom:0;left:0;right:0;padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom));background:rgba(0,0,0,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:.5px solid var(--border);display:flex;gap:10px}
+    .btn-registrar{flex:1;background:var(--blue);color:#fff;border:none;border-radius:12px;padding:14px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
+    .btn-backup{background:var(--card2);color:var(--text2);border:none;border-radius:12px;padding:14px 18px;font-size:15px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
+
+    /* history */
+    .hist-card{background:var(--card);border-radius:12px;padding:14px;margin-bottom:12px}
+    .hist-date{font-size:14px;font-weight:700;margin-bottom:2px}
+    .hist-meta{font-size:12px;color:var(--text3);margin-bottom:10px}
+    .hist-ex{margin-bottom:8px}
+    .hist-ex-name{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:3px}
+    .hist-series{font-size:12px;color:var(--text3);line-height:1.7}
+    .hist-empty{text-align:center;color:var(--text3);font-size:15px;padding:48px 20px}
+
+    /* toast */
+    .toast{position:fixed;top:110px;left:50%;transform:translateX(-50%);background:rgba(44,44,46,.96);color:#fff;padding:10px 20px;border-radius:20px;font-size:14px;font-weight:600;z-index:200;transition:opacity .4s;pointer-events:none;white-space:nowrap}
+    .toast.hidden{opacity:0}
+
+    /* rest progress bar */
+    .rest-bar-wrap{height:4px;background:rgba(255,214,10,.2);border-radius:2px;margin-bottom:14px;overflow:hidden}
+    .rest-bar-fill{height:100%;background:var(--yellow);border-radius:2px;transition:width .9s linear}
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <span class="topbar-title">Treino v2 <span class="week-badge" id="week-badge"></span></span>
+</div>
+
+<div class="tabbar">
+  <div class="tab active" id="tab-push" onclick="switchTab('push')">💪 Push</div>
+  <div class="tab" id="tab-pull" onclick="switchTab('pull')">🏋 Pull</div>
+  <div class="tab" id="tab-hist" onclick="switchTab('hist')">📋 Histórico</div>
+</div>
+
+<div class="content">
+  <div class="tab-panel active" id="panel-push"><div id="push-container"></div></div>
+  <div class="tab-panel" id="panel-pull"><div id="pull-container"></div></div>
+  <div class="tab-panel" id="panel-hist"><div id="hist-container"></div></div>
+</div>
+
+<div class="bottom-bar" id="bottom-bar">
+  <button class="btn-registrar" onclick="registrarTreino()">✅ Registrar Treino</button>
+  <button class="btn-backup" onclick="exportarMD()">☁ Backup</button>
+</div>
+
+<div class="toast hidden" id="toast"></div>
+
+<script>
+// ── CICLOS ──────────────────────────────────────────────────────────────────
+const CICLOS = [{
+  nome:"Ciclo 1 · Mai–Ago 2026",
+  inicio:"2026-05-09",
+  blocos:[
+    {id:'A',      semanas:4, cor:'#1d4ed8'},
+    {id:'B',      semanas:4, cor:'#b45309'},
+    {id:'C',      semanas:3, cor:'#be185d'},
+    {id:'Deload', semanas:1, cor:'#047857'}
+  ],
+  push:{
+    A:[
+      {id:'supino-reto',      nome:"Supino Reto na Máquina",      prescricao:"4×6-10 reps · Descanso: 2 min",    series:4},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina", prescricao:"4×8-12 reps · Descanso: 2 min",    series:4},
+      {id:'crossover',        nome:"Crossover — Polia Alta",      prescricao:"3×10-15 reps · Descanso: 90 s",    series:3},
+      {id:'supino-declinado', nome:"Supino Declinado na Máquina", prescricao:"3×8-12 reps · Descanso: 90 s",     series:3},
+      {id:'face-pull',        nome:"Face Pulls — Polia Alta",     prescricao:"3×12-15 reps · Descanso: 60 s",    series:3},
+      {id:'elevacao-lateral', nome:"Elevação Lateral",            prescricao:"3×12-15 reps · Descanso: 60 s",    series:3},
+      {id:'triceps-polia',    nome:"Tríceps na Polia — Corda",    prescricao:"3×10-12 reps · Descanso: 60 s",    series:3}
+    ],
+    B:[
+      {id:'supino-reto',      nome:"Supino Reto na Máquina",      prescricao:"4×6-8 reps · Descanso: 2 min",     series:4},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina", prescricao:"4×8-10 reps · Descanso: 2 min",    series:4},
+      {id:'crossover',        nome:"Crossover — Polia Alta",      prescricao:"3×10-12 reps · Descanso: 90 s",    series:3},
+      {id:'supino-declinado', nome:"Supino Declinado na Máquina", prescricao:"3×8-10 reps · Descanso: 90 s",     series:3},
+      {id:'face-pull',        nome:"Face Pulls — Polia Alta",     prescricao:"3×12-15 reps · Descanso: 60 s",    series:3},
+      {id:'elevacao-lateral', nome:"Elevação Lateral",            prescricao:"3×12-15 reps · Descanso: 60 s",    series:3},
+      {id:'triceps-polia',    nome:"Tríceps na Polia — Corda",    prescricao:"3×8-10 reps · Descanso: 60 s",     series:3}
+    ],
+    C:[
+      {id:'supino-reto',      nome:"Supino Reto na Máquina",      prescricao:"4×5-6 reps · Descanso: 2 min",     series:4},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina", prescricao:"4×6-8 reps · Descanso: 2 min",     series:4},
+      {id:'crossover',        nome:"Crossover — Polia Alta",      prescricao:"3×8-10 reps · Descanso: 90 s",     series:3},
+      {id:'supino-declinado', nome:"Supino Declinado na Máquina", prescricao:"3×6-8 reps · Descanso: 90 s",      series:3},
+      {id:'face-pull',        nome:"Face Pulls — Polia Alta",     prescricao:"3×12-15 reps · Descanso: 60 s",    series:3},
+      {id:'elevacao-lateral', nome:"Elevação Lateral",            prescricao:"3×12-15 reps · Descanso: 60 s",    series:3},
+      {id:'triceps-polia',    nome:"Tríceps na Polia — Corda",    prescricao:"3×6-8 reps · Descanso: 60 s",      series:3}
+    ],
+    Deload:[
+      {id:'supino-reto',      nome:"Supino Reto na Máquina",      prescricao:"2×8-10 reps · Descanso: 2 min",    series:2},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina", prescricao:"2×10-12 reps · Descanso: 2 min",   series:2},
+      {id:'crossover',        nome:"Crossover — Polia Alta",      prescricao:"2×12-15 reps · Descanso: 90 s",    series:2},
+      {id:'supino-declinado', nome:"Supino Declinado na Máquina", prescricao:"2×10-12 reps · Descanso: 90 s",    series:2},
+      {id:'face-pull',        nome:"Face Pulls — Polia Alta",     prescricao:"2×15 reps · Descanso: 60 s",       series:2},
+      {id:'elevacao-lateral', nome:"Elevação Lateral",            prescricao:"2×15 reps · Descanso: 60 s",       series:2},
+      {id:'triceps-polia',    nome:"Tríceps na Polia — Corda",    prescricao:"2×12 reps · Descanso: 60 s",       series:2}
+    ]
+  },
+  pull:{
+    A:[
+      {id:'puxada-alta',    nome:"Puxada Alta na Máquina",       prescricao:"4×8-12 reps · Descanso: 2 min",    series:4},
+      {id:'remada-sentada', nome:"Remada Sentada na Máquina",    prescricao:"4×8-12 reps · Descanso: 2 min",    series:4},
+      {id:'leg-press',      nome:"Leg Press 45°",                prescricao:"4×8-15 reps · Descanso: 2 min",    series:4},
+      {id:'flexora',        nome:"Cadeira Flexora",              prescricao:"3×10-15 reps · Descanso: 90 s",    series:3},
+      {id:'stiff',          nome:"Stiff na Máquina",             prescricao:"3×8-12 reps · Descanso: 90 s",     series:3},
+      {id:'hiperextensao',  nome:"Hiperextensão Lombar 45°",     prescricao:"3×12-15 reps · Descanso: 60 s",    series:3},
+      {id:'rosca',          nome:"Rosca Direta — Máquina/Scott", prescricao:"3×10-12 reps · Descanso: 60 s",    series:3},
+      {id:'panturrilha',    nome:"Panturrilha em Pé",            prescricao:"3×15-20 reps · Descanso: 45 s",    series:3}
+    ],
+    B:[
+      {id:'puxada-alta',    nome:"Puxada Alta na Máquina",       prescricao:"4×6-10 reps · Descanso: 2 min",    series:4},
+      {id:'remada-sentada', nome:"Remada Sentada na Máquina",    prescricao:"4×6-10 reps · Descanso: 2 min",    series:4},
+      {id:'leg-press',      nome:"Leg Press 45°",                prescricao:"4×10-12 reps · Descanso: 2 min",   series:4},
+      {id:'flexora',        nome:"Cadeira Flexora",              prescricao:"3×10-12 reps · Descanso: 90 s",    series:3},
+      {id:'stiff',          nome:"Stiff na Máquina",             prescricao:"3×8-10 reps · Descanso: 90 s",     series:3},
+      {id:'hiperextensao',  nome:"Hiperextensão Lombar 45°",     prescricao:"3×12-15 reps · Descanso: 60 s",    series:3},
+      {id:'rosca',          nome:"Rosca Direta — Máquina/Scott", prescricao:"3×8-10 reps · Descanso: 60 s",     series:3},
+      {id:'panturrilha',    nome:"Panturrilha em Pé",            prescricao:"3×15-20 reps · Descanso: 45 s",    series:3}
+    ],
+    C:[
+      {id:'puxada-alta',    nome:"Puxada Alta na Máquina",       prescricao:"4×5-6 reps · Descanso: 2 min",     series:4},
+      {id:'remada-sentada', nome:"Remada Sentada na Máquina",    prescricao:"4×5-6 reps · Descanso: 2 min",     series:4},
+      {id:'leg-press',      nome:"Leg Press 45°",                prescricao:"4×8-10 reps · Descanso: 2 min",    series:4},
+      {id:'flexora',        nome:"Cadeira Flexora",              prescricao:"3×8-10 reps · Descanso: 90 s",     series:3},
+      {id:'stiff',          nome:"Stiff na Máquina",             prescricao:"3×6-8 reps · Descanso: 90 s",      series:3},
+      {id:'hiperextensao',  nome:"Hiperextensão Lombar 45°",     prescricao:"3×12-15 reps · Descanso: 60 s",    series:3},
+      {id:'rosca',          nome:"Rosca Direta — Máquina/Scott", prescricao:"3×6-8 reps · Descanso: 60 s",      series:3},
+      {id:'panturrilha',    nome:"Panturrilha em Pé",            prescricao:"3×15-20 reps · Descanso: 45 s",    series:3}
+    ],
+    Deload:[
+      {id:'puxada-alta',    nome:"Puxada Alta na Máquina",       prescricao:"2×10-12 reps · Descanso: 2 min",   series:2},
+      {id:'remada-sentada', nome:"Remada Sentada na Máquina",    prescricao:"2×10-12 reps · Descanso: 2 min",   series:2},
+      {id:'leg-press',      nome:"Leg Press 45°",                prescricao:"2×12-15 reps · Descanso: 2 min",   series:2},
+      {id:'flexora',        nome:"Cadeira Flexora",              prescricao:"2×12-15 reps · Descanso: 90 s",    series:2},
+      {id:'stiff',          nome:"Stiff na Máquina",             prescricao:"2×10-12 reps · Descanso: 90 s",    series:2},
+      {id:'hiperextensao',  nome:"Hiperextensão Lombar 45°",     prescricao:"2×15 reps · Descanso: 60 s",       series:2},
+      {id:'rosca',          nome:"Rosca Direta — Máquina/Scott", prescricao:"2×12 reps · Descanso: 60 s",       series:2},
+      {id:'panturrilha',    nome:"Panturrilha em Pé",            prescricao:"2×20 reps · Descanso: 45 s",       series:2}
+    ]
+  }
+}];
+
+// ── localStorage ─────────────────────────────────────────────────────────────
+const store = {
+  get:    function(k){ try{ return localStorage.getItem(k); }    catch(e){ return null; } },
+  set:    function(k,v){ try{ localStorage.setItem(k,v); return true; } catch(e){ return false; } },
+  remove: function(k){ try{ localStorage.removeItem(k); }        catch(e){} }
+};
+
+// ── CICLO / BLOCO ─────────────────────────────────────────────────────────────
+function getBlocoAtual(){
+  for(const ciclo of CICLOS){
+    const inicio = new Date(ciclo.inicio);
+    const hoje   = new Date(); hoje.setHours(0,0,0,0);
+    const diff   = Math.floor((hoje - inicio) / 86400000);
+    if(diff < 0) continue;
+    const semTotal = Math.floor(diff / 7) + 1;
+    let semAcum = 0;
+    for(const bloco of ciclo.blocos){
+      semAcum += bloco.semanas;
+      if(semTotal <= semAcum){
+        return {cicloNome:ciclo.nome, cicloObj:ciclo, sem:semTotal, bloco:bloco.id, cor:bloco.cor};
+      }
+    }
+  }
+  return null;
+}
+
+function getExercicios(tipo){
+  const b = getBlocoAtual();
+  if(!b){ const u = CICLOS[CICLOS.length-1]; return u[tipo]['C']; }
+  return b.cicloObj[tipo][b.bloco];
+}
+
+// ── UTILITIES ─────────────────────────────────────────────────────────────────
+function fmtSec(s){
+  s = Math.max(0, Math.floor(s));
+  return Math.floor(s/60) + ':' + String(s%60).padStart(2,'0');
+}
+
+function hojeISO(){
+  const d = new Date();
+  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+}
+
+function diasAtras(dataStr){
+  if(!dataStr) return '';
+  const ref  = new Date(dataStr+'T00:00:00');
+  const hoje = new Date(); hoje.setHours(0,0,0,0);
+  const diff = Math.floor((hoje - ref) / 86400000);
+  if(diff === 0) return 'hoje';
+  if(diff === 1) return 'ontem';
+  return 'há '+diff+' dias';
+}
+
+function parsarDescanso(prescricao){
+  const m = prescricao.match(/Descanso:\s*(\d+)(?:-(\d+))?\s*(min|s)/i);
+  if(!m) return 90;
+  const val  = parseInt(m[1]);
+  const unit = m[3].toLowerCase();
+  return unit === 'min' ? val * 60 : val;
+}
+
+function esc(s){
+  if(s == null) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── MACHINE CONFIG ────────────────────────────────────────────────────────────
+function getConfig(exId){
+  return (JSON.parse(store.get('config_maquinas')||'{}'))[exId]||'';
+}
+function setConfig(exId, val){
+  const all = JSON.parse(store.get('config_maquinas')||'{}');
+  all[exId] = val;
+  store.set('config_maquinas', JSON.stringify(all));
+}
+
+// ── HISTORY ───────────────────────────────────────────────────────────────────
+function getHistorico(tipo){
+  return JSON.parse(store.get('historico_v2_'+tipo)||'[]');
+}
+
+function getLastSerie(exId, tipo, serieNum){
+  const hist = getHistorico(tipo);
+  for(const sessao of hist){
+    for(const ex of (sessao.exercicios||[])){
+      if(ex.exercicioId === exId){
+        const sr = (ex.series||[]).find(s => s.serie === serieNum);
+        if(sr) return {...sr, data:sessao.data};
+      }
+    }
+  }
+  return null;
+}
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let activeTab   = 'push';
+let exIdxPush   = 0;
+let exIdxPull   = 0;
+let pushStates  = {};
+let pullStates  = {};
+let needsFullRender = true;
+
+function getStates(tipo){ return tipo==='push' ? pushStates : pullStates; }
+function getExIdx(tipo){ return tipo==='push' ? exIdxPush : exIdxPull; }
+
+function mkState(ex){
+  return {
+    phase:'ready', curSerie:1, completed:[],
+    greenStartTime:null, yellowStartTime:null,
+    yellowTotal:parsarDescanso(ex.prescricao), yellowAdded:0,
+    greenDuration:0, tempData:{kg:'',reps:'',obs:''}, _alerted:false
+  };
+}
+
+function getState(tipo, exId){
+  const states = getStates(tipo);
+  if(!states[exId]){
+    const ex = getExercicios(tipo).find(e=>e.id===exId);
+    states[exId] = mkState(ex);
+  }
+  return states[exId];
+}
+
+function saveRascunho(tipo){
+  const exs    = getExercicios(tipo);
+  const states = getStates(tipo);
+  const r      = {data:hojeISO(), states:{}};
+  for(const ex of exs){ if(states[ex.id]) r.states[ex.id] = states[ex.id]; }
+  store.set('rascunho_v2_'+tipo, JSON.stringify(r));
+}
+
+function loadRascunho(tipo){
+  try{
+    const raw = store.get('rascunho_v2_'+tipo);
+    if(!raw) return;
+    const r = JSON.parse(raw);
+    if(r.data !== hojeISO()) return;
+    const states = getStates(tipo);
+    for(const [id,st] of Object.entries(r.states)) states[id] = st;
+  }catch(e){}
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function renderAll(){
+  // Week badge (always cheap)
+  const b     = getBlocoAtual();
+  const badge = document.getElementById('week-badge');
+  if(badge){
+    if(b){ badge.textContent='Sem.'+b.sem+' · Bloco '+b.bloco; badge.style.background=b.cor; badge.style.display='inline-block'; }
+    else { badge.style.display='none'; }
+  }
+
+  const bb = document.getElementById('bottom-bar');
+  if(bb) bb.style.display = activeTab==='hist' ? 'none' : 'flex';
+
+  if(activeTab==='hist'){
+    if(needsFullRender){ renderHistPanel(); needsFullRender=false; }
+    return;
+  }
+
+  if(needsFullRender){
+    renderExPanel(activeTab);
+    needsFullRender = false;
+  } else {
+    tickTimers(activeTab);
+  }
+}
+
+// Partial update: only touch timer values in the DOM (user may be typing)
+function tickTimers(tipo){
+  const exs   = getExercicios(tipo);
+  const exIdx = getExIdx(tipo);
+  const ex    = exs[exIdx];
+  const state = getState(tipo, ex.id);
+
+  if(state.phase === 'exec'){
+    const elapsed = (Date.now() - state.greenStartTime) / 1000;
+    const el = document.getElementById('exec-timer');
+    if(el) el.textContent = fmtSec(elapsed);
+
+  } else if(state.phase === 'rest'){
+    const elapsed  = (Date.now() - state.yellowStartTime) / 1000;
+    const total    = state.yellowTotal + state.yellowAdded;
+    const remaining = total - elapsed;
+    const done     = remaining <= 0;
+
+    const timerEl = document.getElementById('rest-timer');
+    if(timerEl) timerEl.textContent = fmtSec(Math.max(0, remaining));
+
+    const barEl = document.getElementById('rest-bar');
+    if(barEl) barEl.style.width = Math.max(0, (remaining/total)*100) + '%';
+
+    const btnEl = document.getElementById('btn-proxima');
+    if(btnEl && done) btnEl.className = 'btn-main btn-green';
+
+    if(done && !state._alerted){
+      state._alerted = true;
+      try{ navigator.vibrate && navigator.vibrate([200,100,200]); }catch(e){}
+    }
+  }
+}
+
+function renderExPanel(tipo){
+  const exs   = getExercicios(tipo);
+  const exIdx = getExIdx(tipo);
+  const ex    = exs[exIdx];
+  const state = getState(tipo, ex.id);
+  const nextEx = exIdx < exs.length-1 ? exs[exIdx+1] : null;
+  const container = document.getElementById(tipo+'-container');
+  if(!container) return;
+
+  let html = '';
+
+  // Navigation row
+  html += `<div class="ex-nav">
+    <button class="ex-nav-btn" onclick="navEx('${tipo}',-1)" ${exIdx===0?'disabled':''}>‹</button>
+    <span class="ex-nav-info">${exIdx+1} de ${exs.length}</span>
+    <button class="ex-nav-btn" onclick="navEx('${tipo}',1)" ${exIdx===exs.length-1?'disabled':''}>›</button>
+  </div>`;
+
+  html += `<div class="ex-card">`;
+
+  // Header
+  html += `<div class="ex-header">
+    <div class="ex-name">${esc(ex.nome)}</div>
+    <div class="ex-presc">${esc(ex.prescricao)}</div>
+  </div>`;
+
+  // Machine config
+  html += `<div class="machine-row">
+    <span class="machine-icon">🔧</span>
+    <input class="machine-input" type="text"
+      placeholder="Máquina / banco / configuração..."
+      value="${esc(getConfig(ex.id))}"
+      onchange="setConfig('${ex.id}',this.value)"
+      oninput="setConfig('${ex.id}',this.value)">
+  </div>`;
+
+  // Last session reference for current series
+  const serieParaRef = state.curSerie <= ex.series ? state.curSerie : ex.series;
+  const lastSr = getLastSerie(ex.id, tipo, serieParaRef);
+  if(lastSr){
+    html += `<div class="last-ref">
+      Série ${serieParaRef} anterior: <strong>${esc(lastSr.kg)} kg × ${esc(lastSr.reps)} reps</strong>
+      ${lastSr.obs ? ' · <em>'+esc(lastSr.obs)+'</em>' : ''}
+      <span style="color:var(--text3)"> · ${diasAtras(lastSr.data)}</span>
+    </div>`;
+  }
+
+  // Completed series today
+  if(state.completed.length > 0){
+    html += `<div class="completed-list">`;
+    for(let i=0;i<state.completed.length;i++){
+      const c = state.completed[i];
+      html += `<div class="c-row">
+        <span class="c-badge">S${i+1} ✓</span>
+        <span class="c-data">${esc(c.kg)} kg × ${esc(c.reps)} reps</span>
+        <span class="c-dur">${fmtSec(c.duracao)}</span>
+      </div>`;
+      if(c.obs) html += `<div class="c-obs-row">${esc(c.obs)}</div>`;
+    }
+    html += `</div>`;
+  }
+
+  // Active section
+  html += `<div class="active-sec">`;
+
+  if(state.phase === 'done'){
+    html += `<div class="done-box">
+      <div class="done-icon">✅</div>
+      <div class="done-text">Exercício concluído!</div>
+      <button class="btn-redo" onclick="resetEx('${tipo}','${ex.id}')">Refazer</button>
+    </div>`;
+
+  } else if(state.phase === 'ready'){
+    html += `<div class="serie-label">Série ${state.curSerie} de ${ex.series}</div>`;
+    html += `<button class="btn-main btn-green" onclick="onIniciar('${tipo}','${ex.id}')">
+      Iniciar Série ${state.curSerie}
+    </button>`;
+
+  } else if(state.phase === 'exec'){
+    const elapsed = (Date.now() - state.greenStartTime) / 1000;
+    html += `<div class="serie-label">Série ${state.curSerie} de ${ex.series} — em execução</div>`;
+    html += `<div class="timer-row">
+      <span class="timer-val timer-green" id="exec-timer">${fmtSec(elapsed)}</span>
+    </div>`;
+    html += `<button class="btn-main btn-green" onclick="onFeito('${tipo}','${ex.id}')">FEITO</button>`;
+
+  } else if(state.phase === 'rest'){
+    const elapsed   = (Date.now() - state.yellowStartTime) / 1000;
+    const total     = state.yellowTotal + state.yellowAdded;
+    const remaining = total - elapsed;
+    const done      = remaining <= 0;
+    const isLast    = state.curSerie === ex.series;
+    const nextLabel = isLast ? 'Concluir Exercício' : `Iniciar Série ${state.curSerie+1} de ${ex.series}`;
+
+    if(done && !state._alerted){
+      state._alerted = true;
+      try{ navigator.vibrate && navigator.vibrate([200,100,200]); }catch(e){}
+    }
+
+    html += `<div class="rest-title">Registrar Série ${state.curSerie} — o que você fez</div>`;
+    html += `<div class="timer-row">
+      <span class="timer-val timer-yellow" id="rest-timer">${fmtSec(Math.max(0,remaining))}</span>
+      <button class="plus-btn" onclick="adicionarTempo('${tipo}','${ex.id}')">+30s</button>
+    </div>`;
+    html += `<div class="rest-bar-wrap"><div class="rest-bar-fill" id="rest-bar" style="width:${Math.max(0,(remaining/total)*100)}%"></div></div>`;
+    html += `<div class="dur-line">Duração da série: ${fmtSec(state.greenDuration)}</div>`;
+
+    html += `<div class="input-row">
+      <div class="input-group">
+        <label>Carga que fiz</label>
+        <input class="big-input" id="inp-kg" type="number" inputmode="decimal" min="0" step="0.5"
+          value="${esc(state.tempData.kg)}" placeholder="kg"
+          oninput="syncTemp('${tipo}','${ex.id}','kg',this.value)"
+          onchange="syncTemp('${tipo}','${ex.id}','kg',this.value)">
+      </div>
+      <div class="input-group">
+        <label>Reps que fiz</label>
+        <input class="big-input" id="inp-reps" type="number" inputmode="numeric" min="1" max="99" step="1"
+          value="${esc(state.tempData.reps)}" placeholder="reps"
+          oninput="syncTemp('${tipo}','${ex.id}','reps',this.value)"
+          onchange="syncTemp('${tipo}','${ex.id}','reps',this.value)">
+      </div>
+    </div>`;
+
+    html += `<textarea class="obs-input" id="inp-obs" placeholder="Observação (opcional)..."
+      oninput="syncTemp('${tipo}','${ex.id}','obs',this.value)"
+      onchange="syncTemp('${tipo}','${ex.id}','obs',this.value)"
+      >${esc(state.tempData.obs)}</textarea>`;
+
+    html += `<button id="btn-proxima" class="btn-main ${done?'btn-green':'btn-idle'}"
+      onclick="onProxima('${tipo}','${ex.id}')">${esc(nextLabel)}</button>`;
+  }
+
+  html += `</div>`; // active-sec
+
+  // Next exercise footer: show when on last series + exec/rest/done
+  const showNextFooter = nextEx && state.phase !== 'ready' && state.curSerie === ex.series;
+  const showNextDone   = nextEx && state.phase === 'done';
+  if(showNextFooter || showNextDone){
+    html += `<div class="next-footer">
+      <div class="next-footer-label">▶ Próximo exercício</div>
+      <div class="next-footer-name">${esc(nextEx.nome)}</div>
+    </div>`;
+  }
+
+  html += `</div>`; // ex-card
+  container.innerHTML = html;
+}
+
+function renderHistPanel(){
+  const container = document.getElementById('hist-container');
+  if(!container) return;
+
+  const all = [
+    ...getHistorico('push').map(s=>({...s,tipo:'push'})),
+    ...getHistorico('pull').map(s=>({...s,tipo:'pull'}))
+  ].sort((a,b)=>b.data.localeCompare(a.data));
+
+  if(all.length === 0){
+    container.innerHTML = '<div class="hist-empty">Nenhuma sessão registrada ainda.</div>';
+    return;
+  }
+
+  let html = '';
+  for(const s of all){
+    const tipoLabel = s.tipo==='push' ? '💪 Push' : '🏋 Pull';
+    const blocoBadge = s.bloco ? ` · Bloco ${esc(s.bloco)}` : '';
+    html += `<div class="hist-card">
+      <div class="hist-date">${esc(s.data)} · ${tipoLabel}</div>
+      <div class="hist-meta">${esc(s.ciclo||'')}${blocoBadge}</div>`;
+    for(const ex of (s.exercicios||[])){
+      html += `<div class="hist-ex">
+        <div class="hist-ex-name">${esc(ex.nome)}</div>
+        <div class="hist-series">`;
+      for(const sr of (ex.series||[])){
+        html += `S${sr.serie}: ${esc(sr.kg)}kg × ${esc(sr.reps)}${sr.obs?' — '+esc(sr.obs):''}<br>`;
+      }
+      html += `</div></div>`;
+    }
+    html += `</div>`;
+  }
+  container.innerHTML = html;
+}
+
+// ── EVENT HANDLERS ────────────────────────────────────────────────────────────
+function switchTab(tab){
+  activeTab = tab;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.getElementById('panel-'+tab).classList.add('active');
+  needsFullRender = true;
+  renderAll();
+}
+
+function navEx(tipo, dir){
+  const exs = getExercicios(tipo);
+  if(tipo==='push') exIdxPush = Math.max(0, Math.min(exs.length-1, exIdxPush+dir));
+  else              exIdxPull = Math.max(0, Math.min(exs.length-1, exIdxPull+dir));
+  needsFullRender = true;
+  renderAll();
+}
+
+function syncTemp(tipo, exId, field, val){
+  getState(tipo, exId).tempData[field] = val;
+}
+
+function onIniciar(tipo, exId){
+  const state = getState(tipo, exId);
+  state.phase          = 'exec';
+  state.greenStartTime = Date.now();
+  state._alerted       = false;
+  needsFullRender      = true;
+  renderAll();
+}
+
+function onFeito(tipo, exId){
+  const state       = getState(tipo, exId);
+  state.greenDuration  = (Date.now() - state.greenStartTime) / 1000;
+  state.phase          = 'rest';
+  state.yellowStartTime = Date.now();
+  state.yellowAdded    = 0;
+  state._alerted       = false;
+  needsFullRender      = true;
+  renderAll();
+  // Auto-focus kg input after render
+  requestAnimationFrame(()=>{ const el=document.getElementById('inp-kg'); if(el) el.focus(); });
+}
+
+function adicionarTempo(tipo, exId){
+  const state = getState(tipo, exId);
+  state.yellowAdded = (state.yellowAdded||0) + 30;
+  state._alerted    = false;
+  // Update timer in place (no full rebuild, user may be typing)
+  tickTimers(tipo);
+}
+
+function onProxima(tipo, exId){
+  const state = getState(tipo, exId);
+  const ex    = getExercicios(tipo).find(e=>e.id===exId);
+
+  // Read latest from DOM then state
+  const kgEl   = document.getElementById('inp-kg');
+  const repsEl = document.getElementById('inp-reps');
+  const obsEl  = document.getElementById('inp-obs');
+  const kgVal   = ((kgEl   ? kgEl.value   : state.tempData.kg)  +'').trim();
+  const repsVal = ((repsEl ? repsEl.value : state.tempData.reps)+'').trim();
+  const obsVal  =   obsEl  ? obsEl.value  : state.tempData.obs;
+
+  if(!kgVal || !repsVal){
+    showToast('⚠️ Preencha kg e reps antes de continuar.');
+    return;
+  }
+  if(parseFloat(kgVal) < 0 || parseInt(repsVal) < 1){
+    showToast('⚠️ Valores inválidos.');
+    return;
+  }
+
+  const descanso = (Date.now() - state.yellowStartTime) / 1000;
+  state.completed.push({ kg:kgVal, reps:repsVal, obs:obsVal||'', duracao:state.greenDuration, descanso });
+
+  const isLast = state.curSerie === ex.series;
+  if(isLast){
+    state.phase    = 'done';
+    state.curSerie = ex.series + 1;
+    showToast('✅ '+ex.nome+' concluído!');
+  } else {
+    state.curSerie++;
+    state.phase    = 'ready';
+    state.tempData = {kg:'',reps:'',obs:''};
+    state._alerted = false;
+  }
+
+  saveRascunho(tipo);
+  needsFullRender = true;
+  renderAll();
+}
+
+function resetEx(tipo, exId){
+  const ex = getExercicios(tipo).find(e=>e.id===exId);
+  getStates(tipo)[exId] = mkState(ex);
+  saveRascunho(tipo);
+  needsFullRender = true;
+  renderAll();
+}
+
+// ── REGISTER SESSION ──────────────────────────────────────────────────────────
+function registrarTreino(){
+  const tipo = activeTab;
+  if(tipo==='hist'){ showToast('Selecione Push ou Pull primeiro.'); return; }
+
+  const exs    = getExercicios(tipo);
+  const states = getStates(tipo);
+  const b      = getBlocoAtual();
+
+  const hasData = exs.some(ex => states[ex.id] && states[ex.id].completed.length > 0);
+  if(!hasData){ showToast('⚠️ Nenhuma série registrada ainda.'); return; }
+
+  const sessao = {
+    data: hojeISO(), tipo,
+    ciclo: b ? b.cicloNome : '—',
+    bloco: b ? b.bloco     : '—',
+    exercicios: []
+  };
+
+  for(const ex of exs){
+    const st = states[ex.id];
+    if(!st || !st.completed.length) continue;
+    sessao.exercicios.push({
+      exercicioId: ex.id,
+      nome:        ex.nome,
+      series: st.completed.map((c,i)=>({
+        serie:    i+1,
+        kg:       c.kg,
+        reps:     c.reps,
+        obs:      c.obs||'',
+        duracao:  Math.round(c.duracao),
+        descanso: Math.round(c.descanso||0)
+      }))
+    });
+  }
+
+  const hist  = getHistorico(tipo);
+  const today = hojeISO();
+  const idx   = hist.findIndex(s=>s.data===today);
+  if(idx >= 0) hist.splice(idx, 1);
+  hist.unshift(sessao);
+  store.set('historico_v2_'+tipo, JSON.stringify(hist));
+  store.remove('rascunho_v2_'+tipo);
+  showToast('✅ Sessão salva com sucesso!');
+}
+
+// ── EXPORT ────────────────────────────────────────────────────────────────────
+function exportarMD(){
+  const all = [
+    ...getHistorico('push').map(s=>({...s,tipo:'push'})),
+    ...getHistorico('pull').map(s=>({...s,tipo:'pull'}))
+  ].sort((a,b)=>b.data.localeCompare(a.data));
+
+  if(!all.length){ showToast('Nenhum histórico para exportar.'); return; }
+
+  let md = '# Histórico de Treinos v2\n\n';
+  for(const s of all){
+    md += `## ${s.data} — ${s.tipo==='push'?'Push':'Pull'}\n`;
+    if(s.bloco) md += `Bloco ${s.bloco}\n\n`;
+    for(const ex of (s.exercicios||[])){
+      md += `### ${ex.nome}\n`;
+      for(const sr of (ex.series||[]))
+        md += `- S${sr.serie}: ${sr.kg}kg × ${sr.reps}${sr.obs?' — '+sr.obs:''}\n`;
+      md += '\n';
+    }
+  }
+
+  const blob = new Blob([md], {type:'text/markdown'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'treino_v2_'+hojeISO()+'.md';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✅ Backup exportado!');
+}
+
+// ── TOAST ─────────────────────────────────────────────────────────────────────
+let _tt = null;
+function showToast(msg){
+  const el = document.getElementById('toast');
+  if(!el) return;
+  el.textContent = msg;
+  el.classList.remove('hidden');
+  clearTimeout(_tt);
+  _tt = setTimeout(()=>el.classList.add('hidden'), 3000);
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+loadRascunho('push');
+loadRascunho('pull');
+renderAll();
+setInterval(renderAll, 1000);
+</script>
+</body>
+</html>
