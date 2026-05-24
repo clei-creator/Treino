@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Diário de Treino</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1e293b; min-height: 100vh; }
+
+  .tabs { display: flex; background: #1e293b; position: sticky; top: 0; z-index: 100; }
+  .tab { flex: 1; padding: 14px 8px; text-align: center; font-size: 13px; font-weight: 700; color: #64748b; cursor: pointer; border-bottom: 3px solid transparent; }
+  .tab.active-push { color: #fff; border-bottom-color: #3b82f6; }
+  .tab.active-pull { color: #fff; border-bottom-color: #10b981; }
+  .tab.active-hist { color: #fff; border-bottom-color: #f59e0b; }
+
+  .page { display: none; padding: 12px; max-width: 480px; margin: 0 auto; }
+  .page.active { display: block; }
+
+  /* SESSION BAR */
+  .session-bar { background: #1e293b; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; }
+  .session-bar .data-label { color: #94a3b8; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; }
+  .session-bar .data-val { color: #fff; font-size: 15px; font-weight: 700; margin-top: 2px; margin-bottom: 12px; }
+  .btn-row { display: flex; gap: 8px; }
+  .btn-salvar { flex: 1; background: #3b82f6; color: #fff; border: none; padding: 12px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .btn-salvar.verde { background: #10b981; }
+  .btn-icloud { flex: 1; background: #0369a1; color: #fff; border: none; padding: 12px 10px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .btn-salvar:active, .btn-icloud:active { opacity: .8; }
+
+  /* INSTRUÇÃO iCLOUD */
+  .icloud-hint { background: #0c4a6e; border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; font-size: 12px; color: #bae6fd; line-height: 1.6; }
+  .icloud-hint strong { color: #fff; }
+
+  /* CARD EXERCÍCIO */
+  .ex-card { background: #fff; border-radius: 12px; margin-bottom: 14px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,.2); }
+  .ex-head { padding: 12px 16px; color: #fff; font-size: 15px; font-weight: 700; }
+  .push .ex-head { background: #1d4ed8; }
+  .pull .ex-head { background: #047857; }
+  .ex-head .ex-meta { font-size: 11px; opacity: .75; font-weight: 500; margin-top: 2px; }
+
+  .serie-row { padding: 12px 14px; border-bottom: 1px solid #f1f5f9; }
+  .serie-row:last-child { border-bottom: none; }
+  .serie-num { font-size: 11px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 8px; }
+  .serie-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .input-group label { font-size: 11px; color: #94a3b8; font-weight: 600; display: block; margin-bottom: 4px; }
+  .input-group input, .obs-group input {
+    width: 100%; padding: 9px 10px; border: 2px solid #e2e8f0; border-radius: 8px;
+    font-size: 16px; font-weight: 700; color: #0f172a; background: #f8fafc;
+    -webkit-appearance: none;
+  }
+  .input-group input:focus { outline: none; border-color: #3b82f6; background: #eff6ff; }
+  .obs-group label { font-size: 11px; color: #94a3b8; font-weight: 600; display: block; margin-bottom: 4px; }
+  .obs-group input { font-size: 14px; font-weight: 400; }
+  .obs-group input:focus { outline: none; border-color: #f59e0b; background: #fffbeb; }
+
+  .nova-sessao-wrap { text-align: center; padding: 16px 0 28px; }
+  .btn-nova { background: #334155; color: #cbd5e1; border: none; padding: 10px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; }
+
+  /* HISTÓRICO */
+  .hist-filtro { display: flex; gap: 8px; margin-bottom: 14px; }
+  .hist-filtro button { flex: 1; padding: 10px; border: 2px solid #334155; background: transparent; color: #94a3b8; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; }
+  .hist-filtro button.active { background: #f59e0b; border-color: #f59e0b; color: #0f172a; }
+
+  .hist-sessao { background: #fff; border-radius: 12px; margin-bottom: 12px; overflow: hidden; box-shadow: 0 3px 10px rgba(0,0,0,.2); }
+  .hist-head { padding: 12px 16px; background: #1e293b; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+  .hist-head .hist-dia { font-size: 14px; font-weight: 700; }
+  .hist-head .hist-data { font-size: 12px; color: #94a3b8; }
+  .btn-del { background: none; border: none; color: #ef4444; font-size: 18px; cursor: pointer; padding: 0 4px; }
+
+  .hist-ex { padding: 10px 16px; border-bottom: 1px solid #f1f5f9; }
+  .hist-ex:last-child { border-bottom: none; }
+  .hist-ex-nome { font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+  .hist-serie { font-size: 12px; color: #475569; padding: 2px 0; line-height: 1.6; }
+  .hist-serie .carga { font-weight: 700; color: #1d4ed8; }
+  .hist-serie .obs { color: #94a3b8; font-style: italic; }
+
+  .export-bar { background: #1e293b; border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .export-bar p { color: #94a3b8; font-size: 12px; flex: 1; line-height: 1.5; }
+  .btn-export { background: #0369a1; color: #fff; border: none; padding: 10px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; flex-shrink: 0; }
+
+  .empty { text-align: center; color: #475569; padding: 40px 20px; font-size: 14px; }
+
+  .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: #0f172a; color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 14px; font-weight: 600; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 999; white-space: nowrap; border: 1px solid #334155; }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="tabs">
+  <div class="tab active-push" onclick="showPage('push')">💪 Sábado</div>
+  <div class="tab" onclick="showPage('pull')">🏋️ Domingo</div>
+  <div class="tab" onclick="showPage('hist')">📈 Histórico</div>
+</div>
+
+<!-- SÁBADO -->
+<div id="page-push" class="page active">
+  <div class="session-bar">
+    <div class="data-label">Sessão de hoje</div>
+    <div class="data-val" id="data-push"></div>
+    <div class="btn-row">
+      <button class="btn-salvar" onclick="salvarSessao('push')">💾 Salvar sessão</button>
+      <button class="btn-icloud" onclick="exportarMD()">☁️ Salvar no iCloud</button>
+    </div>
+  </div>
+  <div class="icloud-hint">
+    <strong>Como usar:</strong> preencha durante o treino → <strong>Salvar sessão</strong> → <strong>Salvar no iCloud</strong> → toque em "Salvar em Arquivos" → escolha iCloud Drive. O arquivo se chama sempre <strong>historico_treino.md</strong> e sobrescreve o anterior.
+  </div>
+  <div id="form-push" class="push"></div>
+  <div class="nova-sessao-wrap">
+    <button class="btn-nova" onclick="novaSessao('push')">🗑 Limpar para novo treino</button>
+  </div>
+</div>
+
+<!-- DOMINGO -->
+<div id="page-pull" class="page">
+  <div class="session-bar">
+    <div class="data-label">Sessão de hoje</div>
+    <div class="data-val" id="data-pull"></div>
+    <div class="btn-row">
+      <button class="btn-salvar verde" onclick="salvarSessao('pull')">💾 Salvar sessão</button>
+      <button class="btn-icloud" onclick="exportarMD()">☁️ Salvar no iCloud</button>
+    </div>
+  </div>
+  <div class="icloud-hint">
+    <strong>Como usar:</strong> preencha durante o treino → <strong>Salvar sessão</strong> → <strong>Salvar no iCloud</strong> → toque em "Salvar em Arquivos" → escolha iCloud Drive. O arquivo se chama sempre <strong>historico_treino.md</strong> e sobrescreve o anterior.
+  </div>
+  <div id="form-pull" class="pull"></div>
+  <div class="nova-sessao-wrap">
+    <button class="btn-nova" onclick="novaSessao('pull')">🗑 Limpar para novo treino</button>
+  </div>
+</div>
+
+<!-- HISTÓRICO -->
+<div id="page-hist" class="page">
+  <div class="export-bar">
+    <p>Exporta o histórico completo como arquivo <strong>.md</strong> para salvar no iCloud Drive.</p>
+    <button class="btn-export" onclick="exportarMD()">☁️ Exportar .md</button>
+  </div>
+  <div class="hist-filtro">
+    <button id="filtro-push" class="active" onclick="filtrarHist('push')">💪 Sábados</button>
+    <button id="filtro-pull" onclick="filtrarHist('pull')">🏋️ Domingos</button>
+  </div>
+  <div id="hist-lista"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Wrapper seguro para localStorage — não quebra se contexto não permitir
+const store = {
+  get: function(k) { try { return store.get(k); } catch(e) { return null; } },
+  set: function(k,v) { try { localStorage.setItem(k,v); return true; } catch(e) { return false; } },
+  remove: function(k) { try { store.remove(k); } catch(e) {} }
+};
+
+// Aviso se não estiver em file:// ou http
+window.addEventListener('DOMContentLoaded', function() {
+  if (location.protocol === 'data:' || location.href.startsWith('data:')) {
+    const aviso = document.createElement('div');
+    aviso.style.cssText = 'position:fixed;top:0;left:0;right:0;background:#ef4444;color:#fff;padding:14px 16px;font-size:13px;font-weight:700;z-index:9999;text-align:center;line-height:1.5;';
+    aviso.innerHTML = '⚠️ Abra este arquivo pelo app <strong>Arquivos</strong>, não pelo Atalhos.<br>Dados não serão salvos neste modo.';
+    document.body.prepend(aviso);
+  }
+});
+
+const PUSH_EX = [
+  { nome: "Sup Reto",    meta: "4 séries", series: 4 },
+  { nome: "Sup Incl",    meta: "4 séries", series: 4 },
+  { nome: "Crossover",   meta: "3 séries", series: 3 },
+  { nome: "Sup Decl",    meta: "3 séries", series: 3 },
+  { nome: "Face Pull",   meta: "3 séries", series: 3 },
+  { nome: "Elev Lat",    meta: "3 séries", series: 3 },
+  { nome: "Tric Polia",  meta: "3 séries", series: 3 }
+];
+const PULL_EX = [
+  { nome: "Puxada Alta",   meta: "4 séries", series: 4 },
+  { nome: "Remada Sent",   meta: "4 séries", series: 4 },
+  { nome: "Leg Press",     meta: "4 séries", series: 4 },
+  { nome: "Flexora",       meta: "3 séries", series: 3 },
+  { nome: "Stiff Máq",     meta: "3 séries", series: 3 },
+  { nome: "Hiperext",      meta: "3 séries", series: 3 },
+  { nome: "Rosca Direta",  meta: "3 séries", series: 3 },
+  { nome: "Panturrilha",   meta: "3 séries", series: 3 }
+];
+
+function hoje() {
+  return new Date().toLocaleDateString('pt-BR', { weekday:'long', day:'2-digit', month:'2-digit', year:'numeric' });
+}
+function hojeISO() {
+  return new Date().toLocaleDateString('pt-BR');
+}
+
+function buildForm(tipo) {
+  const exs = tipo === 'push' ? PUSH_EX : PULL_EX;
+  const saved = JSON.parse(store.get('rascunho_' + tipo) || '{}');
+  let html = '';
+  exs.forEach((ex, ei) => {
+    html += `<div class="ex-card">
+      <div class="ex-head">${ex.nome}<div class="ex-meta">${ex.meta}</div></div>`;
+    for (let s = 1; s <= ex.series; s++) {
+      const key = `${ei}_${s}`;
+      const d = saved[key] || {};
+      html += `<div class="serie-row">
+        <div class="serie-num">Série ${s}</div>
+        <div class="serie-inputs">
+          <div class="input-group">
+            <label>Carga (kg)</label>
+            <input type="number" inputmode="decimal" placeholder="0"
+              id="${tipo}_${ei}_${s}_kg" value="${d.kg||''}" onchange="salvarRascunho('${tipo}')">
+          </div>
+          <div class="input-group">
+            <label>Reps feitas</label>
+            <input type="number" inputmode="numeric" placeholder="0"
+              id="${tipo}_${ei}_${s}_reps" value="${d.reps||''}" onchange="salvarRascunho('${tipo}')">
+          </div>
+        </div>
+        <div class="obs-group">
+          <label>Observação</label>
+          <input type="text" placeholder="forma, sensação, dificuldade..."
+            id="${tipo}_${ei}_${s}_obs" value="${d.obs||''}" onchange="salvarRascunho('${tipo}')">
+        </div>
+      </div>`;
+    }
+    html += '</div>';
+  });
+  document.getElementById('form-' + tipo).innerHTML = html;
+  document.getElementById('data-' + tipo).textContent = hoje();
+}
+
+function salvarRascunho(tipo) {
+  const exs = tipo === 'push' ? PUSH_EX : PULL_EX;
+  const data = {};
+  exs.forEach((ex, ei) => {
+    for (let s = 1; s <= ex.series; s++) {
+      const kg   = document.getElementById(`${tipo}_${ei}_${s}_kg`)?.value  || '';
+      const reps = document.getElementById(`${tipo}_${ei}_${s}_reps`)?.value || '';
+      const obs  = document.getElementById(`${tipo}_${ei}_${s}_obs`)?.value  || '';
+      if (kg || reps || obs) data[`${ei}_${s}`] = { kg, reps, obs };
+    }
+  });
+  store.set('rascunho_' + tipo, JSON.stringify(data));
+}
+
+function salvarSessao(tipo) {
+  salvarRascunho(tipo);
+  const rascunho = JSON.parse(store.get('rascunho_' + tipo) || '{}');
+  if (!Object.keys(rascunho).length) {
+    showToast('Preencha ao menos um campo antes de salvar.');
+    return;
+  }
+  const exs = tipo === 'push' ? PUSH_EX : PULL_EX;
+  const sessao = { data: hojeISO(), tipo, exercicios: [] };
+  exs.forEach((ex, ei) => {
+    const series = [];
+    for (let s = 1; s <= ex.series; s++) {
+      const d = rascunho[`${ei}_${s}`] || {};
+      series.push({ serie: s, kg: d.kg||'—', reps: d.reps||'—', obs: d.obs||'' });
+    }
+    sessao.exercicios.push({ nome: ex.nome, series });
+  });
+  const hist = JSON.parse(store.get('historico_' + tipo) || '[]');
+  hist.unshift(sessao);
+  store.set('historico_' + tipo, JSON.stringify(hist));
+  showToast('✅ Sessão salva! Agora toque em "Salvar no iCloud".');
+}
+
+function novaSessao(tipo) {
+  if (!confirm('Limpar o treino atual para nova sessão?')) return;
+  store.remove('rascunho_' + tipo);
+  buildForm(tipo);
+  showToast('Pronto para novo treino!');
+}
+
+// ---- EXPORTAR MARKDOWN ----
+function gerarMD() {
+  const histPush = JSON.parse(store.get('historico_push') || '[]');
+  const histPull = JSON.parse(store.get('historico_pull') || '[]');
+  const total = histPush.length + histPull.length;
+  if (!total) return null;
+
+  let md = `# Histórico de Treino — Marcioclei\n`;
+  md += `_Exportado em ${new Date().toLocaleDateString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}_\n\n`;
+  md += `**Total de sessões registradas:** ${total} (${histPush.length} sábados · ${histPull.length} domingos)\n\n---\n\n`;
+
+  if (histPush.length) {
+    md += `## 💪 Sábados — Push (${histPush.length} sessões)\n\n`;
+    histPush.forEach(s => {
+      md += `### ${s.data}\n\n`;
+      s.exercicios.forEach(ex => {
+        md += `**${ex.nome}**\n`;
+        ex.series.forEach(sr => {
+          md += `- Série ${sr.serie}: ${sr.kg} kg × ${sr.reps} reps`;
+          if (sr.obs) md += ` — _${sr.obs}_`;
+          md += `\n`;
+        });
+        md += `\n`;
+      });
+      md += `---\n\n`;
+    });
+  }
+
+  if (histPull.length) {
+    md += `## 🏋️ Domingos — Pull (${histPull.length} sessões)\n\n`;
+    histPull.forEach(s => {
+      md += `### ${s.data}\n\n`;
+      s.exercicios.forEach(ex => {
+        md += `**${ex.nome}**\n`;
+        ex.series.forEach(sr => {
+          md += `- Série ${sr.serie}: ${sr.kg} kg × ${sr.reps} reps`;
+          if (sr.obs) md += ` — _${sr.obs}_`;
+          md += `\n`;
+        });
+        md += `\n`;
+      });
+      md += `---\n\n`;
+    });
+  }
+
+  return md;
+}
+
+function exportarMD() {
+  const md = gerarMD();
+  if (!md) { showToast('Nenhuma sessão para exportar ainda.'); return; }
+  const blob = new Blob([md], { type: 'text/markdown;charset=utf-8' });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
+  a.download = 'historico_treino.md';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('☁️ Salve em Arquivos → iCloud Drive');
+}
+
+// ---- HISTÓRICO ----
+let filtroAtual = 'push';
+function filtrarHist(tipo) {
+  filtroAtual = tipo;
+  document.getElementById('filtro-push').classList.toggle('active', tipo === 'push');
+  document.getElementById('filtro-pull').classList.toggle('active', tipo === 'pull');
+  renderHist();
+}
+
+function renderHist() {
+  const hist = JSON.parse(store.get('historico_' + filtroAtual) || '[]');
+  const el = document.getElementById('hist-lista');
+  if (!hist.length) {
+    el.innerHTML = '<div class="empty">Nenhuma sessão registrada ainda.</div>';
+    return;
+  }
+  const label = filtroAtual === 'push' ? 'Sábado — Push' : 'Domingo — Pull';
+  el.innerHTML = hist.map((s, idx) => `
+    <div class="hist-sessao">
+      <div class="hist-head">
+        <div>
+          <div class="hist-dia">${label}</div>
+          <div class="hist-data">${s.data}</div>
+        </div>
+        <button class="btn-del" onclick="deletarSessao(${idx})">🗑</button>
+      </div>
+      ${s.exercicios.map(ex => `
+        <div class="hist-ex">
+          <div class="hist-ex-nome">${ex.nome}</div>
+          ${ex.series.map(sr => `
+            <div class="hist-serie">
+              S${sr.serie}: <span class="carga">${sr.kg} kg</span> · ${sr.reps} reps
+              ${sr.obs ? `<span class="obs"> · ${sr.obs}</span>` : ''}
+            </div>
+          `).join('')}
+        </div>
+      `).join('')}
+    </div>
+  `).join('');
+}
+
+function deletarSessao(idx) {
+  if (!confirm('Apagar esta sessão do histórico?')) return;
+  const hist = JSON.parse(store.get('historico_' + filtroAtual) || '[]');
+  hist.splice(idx, 1);
+  store.set('historico_' + filtroAtual, JSON.stringify(hist));
+  renderHist();
+  showToast('Sessão apagada.');
+}
+
+function showPage(p) {
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(el => {
+    el.classList.remove('active-push','active-pull','active-hist');
+  });
+  document.getElementById('page-' + p).classList.add('active');
+  const tabs = document.querySelectorAll('.tab');
+  if (p === 'push') tabs[0].classList.add('active-push');
+  if (p === 'pull') tabs[1].classList.add('active-pull');
+  if (p === 'hist') { tabs[2].classList.add('active-hist'); renderHist(); }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// INIT
+buildForm('push');
+buildForm('pull');
+</script>
+</body>
+</html>
