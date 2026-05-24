@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seed — Histórico 24/05/2026</title>
+  <style>
+    body{background:#000;color:#fff;font-family:-apple-system,sans-serif;padding:24px;max-width:480px;margin:0 auto}
+    h2{font-size:18px;margin-bottom:8px}
+    p{font-size:14px;color:rgba(235,235,245,.6);margin-bottom:24px;line-height:1.5}
+    button{width:100%;padding:18px;background:#30d158;color:#000;border:none;border-radius:14px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit}
+    .done{background:#1c1c1e;border-radius:12px;padding:16px;margin-top:20px;font-size:14px;line-height:1.8;display:none}
+    .done strong{color:#30d158}
+  </style>
+</head>
+<body>
+  <h2>Seed — Treino Pull · 24/05/2026</h2>
+  <p>
+    Apaga os históricos de teste, grava o treino real de hoje com as observações limpas,
+    e salva as configurações de máquina por exercício.<br><br>
+    <em>Execute apenas uma vez.</em>
+  </p>
+  <button onclick="executar()">Gravar histórico real</button>
+  <div class="done" id="done"></div>
+
+  <script>
+  function executar(){
+    const store = {
+      get:    k => { try{ return localStorage.getItem(k); }    catch(e){ return null; } },
+      set:    (k,v) => { try{ localStorage.setItem(k,v); }     catch(e){} },
+      remove: k => { try{ localStorage.removeItem(k); }        catch(e){} }
+    };
+
+    // 1. Apagar tudo de teste
+    store.remove('historico_v2_push');
+    store.remove('historico_v2_pull');
+    store.remove('rascunho_v2_push');
+    store.remove('rascunho_v2_pull');
+
+    // 2. Sessão Pull — 24/05/2026 (treino real, Bloco A, Semana 3)
+    const sessao = {
+      data:  "2026-05-24",
+      tipo:  "pull",
+      ciclo: "Ciclo 1 · Mai–Ago 2026",
+      bloco: "A",
+      exercicios: [
+        {
+          exercicioId: "puxada-alta",
+          nome: "Puxada Alta na Máquina",
+          series: [
+            { serie:1, kg:"62.5", reps:"12", obs:"",       duracao:0, descanso:0 },
+            { serie:2, kg:"65",   reps:"12", obs:"",       duracao:0, descanso:0 },
+            { serie:3, kg:"70",   reps:"12", obs:"",       duracao:0, descanso:0 },
+            { serie:4, kg:"75",   reps:"12", obs:"",       duracao:0, descanso:0 }
+          ]
+        },
+        {
+          exercicioId: "remada-sentada",
+          nome: "Remada Sentada na Máquina",
+          series: [
+            { serie:1, kg:"30", reps:"12", obs:"",  duracao:0, descanso:0 },
+            { serie:2, kg:"40", reps:"12", obs:"",  duracao:0, descanso:0 },
+            { serie:3, kg:"40", reps:"12", obs:"",  duracao:0, descanso:0 },
+            { serie:4, kg:"40", reps:"12", obs:"",  duracao:0, descanso:0 }
+          ]
+        },
+        {
+          exercicioId: "leg-press",
+          nome: "Leg Press 45°",
+          series: [
+            { serie:1, kg:"110", reps:"15", obs:"",        duracao:0, descanso:0 },
+            { serie:2, kg:"120", reps:"15", obs:"",        duracao:0, descanso:0 },
+            { serie:3, kg:"140", reps:"15", obs:"",        duracao:0, descanso:0 },
+            { serie:4, kg:"160", reps:"15", obs:"Limite!", duracao:0, descanso:0 }
+          ]
+        },
+        {
+          exercicioId: "flexora",
+          nome: "Cadeira Flexora",
+          series: [
+            { serie:1, kg:"60",   reps:"15", obs:"",                  duracao:0, descanso:0 },
+            { serie:2, kg:"62.5", reps:"13", obs:"",                  duracao:0, descanso:0 },
+            { serie:3, kg:"62.5", reps:"11", obs:"60 kg era o máximo", duracao:0, descanso:0 }
+          ]
+        },
+        {
+          exercicioId: "stiff",
+          nome: "Stiff na Máquina",
+          series: [
+            { serie:1, kg:"40", reps:"12", obs:"Barra reta.", duracao:0, descanso:0 },
+            { serie:2, kg:"40", reps:"12", obs:"Leve",        duracao:0, descanso:0 },
+            { serie:3, kg:"45", reps:"12", obs:"OK",          duracao:0, descanso:0 }
+          ]
+        },
+        {
+          exercicioId: "hiperextensao",
+          nome: "Hiperextensão Lombar 45°",
+          series: [
+            { serie:1, kg:"0", reps:"12", obs:"Sobe soprando, vacum abdômen.",                                duracao:0, descanso:0 },
+            { serie:2, kg:"0", reps:"12", obs:"Vacum abd subindo e paradinha (1-2s) em cima. Limite!",        duracao:0, descanso:0 },
+            { serie:3, kg:"0", reps:"12", obs:"Descanso de 2 minutos parece ideal. Limite!",                  duracao:0, descanso:0 }
+          ]
+        },
+        {
+          exercicioId: "rosca",
+          nome: "Rosca Direta — Máquina/Scott",
+          series: [
+            { serie:1, kg:"20", reps:"12", obs:"OK",      duracao:0, descanso:0 },
+            { serie:2, kg:"25", reps:"12", obs:"Limite",  duracao:0, descanso:0 },
+            { serie:3, kg:"25", reps:"12", obs:"Limite!", duracao:0, descanso:0 }
+          ]
+        },
+        {
+          exercicioId: "panturrilha",
+          nome: "Panturrilha em Pé",
+          series: [
+            { serie:1, kg:"30", reps:"20", obs:"OK.",         duracao:0, descanso:0 },
+            { serie:2, kg:"30", reps:"20", obs:"",            duracao:0, descanso:0 },
+            { serie:3, kg:"30", reps:"20", obs:"OK. Queimou!", duracao:0, descanso:0 }
+          ]
+        }
+      ]
+    };
+
+    store.set('historico_v2_pull', JSON.stringify([sessao]));
+
+    // 3. Configurações de máquina
+    const config = {
+      "puxada-alta":    "Maq. 32",
+      "remada-sentada": "Maq. 31",
+      "leg-press":      "Maq. 01",
+      "flexora":        "Maq. 03",
+      "hiperextensao":  "Maq. 44",
+      "rosca":          "Maq. 53 | Banco: 6"
+    };
+    store.set('config_maquinas', JSON.stringify(config));
+
+    // 4. Confirmação
+    const log = [];
+    log.push('<strong>✅ Feito!</strong>');
+    log.push('');
+    log.push('<strong>Histórico gravado:</strong> Pull · 24/05/2026 · Bloco A');
+    log.push('— 8 exercícios · observações de treino mantidas');
+    log.push('— observações de melhoria removidas');
+    log.push('');
+    log.push('<strong>Configurações de máquina:</strong>');
+    for(const [id, val] of Object.entries(config)){
+      log.push('— '+id+': '+val);
+    }
+    log.push('');
+    log.push('Agora abra o <a href="diario_v2.html" style="color:#0a84ff">diario_v2.html</a>.');
+
+    const el = document.getElementById('done');
+    el.innerHTML = log.join('<br>');
+    el.style.display = 'block';
+    document.querySelector('button').disabled = true;
+    document.querySelector('button').style.opacity = '0.4';
+  }
+  </script>
+</body>
+</html>
