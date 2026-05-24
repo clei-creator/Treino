@@ -515,7 +515,6 @@ function renderExPanel(tipo){
     html += `<div class="done-box">
       <div class="done-icon">✅</div>
       <div class="done-text">Exercício concluído!</div>
-      <button class="btn-redo" onclick="resetEx('${tipo}','${ex.id}')">Refazer</button>
     </div>`;
 
   } else if(state.phase === 'ready'){
@@ -538,7 +537,9 @@ function renderExPanel(tipo){
     const remaining = total - elapsed;
     const done      = remaining <= 0;
     const isLast    = state.curSerie === ex.series;
-    const nextLabel = isLast ? 'Concluir Exercício' : `Iniciar Série ${state.curSerie+1} de ${ex.series}`;
+    const nextLabel = !isLast
+      ? `Iniciar Série ${state.curSerie+1} de ${ex.series}`
+      : (nextEx ? `Próximo: ${nextEx.nome}` : 'Concluir Treino');
 
     if(done && !state._alerted){
       state._alerted = true;
@@ -707,16 +708,30 @@ function onProxima(tipo, exId){
   const descanso = (Date.now() - state.yellowStartTime) / 1000;
   state.completed.push({ kg:kgVal, reps:repsVal, obs:obsVal||'', duracao:state.greenDuration, descanso });
 
-  const isLast = state.curSerie === ex.series;
-  if(isLast){
+  const exs2    = getExercicios(tipo);
+  const exIdx   = exs2.findIndex(e => e.id === exId);
+  const hasNext = exIdx < exs2.length - 1;
+  const isLast  = state.curSerie === ex.series;
+
+  if(!isLast){
+    // Vai direto para exec — sem fase ready intermediária
+    state.curSerie++;
+    state.phase          = 'exec';
+    state.greenStartTime = Date.now();
+    state.tempData       = {kg:'', reps:'', obs:''};
+    state._alerted       = false;
+  } else if(hasNext){
+    // Última série deste exercício: navega automaticamente para o próximo
     state.phase    = 'done';
     state.curSerie = ex.series + 1;
+    if(tipo === 'push') exIdxPush = exIdx + 1;
+    else                exIdxPull = exIdx + 1;
     showToast('✅ '+ex.nome+' concluído!');
   } else {
-    state.curSerie++;
-    state.phase    = 'ready';
-    state.tempData = {kg:'',reps:'',obs:''};
-    state._alerted = false;
+    // Última série do último exercício
+    state.phase    = 'done';
+    state.curSerie = ex.series + 1;
+    showToast('🏆 Treino concluído! Toque Registrar para salvar.');
   }
 
   saveRascunho(tipo);
