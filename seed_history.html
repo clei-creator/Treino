@@ -2,42 +2,113 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Seed — Histórico 24/05/2026</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>Gravar Histórico Real</title>
   <style>
-    body{background:#000;color:#fff;font-family:-apple-system,sans-serif;padding:24px;max-width:480px;margin:0 auto}
-    h2{font-size:18px;margin-bottom:8px}
-    p{font-size:14px;color:rgba(235,235,245,.6);margin-bottom:24px;line-height:1.5}
-    button{width:100%;padding:18px;background:#30d158;color:#000;border:none;border-radius:14px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit}
-    .done{background:#1c1c1e;border-radius:12px;padding:16px;margin-top:20px;font-size:14px;line-height:1.8;display:none}
-    .done strong{color:#30d158}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding:20px;max-width:500px;margin:0 auto}
+    h1{font-size:19px;font-weight:700;margin-bottom:6px}
+    .sub{font-size:13px;color:rgba(235,235,245,.55);margin-bottom:28px;line-height:1.5}
+    .card{background:#1c1c1e;border-radius:14px;padding:16px;margin-bottom:14px}
+    .card-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:rgba(235,235,245,.5);margin-bottom:10px}
+    .ex-row{font-size:14px;margin-bottom:4px;line-height:1.5}
+    .ex-row span{color:rgba(235,235,245,.55);font-size:12px}
+    .maq-row{font-size:13px;color:#ffd60a;margin-bottom:3px}
+    .btn{width:100%;padding:20px;background:#30d158;color:#000;border:none;border-radius:14px;font-size:18px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:6px}
+    .btn:disabled{opacity:.4;cursor:not-allowed}
+    .btn-sec{background:#2c2c2e;color:rgba(235,235,245,.7);font-size:15px;padding:14px;margin-top:10px}
+    .result{background:#1c1c1e;border-radius:14px;padding:16px;margin-top:16px;font-size:14px;line-height:1.9;display:none}
+    .ok{color:#30d158;font-weight:700}
+    .err{color:#ff453a;font-weight:700}
+    .link{color:#0a84ff;text-decoration:none;font-weight:600}
+    hr{border:none;border-top:.5px solid #3a3a3c;margin:8px 0}
   </style>
 </head>
 <body>
-  <h2>Seed — Treino Pull · 24/05/2026</h2>
-  <p>
-    Apaga os históricos de teste, grava o treino real de hoje com as observações limpas,
-    e salva as configurações de máquina por exercício.<br><br>
-    <em>Execute apenas uma vez.</em>
-  </p>
-  <button onclick="executar()">Gravar histórico real</button>
-  <div class="done" id="done"></div>
 
-  <script>
-  function executar(){
-    const store = {
-      get:    k => { try{ return localStorage.getItem(k); }    catch(e){ return null; } },
-      set:    (k,v) => { try{ localStorage.setItem(k,v); }     catch(e){} },
-      remove: k => { try{ localStorage.removeItem(k); }        catch(e){} }
-    };
+<h1>Gravar Histórico Real</h1>
+<p class="sub">
+  Apaga todo o histórico existente (v1 e v2) e grava o treino Pull de 24/05/2026
+  com observações de treino limpas e configs de máquina separadas.
+</p>
 
-    // 1. Apagar tudo de teste
-    store.remove('historico_v2_push');
-    store.remove('historico_v2_pull');
-    store.remove('rascunho_v2_push');
-    store.remove('rascunho_v2_pull');
+<div class="card">
+  <div class="card-title">O que será gravado — Pull · 24/05/2026 · Bloco A</div>
+  <div class="ex-row">Puxada Alta na Máquina <span>62.5 / 65 / 70 / 75 kg × 12 reps</span></div>
+  <div class="ex-row">Remada Sentada na Máquina <span>30 / 40 / 40 / 40 kg × 12 reps</span></div>
+  <div class="ex-row">Leg Press 45° <span>110 / 120 / 140 / 160 kg × 15 reps</span></div>
+  <div class="ex-row">Cadeira Flexora <span>60 / 62.5 / 62.5 kg × 15/13/11 reps</span></div>
+  <div class="ex-row">Stiff na Máquina <span>40 / 40 / 45 kg × 12 reps</span></div>
+  <div class="ex-row">Hiperextensão Lombar 45° <span>0 / 0 / 0 kg × 12 reps</span></div>
+  <div class="ex-row">Rosca Direta — Máquina/Scott <span>20 / 25 / 25 kg × 12 reps</span></div>
+  <div class="ex-row">Panturrilha em Pé <span>30 / 30 / 30 kg × 20 reps</span></div>
+</div>
 
-    // 2. Sessão Pull — 24/05/2026 (treino real, Bloco A, Semana 3)
+<div class="card">
+  <div class="card-title">Configs de máquina que serão salvas</div>
+  <div class="maq-row">Puxada Alta → Maq. 32</div>
+  <div class="maq-row">Remada Sentada → Maq. 31</div>
+  <div class="maq-row">Leg Press → Maq. 01</div>
+  <div class="maq-row">Cadeira Flexora → Maq. 03</div>
+  <div class="maq-row">Hiperextensão → Maq. 44</div>
+  <div class="maq-row">Rosca → Maq. 53 | Banco: 6</div>
+</div>
+
+<button class="btn" id="btn-run" onclick="executar()">✅ Gravar agora</button>
+<button class="btn btn-sec" onclick="verificar()">🔍 Ver estado atual do localStorage</button>
+
+<div class="result" id="result"></div>
+
+<script>
+function lsGet(k){ try{ return localStorage.getItem(k); } catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); return true; } catch(e){ return false; } }
+function lsDel(k){ try{ localStorage.removeItem(k); } catch(e){} }
+
+function verificar(){
+  const keys = [
+    'historico_push','historico_pull',
+    'historico_v2_push','historico_v2_pull',
+    'rascunho_push','rascunho_pull',
+    'rascunho_v2_push','rascunho_v2_pull',
+    'config_maquinas'
+  ];
+  const lines = ['<strong>Estado atual do localStorage:</strong><br>'];
+  for(const k of keys){
+    const v = lsGet(k);
+    if(v){
+      try{
+        const parsed = JSON.parse(v);
+        const preview = Array.isArray(parsed)
+          ? parsed.length + ' sessão(ões)'
+          : Object.keys(parsed).length + ' chaves';
+        lines.push('✅ <strong>'+k+'</strong>: '+preview);
+      } catch(e){
+        lines.push('⚠️ <strong>'+k+'</strong>: valor não-JSON ('+v.length+' chars)');
+      }
+    } else {
+      lines.push('— '+k+': vazio');
+    }
+  }
+  const el = document.getElementById('result');
+  el.innerHTML = lines.join('<br>');
+  el.style.display = 'block';
+}
+
+function executar(){
+  const btn = document.getElementById('btn-run');
+  btn.disabled = true;
+
+  try {
+    // 1. Limpar tudo — v1 e v2
+    const paraLimpar = [
+      'historico_push','historico_pull',
+      'historico_v2_push','historico_v2_pull',
+      'rascunho_push','rascunho_pull',
+      'rascunho_v2_push','rascunho_v2_pull'
+    ];
+    for(const k of paraLimpar) lsDel(k);
+
+    // 2. Histórico real — Pull · 24/05/2026 · Bloco A · Semana 3
     const sessao = {
       data:  "2026-05-24",
       tipo:  "pull",
@@ -48,20 +119,20 @@
           exercicioId: "puxada-alta",
           nome: "Puxada Alta na Máquina",
           series: [
-            { serie:1, kg:"62.5", reps:"12", obs:"",       duracao:0, descanso:0 },
-            { serie:2, kg:"65",   reps:"12", obs:"",       duracao:0, descanso:0 },
-            { serie:3, kg:"70",   reps:"12", obs:"",       duracao:0, descanso:0 },
-            { serie:4, kg:"75",   reps:"12", obs:"",       duracao:0, descanso:0 }
+            { serie:1, kg:"62.5", reps:"12", obs:"",  duracao:0, descanso:0 },
+            { serie:2, kg:"65",   reps:"12", obs:"",  duracao:0, descanso:0 },
+            { serie:3, kg:"70",   reps:"12", obs:"",  duracao:0, descanso:0 },
+            { serie:4, kg:"75",   reps:"12", obs:"",  duracao:0, descanso:0 }
           ]
         },
         {
           exercicioId: "remada-sentada",
           nome: "Remada Sentada na Máquina",
           series: [
-            { serie:1, kg:"30", reps:"12", obs:"",  duracao:0, descanso:0 },
-            { serie:2, kg:"40", reps:"12", obs:"",  duracao:0, descanso:0 },
-            { serie:3, kg:"40", reps:"12", obs:"",  duracao:0, descanso:0 },
-            { serie:4, kg:"40", reps:"12", obs:"",  duracao:0, descanso:0 }
+            { serie:1, kg:"30", reps:"12", obs:"", duracao:0, descanso:0 },
+            { serie:2, kg:"40", reps:"12", obs:"", duracao:0, descanso:0 },
+            { serie:3, kg:"40", reps:"12", obs:"", duracao:0, descanso:0 },
+            { serie:4, kg:"40", reps:"12", obs:"", duracao:0, descanso:0 }
           ]
         },
         {
@@ -78,8 +149,8 @@
           exercicioId: "flexora",
           nome: "Cadeira Flexora",
           series: [
-            { serie:1, kg:"60",   reps:"15", obs:"",                  duracao:0, descanso:0 },
-            { serie:2, kg:"62.5", reps:"13", obs:"",                  duracao:0, descanso:0 },
+            { serie:1, kg:"60",   reps:"15", obs:"",                   duracao:0, descanso:0 },
+            { serie:2, kg:"62.5", reps:"13", obs:"",                   duracao:0, descanso:0 },
             { serie:3, kg:"62.5", reps:"11", obs:"60 kg era o máximo", duracao:0, descanso:0 }
           ]
         },
@@ -96,9 +167,9 @@
           exercicioId: "hiperextensao",
           nome: "Hiperextensão Lombar 45°",
           series: [
-            { serie:1, kg:"0", reps:"12", obs:"Sobe soprando, vacum abdômen.",                                duracao:0, descanso:0 },
-            { serie:2, kg:"0", reps:"12", obs:"Vacum abd subindo e paradinha (1-2s) em cima. Limite!",        duracao:0, descanso:0 },
-            { serie:3, kg:"0", reps:"12", obs:"Descanso de 2 minutos parece ideal. Limite!",                  duracao:0, descanso:0 }
+            { serie:1, kg:"0", reps:"12", obs:"Limite. Sobe soprando, vacum abdômen.",              duracao:0, descanso:0 },
+            { serie:2, kg:"0", reps:"12", obs:"Vacum abd subindo e paradinha (1-2s) em cima. Limite!", duracao:0, descanso:0 },
+            { serie:3, kg:"0", reps:"12", obs:"Descanso de 2 minutos parece ideal. Limite!",        duracao:0, descanso:0 }
           ]
         },
         {
@@ -114,17 +185,17 @@
           exercicioId: "panturrilha",
           nome: "Panturrilha em Pé",
           series: [
-            { serie:1, kg:"30", reps:"20", obs:"OK.",         duracao:0, descanso:0 },
-            { serie:2, kg:"30", reps:"20", obs:"",            duracao:0, descanso:0 },
+            { serie:1, kg:"30", reps:"20", obs:"OK.",          duracao:0, descanso:0 },
+            { serie:2, kg:"30", reps:"20", obs:"",             duracao:0, descanso:0 },
             { serie:3, kg:"30", reps:"20", obs:"OK. Queimou!", duracao:0, descanso:0 }
           ]
         }
       ]
     };
 
-    store.set('historico_v2_pull', JSON.stringify([sessao]));
+    const okHist = lsSet('historico_v2_pull', JSON.stringify([sessao]));
 
-    // 3. Configurações de máquina
+    // 3. Configs de máquina
     const config = {
       "puxada-alta":    "Maq. 32",
       "remada-sentada": "Maq. 31",
@@ -133,29 +204,36 @@
       "hiperextensao":  "Maq. 44",
       "rosca":          "Maq. 53 | Banco: 6"
     };
-    store.set('config_maquinas', JSON.stringify(config));
+    const okCfg = lsSet('config_maquinas', JSON.stringify(config));
 
-    // 4. Confirmação
-    const log = [];
-    log.push('<strong>✅ Feito!</strong>');
-    log.push('');
-    log.push('<strong>Histórico gravado:</strong> Pull · 24/05/2026 · Bloco A');
-    log.push('— 8 exercícios · observações de treino mantidas');
-    log.push('— observações de melhoria removidas');
-    log.push('');
-    log.push('<strong>Configurações de máquina:</strong>');
-    for(const [id, val] of Object.entries(config)){
-      log.push('— '+id+': '+val);
+    // 4. Verificação de leitura
+    const verif = JSON.parse(lsGet('historico_v2_pull') || '[]');
+    const gravou = verif.length === 1 && verif[0].exercicios.length === 8;
+
+    const el = document.getElementById('result');
+    if(okHist && okCfg && gravou){
+      el.innerHTML = `
+        <span class="ok">✅ Histórico gravado com sucesso!</span><br><br>
+        <strong>historico_v2_pull:</strong> 1 sessão · 8 exercícios<br>
+        <strong>config_maquinas:</strong> 6 máquinas salvas<br>
+        <strong>Limpos:</strong> historico_push, historico_pull, historico_v2_push, rascunhos<br>
+        <hr>
+        <a class="link" href="diario_v2.html">→ Abrir Treino v2</a>
+      `;
+    } else {
+      el.innerHTML = `<span class="err">⚠️ Erro ao gravar (localStorage bloqueado ou cheio).</span><br>
+        okHist=${okHist} · okCfg=${okCfg} · gravou=${gravou}`;
+      btn.disabled = false;
     }
-    log.push('');
-    log.push('Agora abra o <a href="diario_v2.html" style="color:#0a84ff">diario_v2.html</a>.');
-
-    const el = document.getElementById('done');
-    el.innerHTML = log.join('<br>');
     el.style.display = 'block';
-    document.querySelector('button').disabled = true;
-    document.querySelector('button').style.opacity = '0.4';
+
+  } catch(e) {
+    const el = document.getElementById('result');
+    el.innerHTML = '<span class="err">Erro: '+e.message+'</span>';
+    el.style.display = 'block';
+    btn.disabled = false;
   }
-  </script>
+}
+</script>
 </body>
 </html>
