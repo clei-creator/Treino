@@ -194,23 +194,23 @@ window.addEventListener('DOMContentLoaded', function() {
 });
 
 const PUSH_EX = [
-  { nome: "Sup Reto",    meta: "4 séries", series: 4 },
-  { nome: "Sup Incl",    meta: "4 séries", series: 4 },
-  { nome: "Crossover",   meta: "3 séries", series: 3 },
-  { nome: "Sup Decl",    meta: "3 séries", series: 3 },
-  { nome: "Face Pull",   meta: "3 séries", series: 3 },
-  { nome: "Elev Lat",    meta: "3 séries", series: 3 },
-  { nome: "Tric Polia",  meta: "3 séries", series: 3 }
+  { nome: "Supino Reto na Máquina",         prescricao: "4×6-10 reps · Descanso: 2 min",     series: 4 },
+  { nome: "Supino Inclinado Máquina",        prescricao: "4×8-12 reps · Descanso: 2 min",     series: 4 },
+  { nome: "Crossover — Polia Alta",          prescricao: "3×10-15 reps · Descanso: 90 s",     series: 3 },
+  { nome: "Supino Declinado Máquina",        prescricao: "3×8-12 reps · Descanso: 90 s",      series: 3 },
+  { nome: "Face Pulls — Polia Alta",         prescricao: "3×12-15 reps · Descanso: 60-90 s",  series: 3 },
+  { nome: "Elevação Lateral — Cabo/Máquina", prescricao: "3×12-15 reps · Descanso: 60 s",     series: 3 },
+  { nome: "Tríceps na Polia — Corda",        prescricao: "3×10-12 reps · Descanso: 60-90 s",  series: 3 }
 ];
 const PULL_EX = [
-  { nome: "Puxada Alta",   meta: "4 séries", series: 4 },
-  { nome: "Remada Sent",   meta: "4 séries", series: 4 },
-  { nome: "Leg Press",     meta: "4 séries", series: 4 },
-  { nome: "Flexora",       meta: "3 séries", series: 3 },
-  { nome: "Stiff Máq",     meta: "3 séries", series: 3 },
-  { nome: "Hiperext",      meta: "3 séries", series: 3 },
-  { nome: "Rosca Direta",  meta: "3 séries", series: 3 },
-  { nome: "Panturrilha",   meta: "3 séries", series: 3 }
+  { nome: "Puxada Alta na Máquina",          prescricao: "4×8-12 reps · Descanso: 2 min",     series: 4 },
+  { nome: "Remada Sentada na Máquina",       prescricao: "4×8-12 reps · Descanso: 2 min",     series: 4 },
+  { nome: "Leg Press 45°",                   prescricao: "4×8-15 reps · Descanso: 2-3 min",   series: 4 },
+  { nome: "Cadeira Flexora",                 prescricao: "3×10-15 reps · Descanso: 90 s",     series: 3 },
+  { nome: "Stiff na Máquina / Pull-Through", prescricao: "3×8-12 reps · Descanso: 90 s",      series: 3 },
+  { nome: "Hiperextensão Lombar 45°",        prescricao: "3×12-15 reps · Descanso: 60-90 s",  series: 3 },
+  { nome: "Rosca Direta — Máquina ou Scott", prescricao: "3×10-12 reps · Descanso: 60 s",     series: 3 },
+  { nome: "Panturrilha em Pé na Máquina",    prescricao: "3×15-20 reps · Descanso: 45 s",     series: 3 }
 ];
 
 function hoje() {
@@ -228,7 +228,7 @@ function buildForm(tipo) {
   let html = '';
   exs.forEach((ex, ei) => {
     html += `<div class="ex-card">
-      <div class="ex-head">${ex.nome}<div class="ex-meta">${ex.meta}</div></div>`;
+      <div class="ex-head">${ex.nome}<div class="ex-meta">${ex.prescricao}</div></div>`;
     for (let s = 1; s <= ex.series; s++) {
       const key = `${ei}_${s}`;
       const d = saved[key] || {};
@@ -238,7 +238,7 @@ function buildForm(tipo) {
       const prevReps  = prevSerie && prevSerie.reps !== '—' ? prevSerie.reps : null;
       const refText   = (prevKg || prevReps) ? `${prevKg||'—'} kg × ${prevReps||'—'} reps` : null;
       html += `<div class="serie-row">
-        <div class="serie-num">Série ${s}</div>
+        <div class="serie-num">Série ${s} — ${ex.nome}</div>
         <div class="serie-inputs">
           <div class="input-group">
             <label>Carga (kg)</label>
