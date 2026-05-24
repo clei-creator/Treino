@@ -87,6 +87,11 @@
   .input-group input.invalido { border-color: #ef4444 !important; background: #fef2f2 !important; }
   .ref-anterior { font-size:11px; color:#94a3b8; margin-top:6px; padding-top:4px; border-top:1px solid #f1f5f9; }
   .ref-anterior span { font-weight:700; color:#64748b; }
+
+  .btn-serie-row { display:flex; gap:6px; margin-top:8px; }
+  .btn-repetir { flex:1; padding:7px 6px; border-radius:7px; font-size:11px; font-weight:700; border:none; cursor:pointer; background:#1e293b; color:#94a3b8; }
+  .btn-copiar  { flex:1; padding:7px 6px; border-radius:7px; font-size:11px; font-weight:700; border:none; cursor:pointer; background:#0c4a6e; color:#7dd3fc; }
+  .btn-repetir:active, .btn-copiar:active { opacity:.7; }
 </style>
 </head>
 <body>
@@ -234,6 +239,10 @@ function buildForm(tipo) {
             id="${tipo}_${ei}_${s}_obs" value="${d.obs||''}" onchange="salvarRascunho('${tipo}')">
         </div>
         ${refText ? `<div class="ref-anterior">Último: <span>${refText}</span></div>` : ''}
+        <div class="btn-serie-row">
+          ${s > 1 ? `<button class="btn-copiar" onclick="copiarSerie('${tipo}',${ei},${s})">⬆ Copiar série</button>` : ''}
+          ${refText ? `<button class="btn-repetir" onclick="repetirAnterior('${tipo}',${ei},${s})">↩ Repetir anterior</button>` : ''}
+        </div>
       </div>`;
     }
     html += '</div>';
@@ -436,6 +445,31 @@ function showToast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function repetirAnterior(tipo, ei, s) {
+  const hist = JSON.parse(store.get('historico_' + tipo) || '[]');
+  const ultima = hist[0];
+  if (!ultima) return;
+  const prevEx = ultima.exercicios[ei];
+  if (!prevEx) return;
+  const prevSerie = prevEx.series.find(sr => sr.serie === s);
+  if (!prevSerie) return;
+  const kgEl   = document.getElementById(`${tipo}_${ei}_${s}_kg`);
+  const repsEl = document.getElementById(`${tipo}_${ei}_${s}_reps`);
+  if (kgEl   && prevSerie.kg   !== '—') kgEl.value   = prevSerie.kg;
+  if (repsEl && prevSerie.reps !== '—') repsEl.value = prevSerie.reps;
+  salvarRascunho(tipo);
+}
+
+function copiarSerie(tipo, ei, s) {
+  const kgAcima   = document.getElementById(`${tipo}_${ei}_${s-1}_kg`)?.value;
+  const repsAcima = document.getElementById(`${tipo}_${ei}_${s-1}_reps`)?.value;
+  const kgEl   = document.getElementById(`${tipo}_${ei}_${s}_kg`);
+  const repsEl = document.getElementById(`${tipo}_${ei}_${s}_reps`);
+  if (kgEl   && kgAcima)   kgEl.value   = kgAcima;
+  if (repsEl && repsAcima) repsEl.value = repsAcima;
+  salvarRascunho(tipo);
 }
 
 function semanaAtual() {
