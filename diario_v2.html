@@ -25,8 +25,15 @@
     .tab{flex:1;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:color .2s,border-color .2s;-webkit-tap-highlight-color:transparent}
     .tab.active{color:var(--blue);border-bottom-color:var(--blue)}
 
+    /* live bar */
+    .ex-live-bar{position:fixed;top:100px;left:0;right:0;z-index:98;height:52px;display:flex;align-items:center;padding:0 14px;gap:10px;background:rgba(28,28,30,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:.5px solid var(--border);border-left:4px solid transparent;transition:border-color .3s}
+    .elb-dot{font-size:16px;flex-shrink:0}
+    .elb-body{flex:1;min-width:0}
+    .elb-name{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .elb-meta{font-size:12px;color:var(--text3)}
+
     /* content */
-    .content{padding:120px 16px 110px}
+    .content{padding:172px 16px 110px}
     .tab-panel{display:none}
     .tab-panel.active{display:block}
 
@@ -63,21 +70,21 @@
 
     /* active section */
     .active-sec{padding:16px}
-    .serie-label{font-size:12px;font-weight:700;letter-spacing:.6px;color:var(--text3);text-transform:uppercase;margin-bottom:14px}
+    .serie-label{font-size:17px;font-weight:700;letter-spacing:.4px;color:var(--text3);text-transform:uppercase;margin-bottom:16px}
 
     /* timers */
-    .timer-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-    .timer-val{font-size:52px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
+    .timer-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
+    .timer-val{font-size:88px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
     .timer-green{color:var(--green)}
     .timer-yellow{color:var(--yellow)}
-    .plus-btn{background:rgba(255,214,10,.18);border:none;color:var(--yellow);font-size:14px;font-weight:700;padding:8px 14px;border-radius:20px;cursor:pointer;-webkit-tap-highlight-color:transparent}
-    .dur-line{font-size:12px;color:var(--text3);margin-bottom:14px}
+    .plus-btn{background:rgba(255,214,10,.18);border:none;color:var(--yellow);font-size:16px;font-weight:700;padding:12px 20px;border-radius:20px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .dur-line{font-size:15px;color:var(--text3);margin-bottom:14px}
 
     /* rest form */
-    .rest-title{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--yellow);margin-bottom:12px}
+    .rest-title{font-size:17px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--yellow);margin-bottom:16px}
     .input-row{display:flex;gap:12px;margin-bottom:12px}
     .input-group{flex:1;display:flex;flex-direction:column;gap:6px}
-    .input-group label{font-size:10px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+    .input-group label{font-size:13px;color:var(--text3);font-weight:700;text-transform:uppercase;letter-spacing:.5px}
     .big-input{background:var(--card2);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:32px;font-weight:700;text-align:center;padding:12px 6px;width:100%;font-family:inherit;outline:none;-moz-appearance:textfield}
     .big-input::-webkit-inner-spin-button,.big-input::-webkit-outer-spin-button{-webkit-appearance:none}
     .big-input:focus{border-color:var(--blue)}
@@ -86,7 +93,7 @@
     .obs-input::placeholder{color:var(--text3)}
 
     /* buttons */
-    .btn-main{width:100%;padding:18px;border-radius:14px;border:none;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .2s;-webkit-tap-highlight-color:transparent;margin-top:14px}
+    .btn-main{width:100%;padding:22px;border-radius:14px;border:none;font-size:20px;font-weight:700;cursor:pointer;font-family:inherit;transition:opacity .2s;-webkit-tap-highlight-color:transparent;margin-top:14px}
     .btn-main:active{opacity:.8}
     .btn-green{background:var(--green);color:#000}
     .btn-yellow{background:var(--yellow);color:#000}
@@ -118,12 +125,12 @@
     .hist-empty{text-align:center;color:var(--text3);font-size:15px;padding:48px 20px}
 
     /* toast */
-    .toast{position:fixed;top:110px;left:50%;transform:translateX(-50%);background:rgba(44,44,46,.96);color:#fff;padding:10px 20px;border-radius:20px;font-size:14px;font-weight:600;z-index:200;transition:opacity .4s;pointer-events:none;white-space:nowrap}
+    .toast{position:fixed;top:162px;left:50%;transform:translateX(-50%);background:rgba(44,44,46,.96);color:#fff;padding:10px 20px;border-radius:20px;font-size:14px;font-weight:600;z-index:200;transition:opacity .4s;pointer-events:none;white-space:nowrap}
     .toast.hidden{opacity:0}
 
     /* rest progress bar */
-    .rest-bar-wrap{height:4px;background:rgba(255,214,10,.2);border-radius:2px;margin-bottom:14px;overflow:hidden}
-    .rest-bar-fill{height:100%;background:var(--yellow);border-radius:2px;transition:width .9s linear}
+    .rest-bar-wrap{height:10px;background:rgba(255,214,10,.2);border-radius:5px;margin-bottom:14px;overflow:hidden}
+    .rest-bar-fill{height:100%;background:var(--yellow);border-radius:5px;transition:width .9s linear}
   </style>
 </head>
 <body>
@@ -136,6 +143,14 @@
   <div class="tab active" id="tab-push" onclick="switchTab('push')">💪 Push</div>
   <div class="tab" id="tab-pull" onclick="switchTab('pull')">🏋 Pull</div>
   <div class="tab" id="tab-hist" onclick="switchTab('hist')">📋 Histórico</div>
+</div>
+
+<div class="ex-live-bar" id="ex-live-bar" style="display:none">
+  <div class="elb-dot" id="elb-dot">●</div>
+  <div class="elb-body">
+    <div class="elb-name" id="elb-name"></div>
+    <div class="elb-meta" id="elb-meta"></div>
+  </div>
 </div>
 
 <div class="content">
@@ -410,6 +425,8 @@ function renderAll(){
   } else {
     tickTimers(activeTab);
   }
+
+  updateLiveBar(activeTab);
 }
 
 // Partial update: only touch timer values in the DOM (user may be typing)
@@ -444,6 +461,31 @@ function tickTimers(tipo){
       try{ navigator.vibrate && navigator.vibrate([200,100,200]); }catch(e){}
     }
   }
+}
+
+function updateLiveBar(tipo){
+  const bar = document.getElementById('ex-live-bar');
+  if(!bar) return;
+  if(tipo === 'hist'){ bar.style.display = 'none'; return; }
+
+  const exs   = getExercicios(tipo);
+  const ex    = exs[getExIdx(tipo)];
+  const state = getState(tipo, ex.id);
+
+  const cfgs = {
+    ready: { dot:'●', color:'var(--blue)',   border:'var(--blue)',   meta:`Série ${state.curSerie} de ${ex.series} · pronto` },
+    exec:  { dot:'●', color:'var(--green)',  border:'var(--green)',  meta:`Série ${state.curSerie} de ${ex.series} · em execução` },
+    rest:  { dot:'●', color:'var(--yellow)', border:'var(--yellow)', meta:`Descanso · Série ${state.curSerie} de ${ex.series}` },
+    done:  { dot:'✓', color:'var(--green)',  border:'var(--green)',  meta:'Concluído' }
+  };
+  const cfg = cfgs[state.phase] || { dot:'●', color:'var(--text3)', border:'transparent', meta:'' };
+
+  document.getElementById('elb-dot').textContent      = cfg.dot;
+  document.getElementById('elb-dot').style.color      = cfg.color;
+  document.getElementById('elb-name').textContent     = ex.nome;
+  document.getElementById('elb-meta').textContent     = cfg.meta;
+  bar.style.borderLeftColor = cfg.border;
+  bar.style.display         = 'flex';
 }
 
 function renderExPanel(tipo){
