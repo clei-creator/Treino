@@ -14,6 +14,7 @@
     .ex-row{font-size:14px;margin-bottom:4px;line-height:1.5}
     .ex-row span{color:rgba(235,235,245,.55);font-size:12px}
     .maq-row{font-size:13px;color:#ffd60a;margin-bottom:3px}
+    .note{font-size:12px;color:rgba(235,235,245,.4);margin-top:4px;font-style:italic}
     .btn{width:100%;padding:20px;background:#30d158;color:#000;border:none;border-radius:14px;font-size:18px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:6px}
     .btn:disabled{opacity:.4;cursor:not-allowed}
     .btn-sec{background:#2c2c2e;color:rgba(235,235,245,.7);font-size:15px;padding:14px;margin-top:10px}
@@ -28,24 +29,26 @@
 
 <h1>Gravar Histórico Real</h1>
 <p class="sub">
-  Apaga todo o histórico existente (v1 e v2) e grava o treino Pull de 24/05/2026
-  com observações de treino limpas e configs de máquina separadas.
+  Insere o treino Pull de 24/05/2026 no histórico v2 sem apagar outras sessões.
+  Se já existir uma sessão Pull para essa data, ela é substituída.
+  Configs de máquina são mescladas com as existentes.
 </p>
 
 <div class="card">
   <div class="card-title">O que será gravado — Pull · 24/05/2026 · Bloco A</div>
   <div class="ex-row">Puxada Alta na Máquina <span>62.5 / 65 / 70 / 75 kg × 12 reps</span></div>
   <div class="ex-row">Remada Sentada na Máquina <span>30 / 40 / 40 / 40 kg × 12 reps</span></div>
-  <div class="ex-row">Leg Press 45° <span>110 / 120 / 140 / 160 kg × 15 reps</span></div>
+  <div class="ex-row">Leg Press 45° <span>110 / 120 / 140 / 160 kg × 15 reps · S4: "Limite!"</span></div>
   <div class="ex-row">Cadeira Flexora <span>60 / 62.5 / 62.5 kg × 15/13/11 reps</span></div>
   <div class="ex-row">Stiff na Máquina <span>40 / 40 / 45 kg × 12 reps</span></div>
   <div class="ex-row">Hiperextensão Lombar 45° <span>0 / 0 / 0 kg × 12 reps</span></div>
   <div class="ex-row">Rosca Direta — Máquina/Scott <span>20 / 25 / 25 kg × 12 reps</span></div>
   <div class="ex-row">Panturrilha em Pé <span>30 / 30 / 30 kg × 20 reps</span></div>
+  <div class="note">Histórico de Push e outras datas Pull não serão alterados.</div>
 </div>
 
 <div class="card">
-  <div class="card-title">Configs de máquina que serão salvas</div>
+  <div class="card-title">Configs de máquina que serão mescladas</div>
   <div class="maq-row">Puxada Alta → Maq. 32</div>
   <div class="maq-row">Remada Sentada → Maq. 31</div>
   <div class="maq-row">Leg Press → Maq. 01</div>
@@ -62,13 +65,10 @@
 <script>
 function lsGet(k){ try{ return localStorage.getItem(k); } catch(e){ return null; } }
 function lsSet(k,v){ try{ localStorage.setItem(k,v); return true; } catch(e){ return false; } }
-function lsDel(k){ try{ localStorage.removeItem(k); } catch(e){} }
 
 function verificar(){
   const keys = [
-    'historico_push','historico_pull',
     'historico_v2_push','historico_v2_pull',
-    'rascunho_push','rascunho_pull',
     'rascunho_v2_push','rascunho_v2_pull',
     'config_maquinas'
   ];
@@ -99,16 +99,7 @@ function executar(){
   btn.disabled = true;
 
   try {
-    // 1. Limpar tudo — v1 e v2
-    const paraLimpar = [
-      'historico_push','historico_pull',
-      'historico_v2_push','historico_v2_pull',
-      'rascunho_push','rascunho_pull',
-      'rascunho_v2_push','rascunho_v2_pull'
-    ];
-    for(const k of paraLimpar) lsDel(k);
-
-    // 2. Histórico real — Pull · 24/05/2026 · Bloco A · Semana 3
+    // Sessão Pull · 24/05/2026 · Bloco A
     const sessao = {
       data:  "2026-05-24",
       tipo:  "pull",
@@ -149,9 +140,9 @@ function executar(){
           exercicioId: "flexora",
           nome: "Cadeira Flexora",
           series: [
-            { serie:1, kg:"60",   reps:"15", obs:"",                   duracao:0, descanso:0 },
-            { serie:2, kg:"62.5", reps:"13", obs:"",                   duracao:0, descanso:0 },
-            { serie:3, kg:"62.5", reps:"11", obs:"60 kg era o máximo", duracao:0, descanso:0 }
+            { serie:1, kg:"60",   reps:"15", obs:"",                      duracao:0, descanso:0 },
+            { serie:2, kg:"62.5", reps:"13", obs:"Descanso 1:30 tá pouco.", duracao:0, descanso:0 },
+            { serie:3, kg:"62.5", reps:"11", obs:"60 kg era o máximo",     duracao:0, descanso:0 }
           ]
         },
         {
@@ -167,9 +158,9 @@ function executar(){
           exercicioId: "hiperextensao",
           nome: "Hiperextensão Lombar 45°",
           series: [
-            { serie:1, kg:"0", reps:"12", obs:"Limite. Sobe soprando, vacum abdômen.",              duracao:0, descanso:0 },
+            { serie:1, kg:"0", reps:"12", obs:"Limite. Sobe soprando, vacum abdômen.",                duracao:0, descanso:0 },
             { serie:2, kg:"0", reps:"12", obs:"Vacum abd subindo e paradinha (1-2s) em cima. Limite!", duracao:0, descanso:0 },
-            { serie:3, kg:"0", reps:"12", obs:"Descanso de 2 minutos parece ideal. Limite!",        duracao:0, descanso:0 }
+            { serie:3, kg:"0", reps:"12", obs:"Descanso de 2 minutos parece ideal. Limite!",          duracao:0, descanso:0 }
           ]
         },
         {
@@ -193,10 +184,16 @@ function executar(){
       ]
     };
 
-    const okHist = lsSet('historico_v2_pull', JSON.stringify([sessao]));
+    // Upsert: preserva sessões de outras datas, substitui só 2026-05-24
+    const histExistente = JSON.parse(lsGet('historico_v2_pull') || '[]');
+    const histAtualizado = histExistente.filter(s => s.data !== "2026-05-24");
+    histAtualizado.unshift(sessao);
+    histAtualizado.sort((a,b) => b.data.localeCompare(a.data));
+    const okHist = lsSet('historico_v2_pull', JSON.stringify(histAtualizado));
 
-    // 3. Configs de máquina
-    const config = {
+    // Mesclar configs de máquina (preserva outras chaves)
+    const cfgExistente = JSON.parse(lsGet('config_maquinas') || '{}');
+    const novasCfgs = {
       "puxada-alta":    "Maq. 32",
       "remada-sentada": "Maq. 31",
       "leg-press":      "Maq. 01",
@@ -204,19 +201,20 @@ function executar(){
       "hiperextensao":  "Maq. 44",
       "rosca":          "Maq. 53 | Banco: 6"
     };
-    const okCfg = lsSet('config_maquinas', JSON.stringify(config));
+    const okCfg = lsSet('config_maquinas', JSON.stringify({...cfgExistente, ...novasCfgs}));
 
-    // 4. Verificação de leitura
-    const verif = JSON.parse(lsGet('historico_v2_pull') || '[]');
-    const gravou = verif.length === 1 && verif[0].exercicios.length === 8;
+    // Verificação
+    const verif  = JSON.parse(lsGet('historico_v2_pull') || '[]');
+    const sessaoGravada = verif.find(s => s.data === "2026-05-24");
+    const gravou = sessaoGravada && sessaoGravada.exercicios.length === 8;
 
     const el = document.getElementById('result');
     if(okHist && okCfg && gravou){
       el.innerHTML = `
         <span class="ok">✅ Histórico gravado com sucesso!</span><br><br>
-        <strong>historico_v2_pull:</strong> 1 sessão · 8 exercícios<br>
-        <strong>config_maquinas:</strong> 6 máquinas salvas<br>
-        <strong>Limpos:</strong> historico_push, historico_pull, historico_v2_push, rascunhos<br>
+        <strong>historico_v2_pull:</strong> ${verif.length} sessão(ões) total<br>
+        <strong>Sessão 24/05/2026:</strong> 8 exercícios<br>
+        <strong>config_maquinas:</strong> ${Object.keys(JSON.parse(lsGet('config_maquinas')||'{}')).length} entradas<br>
         <hr>
         <a class="link" href="diario_v2.html">→ Abrir Treino v2</a>
       `;
