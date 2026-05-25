@@ -131,6 +131,50 @@
     /* rest progress bar */
     .rest-bar-wrap{height:10px;background:rgba(255,214,10,.2);border-radius:5px;margin-bottom:14px;overflow:hidden}
     .rest-bar-fill{height:100%;background:var(--yellow);border-radius:5px;transition:width .9s linear}
+
+    /* skip button */
+    .btn-pular{width:100%;padding:14px;border:none;background:transparent;color:rgba(235,235,245,.4);font-size:15px;font-weight:600;cursor:pointer;margin-top:6px;font-family:inherit;-webkit-tap-highlight-color:transparent}
+
+    /* clear day button */
+    .btn-limpar-dia{background:transparent;border:1.5px solid var(--border);color:rgba(235,235,245,.4);border-radius:12px;padding:14px;font-size:18px;cursor:pointer;-webkit-tap-highlight-color:transparent;flex-shrink:0}
+
+    /* modal */
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:500;display:flex;align-items:flex-end;padding-bottom:env(safe-area-inset-bottom)}
+    .modal-box{background:#1c1c1e;border-radius:20px 20px 0 0;width:100%;padding:24px 20px 28px;max-width:500px;margin:0 auto}
+    .modal-title{font-size:17px;font-weight:700;margin-bottom:8px;text-align:center}
+    .modal-body{font-size:14px;color:rgba(235,235,245,.6);text-align:center;margin-bottom:24px;line-height:1.5}
+    .modal-actions{display:flex;flex-direction:column;gap:10px}
+    .modal-btn{width:100%;padding:16px;border:none;border-radius:14px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit}
+    .modal-cancel{background:#2c2c2e;color:rgba(235,235,245,.8)}
+    .modal-confirm{background:#ff453a;color:#fff}
+    .modal-confirm.green{background:#30d158;color:#000}
+    .modal-confirm.blue{background:#0a84ff;color:#fff}
+
+    /* history header + edit mode */
+    .hist-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+    .hist-header-title{font-size:17px;font-weight:700}
+    #btn-hist-editar{background:transparent;border:none;color:#0a84ff;font-size:15px;font-weight:600;cursor:pointer;padding:4px}
+    .hist-card.hist-selected{border:1.5px solid #0a84ff;background:rgba(10,132,255,.08)}
+    .hist-check{font-size:22px;color:#0a84ff;margin-bottom:6px}
+    .hist-del-bar{position:sticky;bottom:0;padding:14px 0 0;background:var(--bg)}
+    .hist-del-bar button{width:100%;padding:16px;background:var(--red);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit}
+
+    /* welcome overlay */
+    .welcome-overlay{position:fixed;inset:0;background:#000;z-index:1000;overflow-y:auto}
+    .welcome-content{padding:60px 20px 40px;max-width:500px;margin:0 auto}
+    .welcome-logo{font-size:48px;text-align:center;margin-bottom:8px}
+    .welcome-title{font-size:28px;font-weight:800;text-align:center;margin-bottom:12px}
+    .welcome-section{background:#1c1c1e;border-radius:14px;padding:16px;margin-bottom:14px}
+    .welcome-section-dim{opacity:.6}
+    .welcome-sec-title{font-size:14px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+    .coming-soon{font-size:10px;background:#2c2c2e;color:rgba(235,235,245,.5);padding:2px 8px;border-radius:10px;font-weight:600}
+    .welcome-ex-item{font-size:13px;color:rgba(235,235,245,.7);padding:4px 0;border-bottom:.5px solid #3a3a3c;line-height:1.4}
+    .welcome-ex-item:last-child{border-bottom:none}
+    .welcome-ex-presc{font-size:11px;color:rgba(235,235,245,.4)}
+    .welcome-changelog .cl-item{font-size:13px;color:rgba(235,235,245,.7);padding:4px 0;line-height:1.5}
+    .welcome-sub{font-size:13px;color:rgba(235,235,245,.5);line-height:1.6}
+    .welcome-sub code{background:#2c2c2e;padding:1px 5px;border-radius:4px;font-size:12px}
+    .btn-welcome-start{width:100%;padding:20px;background:#0a84ff;color:#fff;border:none;border-radius:14px;font-size:18px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px}
   </style>
 </head>
 <body>
@@ -162,9 +206,65 @@
 <div class="bottom-bar" id="bottom-bar">
   <button class="btn-registrar" onclick="registrarTreino()">✅ Registrar Treino</button>
   <button class="btn-backup" onclick="exportarMD()">☁ Backup</button>
+  <button class="btn-limpar-dia" onclick="confirmarLimparDia()" title="Limpar dados do dia">⊘</button>
 </div>
 
 <div class="toast hidden" id="toast"></div>
+
+<div class="modal-overlay" id="modal-overlay" onclick="closeModal()" style="display:none">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-title" id="modal-title"></div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-actions">
+      <button class="modal-btn modal-cancel" onclick="closeModal()">Cancelar</button>
+      <button class="modal-btn modal-confirm" id="modal-confirm-btn"></button>
+    </div>
+  </div>
+</div>
+
+<div class="welcome-overlay" id="welcome-overlay">
+  <div class="welcome-content">
+    <div class="welcome-logo">💪</div>
+    <h1 class="welcome-title">Treino v2</h1>
+    <div id="welcome-badge" class="week-badge" style="margin:0 auto 24px;display:none"></div>
+
+    <div class="welcome-section">
+      <div class="welcome-sec-title">💪 Push — Sábados</div>
+      <div id="welcome-push-list"></div>
+    </div>
+
+    <div class="welcome-section">
+      <div class="welcome-sec-title">🏋 Pull — Domingos</div>
+      <div id="welcome-pull-list"></div>
+    </div>
+
+    <div class="welcome-section">
+      <div class="welcome-sec-title">📋 Últimas atualizações</div>
+      <div class="welcome-changelog">
+        <div class="cl-item">✅ Fluxo ao vivo com timer verde (execução) e amarelo (descanso)</div>
+        <div class="cl-item">✅ Barra fixa do exercício sempre visível</div>
+        <div class="cl-item">✅ Fluxo contínuo: pula direto para exec sem toque extra</div>
+        <div class="cl-item">✅ Config de máquina por exercício (persiste entre treinos)</div>
+        <div class="cl-item">✅ Referência do último treino em cada série</div>
+        <div class="cl-item">✅ Histórico com apagar sessão individual</div>
+        <div class="cl-item">✅ Pular exercício (hoje ou depois)</div>
+        <div class="cl-item">✅ Limpar dados do dia com segurança</div>
+      </div>
+    </div>
+
+    <div class="welcome-section welcome-section-dim">
+      <div class="welcome-sec-title">⚙️ Alterar dinâmica de treinos <span class="coming-soon">Em breve</span></div>
+      <div class="welcome-sub">
+        Os treinos são configurados no bloco <code>CICLOS</code> no código do app.
+        Cada ciclo define blocos A/B/C/Deload com as prescrições de cada exercício.
+        Um assistente visual para editar isso diretamente pelo celular está planejado.
+      </div>
+    </div>
+
+    <button class="btn-welcome-start" onclick="fecharBemVindo()">Começar Treino</button>
+    <div style="height:env(safe-area-inset-bottom)"></div>
+  </div>
+</div>
 
 <script>
 // ── CICLOS ──────────────────────────────────────────────────────────────────
@@ -360,6 +460,8 @@ let exIdxPull   = 0;
 let pushStates  = {};
 let pullStates  = {};
 let needsFullRender = true;
+let histModoEdicao  = false;
+let histSelecao     = new Set();
 
 function getStates(tipo){ return tipo==='push' ? pushStates : pullStates; }
 function getExIdx(tipo){ return tipo==='push' ? exIdxPush : exIdxPull; }
@@ -399,6 +501,136 @@ function loadRascunho(tipo){
     const states = getStates(tipo);
     for(const [id,st] of Object.entries(r.states)) states[id] = st;
   }catch(e){}
+}
+
+// ── MODAL ─────────────────────────────────────────────────────────────────────
+function showModal({title, body, confirmText, confirmColor='red', onConfirm}){
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').textContent  = body;
+  const btn = document.getElementById('modal-confirm-btn');
+  btn.textContent = confirmText;
+  btn.className   = 'modal-btn modal-confirm' + (confirmColor==='green'?' green':confirmColor==='blue'?' blue':'');
+  btn.onclick     = () => { closeModal(); onConfirm(); };
+  document.getElementById('modal-overlay').style.display = 'flex';
+}
+function closeModal(){
+  document.getElementById('modal-overlay').style.display = 'none';
+  document.getElementById('modal-confirm-btn').onclick = null;
+  const extra = document.getElementById('modal-extra-btn');
+  if(extra) extra.remove();
+}
+
+// ── WELCOME ───────────────────────────────────────────────────────────────────
+function fecharBemVindo(){
+  document.getElementById('welcome-overlay').style.display = 'none';
+}
+function iniciarBemVindo(){
+  const b = getBlocoAtual();
+  const badge = document.getElementById('welcome-badge');
+  if(badge && b){
+    badge.textContent      = b.cicloNome+' · Sem.'+b.sem+' · Bloco '+b.bloco;
+    badge.style.background = b.cor;
+    badge.style.display    = 'block';
+  }
+  for(const tipo of ['push','pull']){
+    const exs = getExercicios(tipo);
+    const el  = document.getElementById('welcome-'+tipo+'-list');
+    if(!el) continue;
+    el.innerHTML = exs.map(ex=>
+      `<div class="welcome-ex-item">${esc(ex.nome)}<div class="welcome-ex-presc">${esc(ex.prescricao)}</div></div>`
+    ).join('');
+  }
+}
+
+// ── SKIP EXERCISE ─────────────────────────────────────────────────────────────
+function mostrarOpcoesSkip(tipo, exId){
+  const ex = getExercicios(tipo).find(e=>e.id===exId);
+  showModal({
+    title: 'Pular ' + ex.nome + '?',
+    body:  'Escolha como deseja pular este exercício.',
+    confirmText: 'Não fazer hoje',
+    confirmColor: 'red',
+    onConfirm: () => {
+      getState(tipo, exId).phase = 'skipped';
+      saveRascunho(tipo);
+      autoNavegar(tipo, exId);
+    }
+  });
+  const actions = document.querySelector('.modal-actions');
+  const cancelBtn = actions.querySelector('.modal-cancel');
+  const btn2 = document.createElement('button');
+  btn2.id          = 'modal-extra-btn';
+  btn2.className   = 'modal-btn modal-confirm blue';
+  btn2.textContent = 'Deixar para depois';
+  btn2.onclick     = () => { closeModal(); autoNavegar(tipo, exId); };
+  actions.insertBefore(btn2, cancelBtn);
+}
+function autoNavegar(tipo, exId){
+  const exs = getExercicios(tipo);
+  const idx = exs.findIndex(e=>e.id===exId);
+  if(idx < exs.length-1){
+    if(tipo==='push') exIdxPush = idx+1;
+    else              exIdxPull = idx+1;
+  }
+  needsFullRender = true;
+  renderAll();
+}
+
+// ── CLEAR DAY ─────────────────────────────────────────────────────────────────
+function confirmarLimparDia(){
+  const tipo = activeTab;
+  if(tipo==='hist'){ showToast('Selecione Push ou Pull primeiro.'); return; }
+  showModal({
+    title: 'Limpar dados do dia?',
+    body:  'Todas as séries registradas hoje serão descartadas. O histórico de treinos anteriores não é afetado.',
+    confirmText: 'Limpar tudo',
+    confirmColor: 'red',
+    onConfirm: () => {
+      const exs = getExercicios(tipo);
+      const states = getStates(tipo);
+      for(const ex of exs) states[ex.id] = mkState(ex);
+      if(tipo==='push') exIdxPush=0; else exIdxPull=0;
+      store.remove('rascunho_v2_'+tipo);
+      needsFullRender=true;
+      renderAll();
+      showToast('🗑 Dados do dia apagados.');
+    }
+  });
+}
+
+// ── HISTORY EDIT ──────────────────────────────────────────────────────────────
+function toggleHistEdicao(){
+  histModoEdicao = !histModoEdicao;
+  histSelecao.clear();
+  needsFullRender = true;
+  renderAll();
+}
+function toggleHistCard(key){
+  if(histSelecao.has(key)) histSelecao.delete(key);
+  else histSelecao.add(key);
+  needsFullRender = true;
+  renderAll();
+}
+function confirmarApagarSelecionados(){
+  const n = histSelecao.size;
+  showModal({
+    title: `Apagar ${n} sessão${n>1?'ões':''}?`,
+    body:  'Os treinos selecionados serão removidos permanentemente. Esta ação não pode ser desfeita.',
+    confirmText: `Apagar ${n}`,
+    confirmColor: 'red',
+    onConfirm: () => {
+      for(const key of histSelecao){
+        const [tipo, data] = key.split('|');
+        const hist = getHistorico(tipo).filter(s=>s.data!==data);
+        store.set('historico_v2_'+tipo, JSON.stringify(hist));
+      }
+      histSelecao.clear();
+      histModoEdicao = false;
+      needsFullRender = true;
+      renderAll();
+      showToast('🗑 Sessões apagadas.');
+    }
+  });
 }
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
@@ -473,10 +705,11 @@ function updateLiveBar(tipo){
   const state = getState(tipo, ex.id);
 
   const cfgs = {
-    ready: { dot:'●', color:'var(--blue)',   border:'var(--blue)',   meta:`Série ${state.curSerie} de ${ex.series} · pronto` },
-    exec:  { dot:'●', color:'var(--green)',  border:'var(--green)',  meta:`Série ${state.curSerie} de ${ex.series} · em execução` },
-    rest:  { dot:'●', color:'var(--yellow)', border:'var(--yellow)', meta:`Descanso · Série ${state.curSerie} de ${ex.series}` },
-    done:  { dot:'✓', color:'var(--green)',  border:'var(--green)',  meta:'Concluído' }
+    ready:   { dot:'●', color:'var(--blue)',   border:'var(--blue)',   meta:`Série ${state.curSerie} de ${ex.series} · pronto` },
+    exec:    { dot:'●', color:'var(--green)',  border:'var(--green)',  meta:`Série ${state.curSerie} de ${ex.series} · em execução` },
+    rest:    { dot:'●', color:'var(--yellow)', border:'var(--yellow)', meta:`Descanso · Série ${state.curSerie} de ${ex.series}` },
+    done:    { dot:'✓', color:'var(--green)',  border:'var(--green)',  meta:'Concluído' },
+    skipped: { dot:'✗', color:'var(--text3)', border:'transparent',   meta:'Pulado hoje' }
   };
   const cfg = cfgs[state.phase] || { dot:'●', color:'var(--text3)', border:'transparent', meta:'' };
 
@@ -559,11 +792,19 @@ function renderExPanel(tipo){
       <div class="done-text">Exercício concluído!</div>
     </div>`;
 
+  } else if(state.phase === 'skipped'){
+    html += `<div class="done-box">
+      <div class="done-icon" style="opacity:.5">✗</div>
+      <div class="done-text" style="color:var(--text3)">Exercício pulado hoje</div>
+      <button class="btn-redo" onclick="resetEx('${tipo}','${ex.id}')">Retomar</button>
+    </div>`;
+
   } else if(state.phase === 'ready'){
     html += `<div class="serie-label">Série ${state.curSerie} de ${ex.series}</div>`;
     html += `<button class="btn-main btn-green" onclick="onIniciar('${tipo}','${ex.id}')">
       Iniciar Série ${state.curSerie}
     </button>`;
+    html += `<button class="btn-pular" onclick="mostrarOpcoesSkip('${tipo}','${ex.id}')">Pular exercício</button>`;
 
   } else if(state.phase === 'exec'){
     const elapsed = (Date.now() - state.greenStartTime) / 1000;
@@ -647,17 +888,24 @@ function renderHistPanel(){
     ...getHistorico('pull').map(s=>({...s,tipo:'pull'}))
   ].sort((a,b)=>b.data.localeCompare(a.data));
 
+  let html = `<div class="hist-header">
+    <span class="hist-header-title">Histórico</span>
+    <button id="btn-hist-editar" onclick="toggleHistEdicao()">${histModoEdicao?'Cancelar':'Editar'}</button>
+  </div>`;
+
   if(all.length === 0){
-    container.innerHTML = '<div class="hist-empty">Nenhuma sessão registrada ainda.</div>';
+    container.innerHTML = html + '<div class="hist-empty">Nenhuma sessão registrada ainda.</div>';
     return;
   }
 
-  let html = '';
   for(const s of all){
-    const tipoLabel = s.tipo==='push' ? '💪 Push' : '🏋 Pull';
+    const key      = s.tipo+'|'+s.data;
+    const selected = histSelecao.has(key);
+    const tipoLabel  = s.tipo==='push' ? '💪 Push' : '🏋 Pull';
     const blocoBadge = s.bloco ? ` · Bloco ${esc(s.bloco)}` : '';
-    html += `<div class="hist-card">
-      <div class="hist-date">${esc(s.data)} · ${tipoLabel}</div>
+    html += `<div class="hist-card${selected?' hist-selected':''}" ${histModoEdicao?`onclick="toggleHistCard('${key}')"`:''}">`;
+    if(histModoEdicao) html += `<div class="hist-check">${selected?'☑':'☐'}</div>`;
+    html += `<div class="hist-date">${esc(s.data)} · ${tipoLabel}</div>
       <div class="hist-meta">${esc(s.ciclo||'')}${blocoBadge}</div>`;
     for(const ex of (s.exercicios||[])){
       html += `<div class="hist-ex">
@@ -670,6 +918,13 @@ function renderHistPanel(){
     }
     html += `</div>`;
   }
+
+  if(histModoEdicao && histSelecao.size > 0){
+    html += `<div class="hist-del-bar">
+      <button onclick="confirmarApagarSelecionados()">🗑 Apagar selecionados (${histSelecao.size})</button>
+    </div>`;
+  }
+
   container.innerHTML = html;
 }
 
@@ -880,6 +1135,7 @@ function showToast(msg){
 // ── INIT ──────────────────────────────────────────────────────────────────────
 loadRascunho('push');
 loadRascunho('pull');
+iniciarBemVindo();
 renderAll();
 setInterval(renderAll, 1000);
 </script>
