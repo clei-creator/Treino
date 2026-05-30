@@ -171,6 +171,20 @@
               "descanso": 20
             }
           ]
+        },
+        {
+          "exercicioId": "elevacao-lateral",
+          "nome": "Elevação Lateral",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "12",
+              "reps": "14",
+              "obs": "RIR 0",
+              "duracao": 84,
+              "descanso": 25
+            }
+          ]
         }
       ]
     }
@@ -458,5 +472,5 @@
     "rosca": "Maq. 53 | Banco: 6",
     "supino-inclinado": "22 / 3"
   },
-  "at": "2026-05-30T14:56:48.008Z"
+  "at": "2026-05-30T14:59:12.069Z"
 }
