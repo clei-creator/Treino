@@ -194,6 +194,17 @@
     .welcome-sub{font-size:13px;color:rgba(235,235,245,.5);line-height:1.6}
     .welcome-sub code{background:#2c2c2e;padding:1px 5px;border-radius:4px;font-size:12px}
     .btn-welcome-start{width:100%;padding:20px;background:#0a84ff;color:#fff;border:none;border-radius:14px;font-size:18px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px}
+
+    /* github sync */
+    .gh-status-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+    .gh-connected-dot{font-size:13px;font-weight:700;color:var(--green)}
+    .gh-token-short{font-size:11px;color:rgba(235,235,245,.3);font-family:monospace}
+    .gh-token-inp{width:100%;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:14px;padding:10px 12px;font-family:inherit;outline:none;margin-bottom:10px;display:block}
+    .gh-token-inp:focus{border-color:var(--blue)}
+    .gh-btn-save{width:100%;padding:14px;background:var(--blue);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+    .gh-btn-row{display:flex;gap:8px;margin-top:0}
+    .gh-btn-sync{flex:1;padding:12px;background:var(--card2);color:var(--text2);border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
+    .gh-btn-remove{padding:12px 14px;background:transparent;border:1.5px solid var(--border);color:var(--text3);border-radius:10px;font-size:13px;cursor:pointer;font-family:inherit}
   </style>
 </head>
 <body>
@@ -258,8 +269,33 @@
     </div>
 
     <div class="welcome-section">
+      <div class="welcome-sec-title">☁ Sincronização GitHub</div>
+      <!-- Token configurado -->
+      <div id="gh-connected" style="display:none">
+        <div class="gh-status-row">
+          <span class="gh-connected-dot">● Conectado</span>
+          <span id="gh-token-short" class="gh-token-short"></span>
+        </div>
+        <div class="gh-btn-row">
+          <button class="gh-btn-sync" onclick="ghSync()">☁ Sincronizar agora</button>
+          <button class="gh-btn-remove" onclick="removerGhToken()">Remover token</button>
+        </div>
+      </div>
+      <!-- Token não configurado -->
+      <div id="gh-disconnected">
+        <div class="welcome-sub" style="margin-bottom:10px">
+          Cole aqui seu GitHub Personal Access Token para sincronizar o histórico automaticamente entre dispositivos.
+          Crie o token em GitHub → Settings → Developer settings → Personal access tokens → permissão <code>public_repo</code>.
+        </div>
+        <input id="gh-token-input" type="password" class="gh-token-inp" placeholder="ghp_..." autocomplete="off" autocorrect="off" spellcheck="false">
+        <button class="gh-btn-save" onclick="salvarGhToken()">Salvar e restaurar histórico</button>
+      </div>
+    </div>
+
+    <div class="welcome-section">
       <div class="welcome-sec-title">📋 Últimas atualizações</div>
       <div class="welcome-changelog">
+        <div class="cl-item">✅ Sincronização automática com GitHub — histórico seguro entre dispositivos</div>
         <div class="cl-item">✅ Fluxo ao vivo com timer verde (execução) e amarelo (descanso)</div>
         <div class="cl-item">✅ Barra fixa do exercício sempre visível</div>
         <div class="cl-item">✅ Fluxo contínuo: pula direto para exec sem toque extra</div>
@@ -528,6 +564,101 @@ function loadRascunho(tipo){
   }catch(e){}
 }
 
+// ── GITHUB SYNC ──────────────────────────────────────────────────────────────
+const GH_REPO = 'clei-creator/Treino';
+const GH_FILE = 'historico.json';
+
+function ghToken(){ return store.get('gh_token')||''; }
+
+function _b64enc(str){
+  const bytes = new TextEncoder().encode(str);
+  let bin = '';
+  bytes.forEach(b => bin += String.fromCharCode(b));
+  return btoa(bin);
+}
+function _b64dec(b64){
+  const bin = atob(b64.replace(/\s/g,''));
+  const bytes = Uint8Array.from(bin, c=>c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+async function ghSync(silent){
+  const tok = ghToken();
+  if(!tok) return false;
+  try{
+    const hdr = {'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'};
+    const payload = {
+      push:   JSON.parse(store.get('historico_v2_push')||'[]'),
+      pull:   JSON.parse(store.get('historico_v2_pull')||'[]'),
+      config: JSON.parse(store.get('config_maquinas')||'{}'),
+      at:     new Date().toISOString()
+    };
+    const getR = await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE,{headers:hdr});
+    let sha;
+    if(getR.ok){ const j=await getR.json(); sha=j.sha; }
+    const body = { message:'treino sync '+hojeISO(), content:_b64enc(JSON.stringify(payload,null,2)), ...(sha?{sha}:{}) };
+    const putR = await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE,{
+      method:'PUT', headers:{...hdr,'Content-Type':'application/json'}, body:JSON.stringify(body)
+    });
+    if(putR.ok){ if(!silent) showToast('☁ Sincronizado com GitHub'); return true; }
+    else{ const e=await putR.json(); showToast('⚠ Sync: '+e.message); return false; }
+  }catch(e){ if(!silent) showToast('⚠ Erro de rede ao sincronizar'); return false; }
+}
+
+async function ghRestore(){
+  const tok = ghToken();
+  if(!tok) return false;
+  try{
+    const r = await fetch('https://api.github.com/repos/'+GH_REPO+'/contents/'+GH_FILE,{
+      headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json'}
+    });
+    if(!r.ok) return false;
+    const j    = await r.json();
+    const data = JSON.parse(_b64dec(j.content));
+    if(data.push)   store.set('historico_v2_push', JSON.stringify(data.push));
+    if(data.pull)   store.set('historico_v2_pull', JSON.stringify(data.pull));
+    if(data.config) store.set('config_maquinas',   JSON.stringify(data.config));
+    return true;
+  }catch(e){ return false; }
+}
+
+function salvarGhToken(){
+  const inp = document.getElementById('gh-token-input');
+  if(!inp) return;
+  const val = (inp.value||'').trim();
+  if(!val){ showToast('⚠ Cole o token antes de salvar'); return; }
+  store.set('gh_token', val);
+  inp.value = '';
+  atualizarGhStatus();
+  showToast('Token salvo! Restaurando histórico…');
+  ghRestore().then(ok=>{
+    if(ok){ needsFullRender=true; renderAll(); atualizarGhStatus(); showToast('☁ Histórico restaurado do GitHub!'); }
+    else   showToast('⚠ Token inválido ou sem permissão. Verifique e tente de novo.');
+  });
+}
+
+function removerGhToken(){
+  store.remove('gh_token');
+  atualizarGhStatus();
+  showToast('Token removido.');
+}
+
+function atualizarGhStatus(){
+  const tok  = ghToken();
+  const on   = document.getElementById('gh-connected');
+  const off  = document.getElementById('gh-disconnected');
+  if(!on||!off) return;
+  if(tok){
+    on.style.display  = 'block';
+    off.style.display = 'none';
+    const el = document.getElementById('gh-token-short');
+    if(el) el.textContent = tok.slice(0,10)+'…';
+  } else {
+    on.style.display  = 'none';
+    off.style.display = 'block';
+  }
+}
+
 // ── MODAL ─────────────────────────────────────────────────────────────────────
 function showModal({title, body, confirmText, confirmColor='red', onConfirm}){
   document.getElementById('modal-title').textContent = title;
@@ -557,6 +688,7 @@ function iniciarBemVindo(){
     badge.style.background = b.cor;
     badge.style.display    = 'block';
   }
+  atualizarGhStatus();
   for(const tipo of ['push','pull']){
     const exs = getExercicios(tipo);
     const el  = document.getElementById('welcome-'+tipo+'-list');
@@ -1138,6 +1270,7 @@ function registrarTreino(){
   store.set('historico_v2_'+tipo, JSON.stringify(hist));
   store.remove('rascunho_v2_'+tipo);
   showToast('✅ Sessão salva com sucesso!');
+  ghSync(true); // silent background sync to GitHub
 }
 
 // ── EXPORT ────────────────────────────────────────────────────────────────────
@@ -1188,6 +1321,13 @@ loadRascunho('pull');
 iniciarBemVindo();
 renderAll();
 setInterval(renderAll, 1000);
+
+// Auto-restore from GitHub if localStorage has no history yet
+if(!store.get('historico_v2_push') && !store.get('historico_v2_pull') && ghToken()){
+  ghRestore().then(ok=>{
+    if(ok){ needsFullRender=true; renderAll(); showToast('☁ Histórico restaurado do GitHub'); }
+  });
+}
 </script>
 </body>
 </html>
