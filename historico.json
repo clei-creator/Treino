@@ -183,6 +183,22 @@
               "obs": "RIR 0",
               "duracao": 84,
               "descanso": 25
+            },
+            {
+              "serie": 2,
+              "kg": "12",
+              "reps": "14",
+              "obs": "RIR 0",
+              "duracao": 105,
+              "descanso": 15
+            },
+            {
+              "serie": 3,
+              "kg": "12",
+              "reps": "13",
+              "obs": "RIR 0 - muito pesado para 15x",
+              "duracao": 125,
+              "descanso": 43
             }
           ]
         }
@@ -472,5 +488,5 @@
     "rosca": "Maq. 53 | Banco: 6",
     "supino-inclinado": "22 / 3"
   },
-  "at": "2026-05-30T14:59:12.069Z"
+  "at": "2026-05-30T15:03:59.002Z"
 }
