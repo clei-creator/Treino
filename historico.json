@@ -201,6 +201,20 @@
               "descanso": 43
             }
           ]
+        },
+        {
+          "exercicioId": "triceps-polia",
+          "nome": "Tríceps na Polia — Corda",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "25",
+              "reps": "12",
+              "obs": "RIR 3",
+              "duracao": 190,
+              "descanso": 15
+            }
+          ]
         }
       ]
     }
@@ -486,7 +500,8 @@
     "flexora": "Maq. 03",
     "hiperextensao": "Maq. 44",
     "rosca": "Maq. 53 | Banco: 6",
-    "supino-inclinado": "22 / 3"
+    "supino-inclinado": "22 / 3",
+    "triceps-polia": "Polia / 7"
   },
-  "at": "2026-05-30T15:03:59.002Z"
+  "at": "2026-05-30T15:07:29.816Z"
 }
