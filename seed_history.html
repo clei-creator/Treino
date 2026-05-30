@@ -29,9 +29,7 @@
 
 <h1>Gravar Histórico Real</h1>
 <p class="sub">
-  Insere o treino Pull de 24/05/2026 no histórico v2 sem apagar outras sessões.
-  Se já existir uma sessão Pull para essa data, ela é substituída.
-  Configs de máquina são mescladas com as existentes.
+  Insere o treino Pull de 24/05/2026 automaticamente e redireciona para o Treino v2.
 </p>
 
 <div class="card">
@@ -57,12 +55,18 @@
   <div class="maq-row">Rosca → Maq. 53 | Banco: 6</div>
 </div>
 
-<button class="btn" id="btn-run" onclick="executar()">✅ Gravar agora</button>
-<button class="btn btn-sec" onclick="verificar()">🔍 Ver estado atual do localStorage</button>
+<div class="result" id="auto-msg" style="display:block;background:#1c1c1e;border-radius:14px;padding:16px;margin-bottom:14px;font-size:14px;color:rgba(235,235,245,.55)">
+  ⏳ Gravando histórico...
+</div>
+<button class="btn" id="btn-run" onclick="executar()" style="display:none">✅ Gravar manualmente</button>
+<button class="btn btn-sec" onclick="verificar()">🔍 Ver estado do localStorage</button>
 
 <div class="result" id="result"></div>
 
 <script>
+// Auto-execute on load
+window.addEventListener('DOMContentLoaded', function(){ setTimeout(executar, 400); });
+
 function lsGet(k){ try{ return localStorage.getItem(k); } catch(e){ return null; } }
 function lsSet(k,v){ try{ localStorage.setItem(k,v); return true; } catch(e){ return false; } }
 
@@ -208,16 +212,26 @@ function executar(){
     const sessaoGravada = verif.find(s => s.data === "2026-05-24");
     const gravou = sessaoGravada && sessaoGravada.exercicios.length === 8;
 
+    document.getElementById('auto-msg').style.display = 'none';
     const el = document.getElementById('result');
     if(okHist && okCfg && gravou){
       el.innerHTML = `
-        <span class="ok">✅ Histórico gravado com sucesso!</span><br><br>
-        <strong>historico_v2_pull:</strong> ${verif.length} sessão(ões) total<br>
-        <strong>Sessão 24/05/2026:</strong> 8 exercícios<br>
-        <strong>config_maquinas:</strong> ${Object.keys(JSON.parse(lsGet('config_maquinas')||'{}')).length} entradas<br>
+        <span class="ok">✅ Histórico gravado!</span><br><br>
+        <strong>Pull 24/05/2026:</strong> 8 exercícios<br>
+        <strong>Total Pull:</strong> ${verif.length} sessão(ões)<br>
+        <strong>Máquinas:</strong> ${Object.keys(JSON.parse(lsGet('config_maquinas')||'{}')).length} configurações<br>
         <hr>
-        <a class="link" href="diario_v2.html">→ Abrir Treino v2</a>
+        <span id="redir-msg">Abrindo Treino v2 em <strong id="redir-count">3</strong>s…</span>
+        &nbsp;&nbsp;<a class="link" href="diario_v2.html">→ Abrir agora</a>
       `;
+      el.style.display = 'block';
+      let n = 3;
+      const t = setInterval(()=>{
+        n--;
+        const el2 = document.getElementById('redir-count');
+        if(el2) el2.textContent = n;
+        if(n <= 0){ clearInterval(t); window.location.href = 'diario_v2.html'; }
+      }, 1000);
     } else {
       el.innerHTML = `<span class="err">⚠️ Erro ao gravar (localStorage bloqueado ou cheio).</span><br>
         okHist=${okHist} · okCfg=${okCfg} · gravou=${gravou}`;

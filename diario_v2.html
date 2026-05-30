@@ -116,13 +116,32 @@
     .btn-backup{background:var(--card2);color:var(--text2);border:none;border-radius:12px;padding:14px 18px;font-size:15px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
 
     /* history */
-    .hist-card{background:var(--card);border-radius:12px;padding:14px;margin-bottom:12px}
-    .hist-date{font-size:14px;font-weight:700;margin-bottom:2px}
-    .hist-meta{font-size:12px;color:var(--text3);margin-bottom:10px}
-    .hist-ex{margin-bottom:8px}
-    .hist-ex-name{font-size:13px;font-weight:600;color:var(--text2);margin-bottom:3px}
-    .hist-series{font-size:12px;color:var(--text3);line-height:1.7}
-    .hist-empty{text-align:center;color:var(--text3);font-size:15px;padding:48px 20px}
+    .hist-card{background:var(--card);border-radius:16px;margin-bottom:14px;overflow:hidden;border-left:4px solid transparent;transition:border-color .2s}
+    .hist-card.pull-card{border-left-color:var(--orange)}
+    .hist-card.push-card{border-left-color:var(--blue)}
+    .hist-card-head{padding:14px 16px 12px;border-bottom:.5px solid var(--border);display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+    .hist-head-left{flex:1;min-width:0}
+    .hist-type-row{display:flex;align-items:center;gap:6px;margin-bottom:5px}
+    .hist-type-badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;text-transform:uppercase;letter-spacing:.5px;flex-shrink:0}
+    .hist-type-badge.pull{background:rgba(255,159,10,.18);color:var(--orange)}
+    .hist-type-badge.push{background:rgba(10,132,255,.18);color:var(--blue)}
+    .hist-bloco-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:8px;background:var(--card2);color:var(--text3)}
+    .hist-date-str{font-size:16px;font-weight:700;letter-spacing:-.2px}
+    .hist-ciclo-str{font-size:11px;color:var(--text3);margin-top:2px}
+    .hist-ex-count{font-size:11px;color:var(--text3);font-weight:600;flex-shrink:0;padding-top:2px}
+    .hist-body{padding:10px 16px 14px}
+    .hist-ex{margin-bottom:12px}
+    .hist-ex:last-child{margin-bottom:0}
+    .hist-ex-name{font-size:13px;font-weight:700;color:var(--text2);margin-bottom:5px}
+    .hist-series-grid{display:flex;flex-direction:column;gap:4px}
+    .hist-sr{display:flex;align-items:baseline;gap:8px;font-size:13px}
+    .hist-sr-label{font-size:10px;font-weight:700;color:var(--text3);min-width:22px;flex-shrink:0}
+    .hist-sr-data{font-weight:600;color:var(--text);flex-shrink:0}
+    .hist-sr-obs{font-size:11px;color:var(--text3);font-style:italic;flex:1;line-height:1.3}
+    .hist-empty{text-align:center;padding:48px 20px}
+    .hist-empty-icon{font-size:36px;margin-bottom:12px}
+    .hist-empty-text{font-size:15px;color:var(--text3);margin-bottom:6px}
+    .hist-empty-sub{font-size:13px;color:rgba(235,235,245,.3)}
 
     /* toast */
     .toast{position:fixed;top:162px;left:50%;transform:translateX(-50%);background:rgba(44,44,46,.96);color:#fff;padding:10px 20px;border-radius:20px;font-size:14px;font-weight:600;z-index:200;transition:opacity .4s;pointer-events:none;white-space:nowrap}
@@ -410,6 +429,12 @@ function diasAtras(dataStr){
   if(diff === 0) return 'hoje';
   if(diff === 1) return 'ontem';
   return 'há '+diff+' dias';
+}
+
+function fmtData(dataStr){
+  const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const [y,m,d] = dataStr.split('-');
+  return `${parseInt(d)} ${meses[parseInt(m)-1]} ${y}`;
 }
 
 function parsarDescanso(prescricao){
@@ -894,29 +919,54 @@ function renderHistPanel(){
   </div>`;
 
   if(all.length === 0){
-    container.innerHTML = html + '<div class="hist-empty">Nenhuma sessão registrada ainda.</div>';
+    container.innerHTML = html + `<div class="hist-empty">
+      <div class="hist-empty-icon">📋</div>
+      <div class="hist-empty-text">Nenhuma sessão registrada ainda.</div>
+      <div class="hist-empty-sub">Complete um treino e toque "Registrar Treino"</div>
+    </div>`;
     return;
   }
 
   for(const s of all){
     const key      = s.tipo+'|'+s.data;
     const selected = histSelecao.has(key);
-    const tipoLabel  = s.tipo==='push' ? '💪 Push' : '🏋 Pull';
-    const blocoBadge = s.bloco ? ` · Bloco ${esc(s.bloco)}` : '';
-    html += `<div class="hist-card${selected?' hist-selected':''}" ${histModoEdicao?`onclick="toggleHistCard('${key}')"`:''}">`;
-    if(histModoEdicao) html += `<div class="hist-check">${selected?'☑':'☐'}</div>`;
-    html += `<div class="hist-date">${esc(s.data)} · ${tipoLabel}</div>
-      <div class="hist-meta">${esc(s.ciclo||'')}${blocoBadge}</div>`;
+    const isPull   = s.tipo === 'pull';
+    const tipoLabel  = isPull ? '🏋 Pull' : '💪 Push';
+    const tipoClass  = isPull ? 'pull' : 'push';
+    const cardClass  = isPull ? 'pull-card' : 'push-card';
+    const exCount    = (s.exercicios||[]).length;
+
+    html += `<div class="hist-card ${cardClass}${selected?' hist-selected':''}" ${histModoEdicao?`onclick="toggleHistCard('${key}')"`:''}">`;
+
+    if(histModoEdicao) html += `<div class="hist-check" style="padding:12px 16px 0">${selected?'☑':'☐'}</div>`;
+
+    html += `<div class="hist-card-head">
+      <div class="hist-head-left">
+        <div class="hist-type-row">
+          <span class="hist-type-badge ${tipoClass}">${tipoLabel}</span>
+          ${s.bloco ? `<span class="hist-bloco-badge">Bloco ${esc(s.bloco)}</span>` : ''}
+        </div>
+        <div class="hist-date-str">${fmtData(s.data)}</div>
+        ${s.ciclo ? `<div class="hist-ciclo-str">${esc(s.ciclo)}</div>` : ''}
+      </div>
+      <div class="hist-ex-count">${exCount} exercício${exCount!==1?'s':''}</div>
+    </div>`;
+
+    html += `<div class="hist-body">`;
     for(const ex of (s.exercicios||[])){
       html += `<div class="hist-ex">
         <div class="hist-ex-name">${esc(ex.nome)}</div>
-        <div class="hist-series">`;
+        <div class="hist-series-grid">`;
       for(const sr of (ex.series||[])){
-        html += `S${sr.serie}: ${esc(sr.kg)}kg × ${esc(sr.reps)}${sr.obs?' — '+esc(sr.obs):''}<br>`;
+        html += `<div class="hist-sr">
+          <span class="hist-sr-label">S${sr.serie}</span>
+          <span class="hist-sr-data">${esc(sr.kg)} kg × ${esc(sr.reps)}</span>
+          ${sr.obs ? `<span class="hist-sr-obs">${esc(sr.obs)}</span>` : ''}
+        </div>`;
       }
       html += `</div></div>`;
     }
-    html += `</div>`;
+    html += `</div></div>`;
   }
 
   if(histModoEdicao && histSelecao.size > 0){
