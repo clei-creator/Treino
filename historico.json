@@ -221,6 +221,14 @@
               "obs": "RIR 0 / pesado",
               "duracao": 118,
               "descanso": 26
+            },
+            {
+              "serie": 3,
+              "kg": "25",
+              "reps": "11",
+              "obs": "RIR 0",
+              "duracao": 114,
+              "descanso": 15
             }
           ]
         }
@@ -511,5 +519,5 @@
     "supino-inclinado": "22 / 3",
     "triceps-polia": "Polia / 7"
   },
-  "at": "2026-05-30T15:09:53.982Z"
+  "at": "2026-05-30T15:12:04.416Z"
 }
