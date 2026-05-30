@@ -151,6 +151,12 @@
     .rest-bar-wrap{height:10px;background:rgba(255,214,10,.2);border-radius:5px;margin-bottom:14px;overflow:hidden}
     .rest-bar-fill{height:100%;background:var(--yellow);border-radius:5px;transition:width .9s linear}
 
+    /* repeat previous series */
+    .prev-ref-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(10,132,255,.1);border:1px solid rgba(10,132,255,.2);border-radius:10px;padding:9px 12px;margin-bottom:12px}
+    .prev-ref-info{font-size:13px;color:var(--text3);line-height:1.4}
+    .prev-ref-info strong{color:var(--text2);font-size:15px}
+    .btn-repetir{background:var(--blue);border:none;color:#fff;font-size:13px;font-weight:700;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent;flex-shrink:0}
+
     /* skip button */
     .btn-pular{width:100%;padding:14px;border:none;background:transparent;color:rgba(235,235,245,.4);font-size:15px;font-weight:600;cursor:pointer;margin-top:6px;font-family:inherit;-webkit-tap-highlight-color:transparent}
 
@@ -1047,6 +1053,14 @@ function renderExPanel(tipo){
     html += `<div class="rest-bar-wrap"><div class="rest-bar-fill" id="rest-bar" style="width:${Math.max(0,(remaining/total)*100)}%"></div></div>`;
     html += `<div class="dur-line">Duração da série: ${fmtSec(state.greenDuration)}</div>`;
 
+    const _prevSr = getLastSerie(ex.id, tipo, state.curSerie);
+    if(_prevSr){
+      html += `<div class="prev-ref-bar">
+        <div class="prev-ref-info">Anterior S${state.curSerie}:<br><strong>${esc(_prevSr.kg)} kg × ${esc(_prevSr.reps)} reps</strong></div>
+        <button class="btn-repetir" onclick="usarAnterior('${tipo}','${ex.id}','${esc(_prevSr.kg)}','${esc(_prevSr.reps)}')">↩ Repetir</button>
+      </div>`;
+    }
+
     html += `<div class="input-row">
       <div class="input-group">
         <label>Carga que fiz</label>
@@ -1184,6 +1198,16 @@ function navEx(tipo, dir){
 
 function syncTemp(tipo, exId, field, val){
   getState(tipo, exId).tempData[field] = val;
+}
+
+function usarAnterior(tipo, exId, kg, reps){
+  const state = getState(tipo, exId);
+  state.tempData.kg   = String(kg);
+  state.tempData.reps = String(reps);
+  const kgEl   = document.getElementById('inp-kg');
+  const repsEl = document.getElementById('inp-reps');
+  if(kgEl)  { kgEl.value   = kg;   kgEl.focus(); }
+  if(repsEl){ repsEl.value = reps; }
 }
 
 function onIniciar(tipo, exId){
