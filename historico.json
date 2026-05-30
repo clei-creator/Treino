@@ -141,6 +141,20 @@
               "descanso": 93
             }
           ]
+        },
+        {
+          "exercicioId": "face-pull",
+          "nome": "Face Pulls — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "25",
+              "reps": "15",
+              "obs": "RIR 2",
+              "duracao": 65,
+              "descanso": 80
+            }
+          ]
         }
       ]
     }
@@ -428,5 +442,5 @@
     "rosca": "Maq. 53 | Banco: 6",
     "supino-inclinado": "22 / 3"
   },
-  "at": "2026-05-30T14:51:43.363Z"
+  "at": "2026-05-30T14:52:52.283Z"
 }
