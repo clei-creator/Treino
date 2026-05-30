@@ -111,6 +111,20 @@
               "descanso": 100
             }
           ]
+        },
+        {
+          "exercicioId": "supino-declinado",
+          "nome": "Supino Declinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "25",
+              "reps": "12",
+              "obs": "RIR 6 / leve",
+              "duracao": 58,
+              "descanso": 146
+            }
+          ]
         }
       ]
     }
@@ -398,5 +412,5 @@
     "rosca": "Maq. 53 | Banco: 6",
     "supino-inclinado": "22 / 3"
   },
-  "at": "2026-05-30T14:43:55.584Z"
+  "at": "2026-05-30T14:46:15.671Z"
 }
