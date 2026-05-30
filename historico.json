@@ -12,19 +12,27 @@
           "series": [
             {
               "serie": 1,
-              "kg": "99",
-              "reps": "9",
-              "obs": "",
-              "duracao": 2,
-              "descanso": 10
+              "kg": "60",
+              "reps": "10",
+              "obs": "Leve",
+              "duracao": 143,
+              "descanso": 125
             },
             {
               "serie": 2,
-              "kg": "10",
+              "kg": "70",
               "reps": "10",
-              "obs": "",
-              "duracao": 10,
-              "descanso": 10
+              "obs": "RIR:1",
+              "duracao": 45,
+              "descanso": 122
+            },
+            {
+              "serie": 3,
+              "kg": "72.5",
+              "reps": "11",
+              "obs": "RIR 0",
+              "duracao": 49,
+              "descanso": 124
             }
           ]
         }
@@ -313,5 +321,5 @@
     "hiperextensao": "Maq. 44",
     "rosca": "Maq. 53 | Banco: 6"
   },
-  "at": "2026-05-30T12:40:59.682Z"
+  "at": "2026-05-30T14:21:01.880Z"
 }
