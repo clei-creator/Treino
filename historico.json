@@ -81,6 +81,20 @@
               "descanso": 185
             }
           ]
+        },
+        {
+          "exercicioId": "crossover",
+          "nome": "Crossover — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "10",
+              "reps": "15",
+              "obs": "RIR 2",
+              "duracao": 2,
+              "descanso": 91
+            }
+          ]
         }
       ]
     }
@@ -368,5 +382,5 @@
     "rosca": "Maq. 53 | Banco: 6",
     "supino-inclinado": "22 / 3"
   },
-  "at": "2026-05-30T14:35:52.585Z"
+  "at": "2026-05-30T14:38:33.257Z"
 }
