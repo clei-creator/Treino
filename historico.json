@@ -12,19 +12,11 @@
           "series": [
             {
               "serie": 1,
-              "kg": "77",
-              "reps": "7",
+              "kg": "99",
+              "reps": "9",
               "obs": "",
-              "duracao": 8,
-              "descanso": 11
-            },
-            {
-              "serie": 2,
-              "kg": "88",
-              "reps": "8",
-              "obs": "",
-              "duracao": 3,
-              "descanso": 15
+              "duracao": 2,
+              "descanso": 10
             }
           ]
         }
@@ -313,5 +305,5 @@
     "hiperextensao": "Maq. 44",
     "rosca": "Maq. 53 | Banco: 6"
   },
-  "at": "2026-05-30T12:39:39.290Z"
+  "at": "2026-05-30T12:40:41.354Z"
 }
