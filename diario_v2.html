@@ -144,7 +144,7 @@
     .hist-empty-sub{font-size:13px;color:rgba(235,235,245,.3)}
 
     /* toast */
-    .toast{position:fixed;top:162px;left:50%;transform:translateX(-50%);background:rgba(44,44,46,.96);color:#fff;padding:10px 20px;border-radius:20px;font-size:14px;font-weight:600;z-index:200;transition:opacity .4s;pointer-events:none;white-space:nowrap}
+    .toast{position:fixed;top:162px;left:50%;transform:translateX(-50%);background:rgba(44,44,46,.96);color:#fff;padding:10px 20px;border-radius:20px;font-size:14px;font-weight:600;z-index:1100;transition:opacity .4s;pointer-events:none;white-space:nowrap}
     .toast.hidden{opacity:0}
 
     /* rest progress bar */
@@ -283,6 +283,7 @@
         <div class="gh-btn-row">
           <button class="gh-btn-remove" onclick="removerGhToken()">Remover token</button>
         </div>
+        <div id="gh-op-status" style="font-size:13px;min-height:18px;margin-top:8px;text-align:center"></div>
         <button class="gh-btn-link" onclick="copiarLinkSetup()" style="width:100%;padding:12px;background:rgba(48,209,88,.12);color:var(--green);border:1.5px solid rgba(48,209,88,.3);border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px">
           📲 Copiar link para configurar no ícone da home screen
         </button>
@@ -649,21 +650,34 @@ function removerGhToken(){
   showToast('Token removido.');
 }
 
+function ghSetStatus(msg, color){
+  const el = document.getElementById('gh-op-status');
+  if(el){ el.textContent = msg; el.style.color = color || 'var(--text3)'; }
+}
+
 function ghPush(){
   const hasPush = store.get('historico_v2_push');
   const hasPull = store.get('historico_v2_pull');
-  if(!hasPush && !hasPull){ showToast('⚠ Nenhum histórico local para enviar.'); return; }
-  showToast('Enviando para GitHub…');
+  if(!hasPush && !hasPull){
+    ghSetStatus('⚠ Nenhum histórico local para enviar.', 'var(--red)');
+    return;
+  }
+  ghSetStatus('Enviando…', 'var(--text3)');
   ghSync(true).then(ok=>{
-    showToast(ok ? '☁ Histórico enviado ao GitHub!' : '⚠ Falha ao enviar. Verifique o token.');
+    ghSetStatus(ok ? '☁ Enviado! Agora restaure no ícone da home screen.' : '⚠ Falha ao enviar. Verifique o token.',
+                ok ? 'var(--green)' : 'var(--red)');
   });
 }
 
 function ghPull(){
-  showToast('Restaurando do GitHub…');
+  ghSetStatus('Restaurando…', 'var(--text3)');
   ghRestore().then(ok=>{
-    if(ok){ needsFullRender=true; renderAll(); showToast('☁ Histórico restaurado com sucesso!'); }
-    else   showToast('⚠ Nenhum dado encontrado no GitHub. Envie primeiro pelo Safari.');
+    if(ok){
+      needsFullRender = true;
+      ghSetStatus('☁ Histórico restaurado! Feche esta tela para ver.', 'var(--green)');
+    } else {
+      ghSetStatus('⚠ Sem dados no GitHub. Abra no Safari e toque "Enviar para GitHub" primeiro.', 'var(--red)');
+    }
   });
 }
 
@@ -716,6 +730,8 @@ function closeModal(){
 // ── WELCOME ───────────────────────────────────────────────────────────────────
 function fecharBemVindo(){
   document.getElementById('welcome-overlay').style.display = 'none';
+  needsFullRender = true;
+  renderAll();
 }
 function iniciarBemVindo(){
   const b = getBlocoAtual();
