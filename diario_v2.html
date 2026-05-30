@@ -276,9 +276,12 @@
           <span class="gh-connected-dot">● Conectado</span>
           <span id="gh-token-short" class="gh-token-short"></span>
         </div>
+        <div class="gh-btn-row" style="margin-bottom:8px">
+          <button class="gh-btn-sync" onclick="ghPush()" title="Envia o histórico local para o GitHub">☁ Enviar para GitHub</button>
+          <button class="gh-btn-sync" onclick="ghPull()" title="Baixa o histórico do GitHub para este dispositivo">⬇ Restaurar do GitHub</button>
+        </div>
         <div class="gh-btn-row">
-          <button class="gh-btn-sync" onclick="ghSync()">☁ Sincronizar agora</button>
-          <button class="gh-btn-remove" onclick="removerGhToken()">Remover</button>
+          <button class="gh-btn-remove" onclick="removerGhToken()">Remover token</button>
         </div>
         <button class="gh-btn-link" onclick="copiarLinkSetup()" style="width:100%;padding:12px;background:rgba(48,209,88,.12);color:var(--green);border:1.5px solid rgba(48,209,88,.3);border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;margin-top:8px">
           📲 Copiar link para configurar no ícone da home screen
@@ -644,6 +647,24 @@ function removerGhToken(){
   store.remove('gh_token');
   atualizarGhStatus();
   showToast('Token removido.');
+}
+
+function ghPush(){
+  const hasPush = store.get('historico_v2_push');
+  const hasPull = store.get('historico_v2_pull');
+  if(!hasPush && !hasPull){ showToast('⚠ Nenhum histórico local para enviar.'); return; }
+  showToast('Enviando para GitHub…');
+  ghSync(true).then(ok=>{
+    showToast(ok ? '☁ Histórico enviado ao GitHub!' : '⚠ Falha ao enviar. Verifique o token.');
+  });
+}
+
+function ghPull(){
+  showToast('Restaurando do GitHub…');
+  ghRestore().then(ok=>{
+    if(ok){ needsFullRender=true; renderAll(); showToast('☁ Histórico restaurado com sucesso!'); }
+    else   showToast('⚠ Nenhum dado encontrado no GitHub. Envie primeiro pelo Safari.');
+  });
 }
 
 function copiarLinkSetup(){
