@@ -161,6 +161,14 @@
               "obs": "RIR 1",
               "duracao": 73,
               "descanso": 22
+            },
+            {
+              "serie": 3,
+              "kg": "27.5",
+              "reps": "15",
+              "obs": "RIR 0",
+              "duracao": 123,
+              "descanso": 20
             }
           ]
         }
@@ -450,5 +458,5 @@
     "rosca": "Maq. 53 | Banco: 6",
     "supino-inclinado": "22 / 3"
   },
-  "at": "2026-05-30T14:54:27.419Z"
+  "at": "2026-05-30T14:56:48.008Z"
 }
