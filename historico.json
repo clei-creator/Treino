@@ -1,0 +1,317 @@
+{
+  "push": [
+    {
+      "data": "2026-05-30",
+      "tipo": "push",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "A",
+      "exercicios": [
+        {
+          "exercicioId": "supino-reto",
+          "nome": "Supino Reto na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "77",
+              "reps": "7",
+              "obs": "",
+              "duracao": 8,
+              "descanso": 11
+            },
+            {
+              "serie": 2,
+              "kg": "88",
+              "reps": "8",
+              "obs": "",
+              "duracao": 3,
+              "descanso": 15
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "pull": [
+    {
+      "data": "2026-05-24",
+      "tipo": "pull",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "A",
+      "exercicios": [
+        {
+          "exercicioId": "puxada-alta",
+          "nome": "Puxada Alta na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "62.5",
+              "reps": "12",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "65",
+              "reps": "12",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "70",
+              "reps": "12",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 4,
+              "kg": "75",
+              "reps": "12",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "remada-sentada",
+          "nome": "Remada Sentada na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "30",
+              "reps": "12",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "12",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "40",
+              "reps": "12",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 4,
+              "kg": "40",
+              "reps": "12",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "leg-press",
+          "nome": "Leg Press 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "110",
+              "reps": "15",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "120",
+              "reps": "15",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "140",
+              "reps": "15",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 4,
+              "kg": "160",
+              "reps": "15",
+              "obs": "Limite!",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "flexora",
+          "nome": "Cadeira Flexora",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "60",
+              "reps": "15",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "62.5",
+              "reps": "13",
+              "obs": "Descanso 1:30 tá pouco.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "62.5",
+              "reps": "11",
+              "obs": "60 kg era o máximo",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "stiff",
+          "nome": "Stiff na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "12",
+              "obs": "Barra reta.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "12",
+              "obs": "Leve",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "45",
+              "reps": "12",
+              "obs": "OK",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "hiperextensao",
+          "nome": "Hiperextensão Lombar 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "0",
+              "reps": "12",
+              "obs": "Limite. Sobe soprando, vacum abdômen.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "0",
+              "reps": "12",
+              "obs": "Vacum abd subindo e paradinha (1-2s) em cima. Limite!",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "0",
+              "reps": "12",
+              "obs": "Descanso de 2 minutos parece ideal. Limite!",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "rosca",
+          "nome": "Rosca Direta — Máquina/Scott",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "20",
+              "reps": "12",
+              "obs": "OK",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "25",
+              "reps": "12",
+              "obs": "Limite",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "25",
+              "reps": "12",
+              "obs": "Limite!",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "panturrilha",
+          "nome": "Panturrilha em Pé",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "30",
+              "reps": "20",
+              "obs": "OK.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "30",
+              "reps": "20",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "30",
+              "reps": "20",
+              "obs": "OK. Queimou!",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "config": {
+    "puxada-alta": "Maq. 32",
+    "remada-sentada": "Maq. 31",
+    "leg-press": "Maq. 01",
+    "flexora": "Maq. 03",
+    "hiperextensao": "Maq. 44",
+    "rosca": "Maq. 53 | Banco: 6"
+  },
+  "at": "2026-05-30T12:39:39.290Z"
+}
