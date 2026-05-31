@@ -237,6 +237,28 @@
   ],
   "pull": [
     {
+      "data": "2026-05-31",
+      "tipo": "pull",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "A",
+      "exercicios": [
+        {
+          "exercicioId": "puxada-alta",
+          "nome": "Puxada Alta na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "67",
+              "reps": "12",
+              "obs": "R 2",
+              "duracao": 68,
+              "descanso": 56
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-05-24",
       "tipo": "pull",
       "ciclo": "Ciclo 1 · Mai–Ago 2026",
@@ -519,5 +541,5 @@
     "supino-inclinado": "22 / 3",
     "triceps-polia": "Polia / 7"
   },
-  "at": "2026-05-30T15:12:04.416Z"
+  "at": "2026-05-31T12:46:44.919Z"
 }
