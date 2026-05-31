@@ -152,10 +152,14 @@
     .rest-bar-fill{height:100%;background:var(--yellow);border-radius:5px;transition:width .9s linear}
 
     /* repeat previous series */
-    .prev-ref-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;background:rgba(10,132,255,.1);border:1px solid rgba(10,132,255,.2);border-radius:10px;padding:9px 12px;margin-bottom:12px}
+    .prev-ref-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;border-radius:10px;padding:9px 12px;margin-bottom:8px}
+    .prev-ref-bar.ref-hist{background:rgba(10,132,255,.1);border:1px solid rgba(10,132,255,.2)}
+    .prev-ref-bar.ref-today{background:rgba(48,209,88,.1);border:1px solid rgba(48,209,88,.2)}
     .prev-ref-info{font-size:13px;color:var(--text3);line-height:1.4}
     .prev-ref-info strong{color:var(--text2);font-size:15px}
-    .btn-repetir{background:var(--blue);border:none;color:#fff;font-size:13px;font-weight:700;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent;flex-shrink:0}
+    .btn-repetir{border:none;color:#fff;font-size:13px;font-weight:700;padding:8px 16px;border-radius:8px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent;flex-shrink:0}
+    .btn-repetir.rep-hist{background:var(--blue)}
+    .btn-repetir.rep-today{background:var(--green);color:#000}
 
     /* skip button */
     .btn-pular{width:100%;padding:14px;border:none;background:transparent;color:rgba(235,235,245,.4);font-size:15px;font-weight:600;cursor:pointer;margin-top:6px;font-family:inherit;-webkit-tap-highlight-color:transparent}
@@ -1053,11 +1057,20 @@ function renderExPanel(tipo){
     html += `<div class="rest-bar-wrap"><div class="rest-bar-fill" id="rest-bar" style="width:${Math.max(0,(remaining/total)*100)}%"></div></div>`;
     html += `<div class="dur-line">Duração da série: ${fmtSec(state.greenDuration)}</div>`;
 
+    // Today's previous series (green)
+    const _todaySr = state.curSerie > 1 ? state.completed[state.curSerie - 2] : null;
+    if(_todaySr){
+      html += `<div class="prev-ref-bar ref-today">
+        <div class="prev-ref-info">Hoje S${state.curSerie - 1}:<br><strong>${esc(String(_todaySr.kg))} kg × ${esc(String(_todaySr.reps))} reps</strong></div>
+        <button class="btn-repetir rep-today" onclick="usarAnterior('${tipo}','${ex.id}','${esc(String(_todaySr.kg))}','${esc(String(_todaySr.reps))}')">↩ Copiar</button>
+      </div>`;
+    }
+    // Historical previous session for same series (blue)
     const _prevSr = getLastSerie(ex.id, tipo, state.curSerie);
     if(_prevSr){
-      html += `<div class="prev-ref-bar">
-        <div class="prev-ref-info">Anterior S${state.curSerie}:<br><strong>${esc(_prevSr.kg)} kg × ${esc(_prevSr.reps)} reps</strong></div>
-        <button class="btn-repetir" onclick="usarAnterior('${tipo}','${ex.id}','${esc(_prevSr.kg)}','${esc(_prevSr.reps)}')">↩ Repetir</button>
+      html += `<div class="prev-ref-bar ref-hist">
+        <div class="prev-ref-info">Histórico S${state.curSerie}:<br><strong>${esc(_prevSr.kg)} kg × ${esc(_prevSr.reps)} reps</strong></div>
+        <button class="btn-repetir rep-hist" onclick="usarAnterior('${tipo}','${ex.id}','${esc(_prevSr.kg)}','${esc(_prevSr.reps)}')">↩ Repetir</button>
       </div>`;
     }
 
