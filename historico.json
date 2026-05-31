@@ -279,6 +279,20 @@
               "descanso": 27
             }
           ]
+        },
+        {
+          "exercicioId": "remada-sentada",
+          "nome": "Remada Sentada na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "35",
+              "reps": "12",
+              "obs": "R-2. ",
+              "duracao": 72,
+              "descanso": 17
+            }
+          ]
         }
       ]
     },
@@ -565,5 +579,5 @@
     "supino-inclinado": "22 / 3",
     "triceps-polia": "Polia / 7"
   },
-  "at": "2026-05-31T12:55:37.545Z"
+  "at": "2026-05-31T12:59:02.092Z"
 }
