@@ -427,6 +427,14 @@
               "obs": "R-1. Ok. ",
               "duracao": 74,
               "descanso": 62
+            },
+            {
+              "serie": 2,
+              "kg": "0",
+              "reps": "12",
+              "obs": "R-0.. vacum na subida, soprando. ",
+              "duracao": 87,
+              "descanso": 47
             }
           ]
         }
@@ -716,5 +724,5 @@
     "triceps-polia": "Polia / 7",
     "stiff": "Barra"
   },
-  "at": "2026-05-31T13:51:10.704Z"
+  "at": "2026-05-31T13:53:26.858Z"
 }
