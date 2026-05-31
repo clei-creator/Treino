@@ -317,6 +317,20 @@
               "descanso": 12
             }
           ]
+        },
+        {
+          "exercicioId": "leg-press",
+          "nome": "Leg Press 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "120",
+              "reps": "15",
+              "obs": "R-3",
+              "duracao": 1,
+              "descanso": 48
+            }
+          ]
         }
       ]
     },
@@ -596,12 +610,12 @@
   "config": {
     "puxada-alta": "Maq. 32",
     "remada-sentada": "Maq. 31 / 8",
-    "leg-press": "Maq. 01",
+    "leg-press": "09 /",
     "flexora": "Maq. 03",
     "hiperextensao": "Maq. 44",
     "rosca": "Maq. 53 | Banco: 6",
     "supino-inclinado": "22 / 3",
     "triceps-polia": "Polia / 7"
   },
-  "at": "2026-05-31T13:07:13.802Z"
+  "at": "2026-05-31T13:13:43.246Z"
 }
