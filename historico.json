@@ -475,6 +475,36 @@
               "descanso": 22
             }
           ]
+        },
+        {
+          "exercicioId": "panturrilha",
+          "nome": "Panturrilha em Pé",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "20",
+              "obs": "R-5. Ok",
+              "duracao": 127,
+              "descanso": 30
+            },
+            {
+              "serie": 2,
+              "kg": "60",
+              "reps": "15",
+              "obs": "Pesado demais. ",
+              "duracao": 116,
+              "descanso": 18
+            },
+            {
+              "serie": 3,
+              "kg": "40",
+              "reps": "20",
+              "obs": "R-0. Ideal. ",
+              "duracao": 162,
+              "descanso": 19
+            }
+          ]
         }
       ]
     },
@@ -762,5 +792,5 @@
     "triceps-polia": "Polia / 7",
     "stiff": "Barra"
   },
-  "at": "2026-05-31T14:02:50.212Z"
+  "at": "2026-05-31T14:11:47.251Z"
 }
