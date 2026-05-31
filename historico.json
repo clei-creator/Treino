@@ -415,6 +415,20 @@
               "descanso": 24
             }
           ]
+        },
+        {
+          "exercicioId": "hiperextensao",
+          "nome": "Hiperextensão Lombar 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "0",
+              "reps": "12",
+              "obs": "R-1. Ok. ",
+              "duracao": 74,
+              "descanso": 62
+            }
+          ]
         }
       ]
     },
@@ -702,5 +716,5 @@
     "triceps-polia": "Polia / 7",
     "stiff": "Barra"
   },
-  "at": "2026-05-31T13:50:36.648Z"
+  "at": "2026-05-31T13:51:10.704Z"
 }
