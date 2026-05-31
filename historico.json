@@ -375,6 +375,44 @@
               "obs": "R-0. ",
               "duracao": 120,
               "descanso": 69
+            },
+            {
+              "serie": 3,
+              "kg": "60",
+              "reps": "11",
+              "obs": "R-0. Tentar será gradual na próxima. ",
+              "duracao": 156,
+              "descanso": 46
+            }
+          ]
+        },
+        {
+          "exercicioId": "stiff",
+          "nome": "Stiff na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "45",
+              "reps": "12",
+              "obs": "R-1. OK",
+              "duracao": 163,
+              "descanso": 18
+            },
+            {
+              "serie": 2,
+              "kg": "45",
+              "reps": "12",
+              "obs": "R-1. OK ",
+              "duracao": 153,
+              "descanso": 20
+            },
+            {
+              "serie": 3,
+              "kg": "45",
+              "reps": "12",
+              "obs": "R-0. Querendo ficar tonto, mas pouco. ",
+              "duracao": 179,
+              "descanso": 24
             }
           ]
         }
@@ -657,11 +695,12 @@
     "puxada-alta": "Maq. 32",
     "remada-sentada": "Maq. 31 / 8",
     "leg-press": "09 /",
-    "flexora": "03 / 4",
+    "flexora": "03 / 4-5",
     "hiperextensao": "Maq. 44",
     "rosca": "Maq. 53 | Banco: 6",
     "supino-inclinado": "22 / 3",
-    "triceps-polia": "Polia / 7"
+    "triceps-polia": "Polia / 7",
+    "stiff": "Barra"
   },
-  "at": "2026-05-31T13:34:10.837Z"
+  "at": "2026-05-31T13:47:52.101Z"
 }
