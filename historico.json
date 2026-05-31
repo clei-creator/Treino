@@ -269,6 +269,14 @@
               "obs": "R-1. Paradinha em baixo. ",
               "duracao": 104,
               "descanso": 40
+            },
+            {
+              "serie": 4,
+              "kg": "85",
+              "reps": "9",
+              "obs": "R-0. Pesado. ",
+              "duracao": 161,
+              "descanso": 27
             }
           ]
         }
@@ -557,5 +565,5 @@
     "supino-inclinado": "22 / 3",
     "triceps-polia": "Polia / 7"
   },
-  "at": "2026-05-31T12:52:32.397Z"
+  "at": "2026-05-31T12:55:37.545Z"
 }
