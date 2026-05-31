@@ -571,7 +571,7 @@
   ],
   "config": {
     "puxada-alta": "Maq. 32",
-    "remada-sentada": "Maq. 31",
+    "remada-sentada": "Maq. 31 / 8",
     "leg-press": "Maq. 01",
     "flexora": "Maq. 03",
     "hiperextensao": "Maq. 44",
@@ -579,5 +579,5 @@
     "supino-inclinado": "22 / 3",
     "triceps-polia": "Polia / 7"
   },
-  "at": "2026-05-31T12:59:02.092Z"
+  "at": "2026-05-31T13:01:51.656Z"
 }
