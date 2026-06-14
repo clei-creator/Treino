@@ -503,6 +503,14 @@
               "obs": "Rir. 1",
               "duracao": 146,
               "descanso": 19
+            },
+            {
+              "serie": 4,
+              "kg": "90",
+              "reps": "10",
+              "obs": "Rir 0. ",
+              "duracao": 143,
+              "descanso": 24
             }
           ]
         }
@@ -1054,7 +1062,7 @@
     }
   ],
   "config": {
-    "puxada-alta": "Maq. 32",
+    "puxada-alta": "Maq. 32 / 9",
     "remada-sentada": "Maq. 31 / 8",
     "leg-press": "09 /",
     "flexora": "03 / 4-5",
@@ -1068,5 +1076,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-14T13:44:40.546Z"
+  "at": "2026-06-14T13:47:26.875Z"
 }
