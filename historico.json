@@ -709,6 +709,20 @@
               "descanso": 18
             }
           ]
+        },
+        {
+          "exercicioId": "panturrilha",
+          "nome": "Panturrilha em Pé",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "20",
+              "obs": "Ok. ",
+              "duracao": 69,
+              "descanso": 10
+            }
+          ]
         }
       ]
     },
@@ -1272,5 +1286,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-14T14:56:17.064Z"
+  "at": "2026-06-14T14:58:44.425Z"
 }
