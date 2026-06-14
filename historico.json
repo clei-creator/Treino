@@ -471,6 +471,28 @@
   ],
   "pull": [
     {
+      "data": "2026-06-14",
+      "tipo": "pull",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "B",
+      "exercicios": [
+        {
+          "exercicioId": "puxada-alta",
+          "nome": "Puxada Alta na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "75",
+              "reps": "10",
+              "obs": "Rir 2",
+              "duracao": 96,
+              "descanso": 18
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-05-31",
       "tipo": "pull",
       "ciclo": "Ciclo 1 · Mai–Ago 2026",
@@ -1030,5 +1052,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-13T13:47:38.799Z"
+  "at": "2026-06-14T13:39:27.088Z"
 }
