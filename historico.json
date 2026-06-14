@@ -601,6 +601,14 @@
               "obs": "Mudei para máquina 10",
               "duracao": 1,
               "descanso": 20
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "10",
+              "obs": "Rir. 0. Lombar sentindo. ",
+              "duracao": 109,
+              "descanso": 32
             }
           ]
         }
@@ -1155,7 +1163,7 @@
     "puxada-alta": "Maq. 32 / 9",
     "remada-sentada": "Maq. 31 / 9",
     "leg-press": "09 /",
-    "flexora": "03 / 4-5",
+    "flexora": "10 / pé 3",
     "hiperextensao": "Maq. 44 / 4",
     "rosca": "Maq. 53 | Banco: 6",
     "supino-inclinado": "22 / 3",
@@ -1166,5 +1174,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-14T14:26:13.744Z"
+  "at": "2026-06-14T14:28:34.228Z"
 }
