@@ -649,6 +649,20 @@
               "descanso": 8
             }
           ]
+        },
+        {
+          "exercicioId": "hiperextensao",
+          "nome": "Hiperextensão Lombar 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "0",
+              "reps": "15",
+              "obs": "Rir. 0. Lombar sentindo. ",
+              "duracao": 1,
+              "descanso": 28
+            }
+          ]
         }
       ]
     },
@@ -1212,5 +1226,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-14T14:41:10.601Z"
+  "at": "2026-06-14T14:43:44.885Z"
 }
