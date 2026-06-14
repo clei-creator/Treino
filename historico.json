@@ -631,6 +631,22 @@
               "obs": "Rir. 3. ",
               "duracao": 179,
               "descanso": 9
+            },
+            {
+              "serie": 2,
+              "kg": "45",
+              "reps": "12",
+              "obs": "Rir. 2. ",
+              "duracao": 172,
+              "descanso": 10
+            },
+            {
+              "serie": 3,
+              "kg": "45",
+              "reps": "12",
+              "obs": "",
+              "duracao": 198,
+              "descanso": 8
             }
           ]
         }
@@ -1196,5 +1212,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-14T14:34:42.392Z"
+  "at": "2026-06-14T14:41:10.601Z"
 }
