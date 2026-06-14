@@ -661,6 +661,14 @@
               "obs": "Rir. 0. Lombar sentindo. ",
               "duracao": 1,
               "descanso": 28
+            },
+            {
+              "serie": 2,
+              "kg": "0",
+              "reps": "15",
+              "obs": "",
+              "duracao": 118,
+              "descanso": 7
             }
           ]
         }
@@ -1226,5 +1234,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-14T14:45:46.266Z"
+  "at": "2026-06-14T14:45:50.252Z"
 }
