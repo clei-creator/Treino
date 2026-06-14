@@ -609,6 +609,28 @@
               "obs": "Rir. 0. Lombar sentindo. ",
               "duracao": 109,
               "descanso": 32
+            },
+            {
+              "serie": 3,
+              "kg": "40",
+              "reps": "12",
+              "obs": "Rir. 0. ",
+              "duracao": 107,
+              "descanso": 29
+            }
+          ]
+        },
+        {
+          "exercicioId": "stiff",
+          "nome": "Stiff na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "45",
+              "reps": "12",
+              "obs": "Rir. 3. ",
+              "duracao": 179,
+              "descanso": 9
             }
           ]
         }
@@ -1174,5 +1196,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-14T14:28:34.228Z"
+  "at": "2026-06-14T14:34:42.392Z"
 }
