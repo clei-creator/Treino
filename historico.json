@@ -679,6 +679,20 @@
               "descanso": 15
             }
           ]
+        },
+        {
+          "exercicioId": "rosca",
+          "nome": "Rosca Direta — Máquina/Scott",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "22.5",
+              "reps": "10",
+              "obs": "Rir. 1. ",
+              "duracao": 51,
+              "descanso": 19
+            }
+          ]
         }
       ]
     },
@@ -1242,5 +1256,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-14T14:48:43.887Z"
+  "at": "2026-06-14T14:51:50.509Z"
 }
