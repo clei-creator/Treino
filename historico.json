@@ -101,6 +101,44 @@
               "obs": "Parna. Rir. 2. ",
               "duracao": 177,
               "descanso": 20
+            },
+            {
+              "serie": 3,
+              "kg": "30",
+              "reps": "12",
+              "obs": "Parna. Rir. 0. ",
+              "duracao": 137,
+              "descanso": 17
+            }
+          ]
+        },
+        {
+          "exercicioId": "supino-declinado",
+          "nome": "Supino Declinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "20",
+              "reps": "12",
+              "obs": "Parna. Rir 2",
+              "duracao": 90,
+              "descanso": 21
+            },
+            {
+              "serie": 2,
+              "kg": "25",
+              "reps": "10",
+              "obs": "Parna. Rir. 0",
+              "duracao": 108,
+              "descanso": 16
+            },
+            {
+              "serie": 3,
+              "kg": "25",
+              "reps": "10",
+              "obs": "",
+              "duracao": 188,
+              "descanso": 7
             }
           ]
         }
@@ -1408,5 +1446,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-20T14:42:37.671Z"
+  "at": "2026-06-20T14:53:35.463Z"
 }
