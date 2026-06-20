@@ -1,6 +1,82 @@
 {
   "push": [
     {
+      "data": "2026-06-20",
+      "tipo": "push",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "B",
+      "exercicios": [
+        {
+          "exercicioId": "supino-reto",
+          "nome": "Supino Reto na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "70",
+              "reps": "7",
+              "obs": "Parna",
+              "duracao": 140,
+              "descanso": 78
+            },
+            {
+              "serie": 2,
+              "kg": "70",
+              "reps": "8",
+              "obs": "Parna",
+              "duracao": 3,
+              "descanso": 10
+            },
+            {
+              "serie": 3,
+              "kg": "70",
+              "reps": "7",
+              "obs": "Parna. Rir 0",
+              "duracao": 150,
+              "descanso": 17
+            },
+            {
+              "serie": 4,
+              "kg": "70",
+              "reps": "8",
+              "obs": "Parna. Rir 0",
+              "duracao": 141,
+              "descanso": 17
+            }
+          ]
+        },
+        {
+          "exercicioId": "supino-inclinado",
+          "nome": "Supino Inclinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "30",
+              "reps": "10",
+              "obs": "Parna. Rir. 2",
+              "duracao": 11,
+              "descanso": 39
+            },
+            {
+              "serie": 2,
+              "kg": "30",
+              "reps": "10",
+              "obs": "Parna. Rir. 1",
+              "duracao": 128,
+              "descanso": 27
+            },
+            {
+              "serie": 3,
+              "kg": "30",
+              "reps": "10",
+              "obs": "Parna. Rir. 0. ",
+              "duracao": 133,
+              "descanso": 12
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-06-13",
       "tipo": "push",
       "ciclo": "Ciclo 1 · Mai–Ago 2026",
@@ -1302,5 +1378,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-14T15:02:41.528Z"
+  "at": "2026-06-20T14:31:04.249Z"
 }
