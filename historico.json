@@ -141,6 +141,20 @@
               "descanso": 7
             }
           ]
+        },
+        {
+          "exercicioId": "face-pull",
+          "nome": "Face Pulls — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "22.5",
+              "reps": "15",
+              "obs": "Parna. Leve. ",
+              "duracao": 1,
+              "descanso": 44
+            }
+          ]
         }
       ]
     },
@@ -1446,5 +1460,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-20T14:53:35.463Z"
+  "at": "2026-06-20T14:55:48.800Z"
 }
