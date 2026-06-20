@@ -71,6 +71,36 @@
               "obs": "Parna. Rir. 0. ",
               "duracao": 133,
               "descanso": 12
+            },
+            {
+              "serie": 4,
+              "kg": "30",
+              "reps": "8",
+              "obs": "Parna. Rir 0",
+              "duracao": 172,
+              "descanso": 40
+            }
+          ]
+        },
+        {
+          "exercicioId": "crossover",
+          "nome": "Crossover — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "15",
+              "reps": "15",
+              "obs": "Parna. Leve",
+              "duracao": 73,
+              "descanso": 19
+            },
+            {
+              "serie": 2,
+              "kg": "25",
+              "reps": "12",
+              "obs": "Parna. Rir. 2. ",
+              "duracao": 177,
+              "descanso": 20
             }
           ]
         }
@@ -1378,5 +1408,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-20T14:31:04.249Z"
+  "at": "2026-06-20T14:42:37.671Z"
 }
