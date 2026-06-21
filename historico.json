@@ -823,6 +823,58 @@
               "descanso": 23
             }
           ]
+        },
+        {
+          "exercicioId": "flexora",
+          "nome": "Cadeira Flexora",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "12",
+              "obs": "Rir. 0. ",
+              "duracao": 2,
+              "descanso": 11
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "12",
+              "obs": "Rir. 1. Ok. ",
+              "duracao": 138,
+              "descanso": 13
+            },
+            {
+              "serie": 3,
+              "kg": "42.5",
+              "reps": "12",
+              "obs": "Rir. 1. Ok. ",
+              "duracao": 118,
+              "descanso": 14
+            }
+          ]
+        },
+        {
+          "exercicioId": "stiff",
+          "nome": "Stiff na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "12",
+              "obs": "Tonto ao levantar. Mudei para Barra grande. ",
+              "duracao": 9,
+              "descanso": 30
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "10",
+              "obs": "Rir. 1. Ok para diminuir tontura. ",
+              "duracao": 95,
+              "descanso": 32
+            }
+          ]
         }
       ]
     },
@@ -1652,11 +1704,11 @@
     "rosca": "Maq. 53 | Banco: 7",
     "supino-inclinado": "22 / 3",
     "triceps-polia": "Polia / 7",
-    "stiff": "Barra",
+    "stiff": "Barra grande. ",
     "supino-reto": "20 / 6 / contrair escapulas",
     "crossover": "61 / 2",
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-21T16:06:48.246Z"
+  "at": "2026-06-21T16:25:23.044Z"
 }
