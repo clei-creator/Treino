@@ -785,6 +785,44 @@
               "descanso": 8
             }
           ]
+        },
+        {
+          "exercicioId": "leg-press",
+          "nome": "Leg Press 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "160",
+              "reps": "11",
+              "obs": "Rir. 3",
+              "duracao": 88,
+              "descanso": 11
+            },
+            {
+              "serie": 2,
+              "kg": "200",
+              "reps": "12",
+              "obs": "Rir. 2. ",
+              "duracao": 213,
+              "descanso": 11
+            },
+            {
+              "serie": 3,
+              "kg": "200",
+              "reps": "12",
+              "obs": "Rir. 1",
+              "duracao": 185,
+              "descanso": 14
+            },
+            {
+              "serie": 4,
+              "kg": "220",
+              "reps": "10",
+              "obs": "Rir. 0. Pesado. ",
+              "duracao": 189,
+              "descanso": 23
+            }
+          ]
         }
       ]
     },
@@ -1620,5 +1658,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-21T15:52:37.235Z"
+  "at": "2026-06-21T16:06:48.246Z"
 }
