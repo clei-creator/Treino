@@ -1,6 +1,28 @@
 {
   "push": [
     {
+      "data": "2026-06-26",
+      "tipo": "push",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "B",
+      "exercicios": [
+        {
+          "exercicioId": "supino-reto",
+          "nome": "Supino Reto na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "70",
+              "reps": "7",
+              "obs": "",
+              "duracao": 1,
+              "descanso": 9
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-06-20",
       "tipo": "push",
       "ciclo": "Ciclo 1 · Mai–Ago 2026",
@@ -1778,5 +1800,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-21T16:47:30.963Z"
+  "at": "2026-06-27T02:36:15.848Z"
 }
