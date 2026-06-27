@@ -1,7 +1,7 @@
 {
   "push": [
     {
-      "data": "2026-06-26",
+      "data": "2026-06-27",
       "tipo": "push",
       "ciclo": "Ciclo 1 · Mai–Ago 2026",
       "bloco": "B",
@@ -12,11 +12,27 @@
           "series": [
             {
               "serie": 1,
-              "kg": "70",
-              "reps": "7",
+              "kg": "75",
+              "reps": "8",
+              "obs": "",
+              "duracao": 142,
+              "descanso": 108
+            },
+            {
+              "serie": 2,
+              "kg": "85",
+              "reps": "8",
               "obs": "",
               "duracao": 1,
-              "descanso": 9
+              "descanso": 65
+            },
+            {
+              "serie": 3,
+              "kg": "87.2",
+              "reps": "8",
+              "obs": "",
+              "duracao": 170,
+              "descanso": 11
             }
           ]
         }
@@ -1800,5 +1816,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-27T02:36:15.848Z"
+  "at": "2026-06-27T13:36:07.003Z"
 }
