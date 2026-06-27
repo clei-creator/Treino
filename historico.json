@@ -55,6 +55,180 @@
               "obs": "",
               "duracao": 4,
               "descanso": 28
+            },
+            {
+              "serie": 2,
+              "kg": "55",
+              "reps": "10",
+              "obs": "",
+              "duracao": 142,
+              "descanso": 10
+            },
+            {
+              "serie": 3,
+              "kg": "55",
+              "reps": "10",
+              "obs": "",
+              "duracao": 161,
+              "descanso": 10
+            },
+            {
+              "serie": 4,
+              "kg": "55",
+              "reps": "10",
+              "obs": "",
+              "duracao": 158,
+              "descanso": 6
+            }
+          ]
+        },
+        {
+          "exercicioId": "crossover",
+          "nome": "Crossover — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "12.5",
+              "reps": "12",
+              "obs": "",
+              "duracao": 307,
+              "descanso": 19
+            },
+            {
+              "serie": 2,
+              "kg": "15",
+              "reps": "12",
+              "obs": "",
+              "duracao": 152,
+              "descanso": 7
+            },
+            {
+              "serie": 3,
+              "kg": "15",
+              "reps": "12",
+              "obs": "",
+              "duracao": 147,
+              "descanso": 6
+            }
+          ]
+        },
+        {
+          "exercicioId": "supino-declinado",
+          "nome": "Supino Declinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "12",
+              "obs": "",
+              "duracao": 6,
+              "descanso": 8
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "10",
+              "obs": "",
+              "duracao": 126,
+              "descanso": 11
+            },
+            {
+              "serie": 3,
+              "kg": "40",
+              "reps": "10",
+              "obs": "",
+              "duracao": 123,
+              "descanso": 5
+            }
+          ]
+        },
+        {
+          "exercicioId": "face-pull",
+          "nome": "Face Pulls — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "15",
+              "reps": "30",
+              "obs": "",
+              "duracao": 167,
+              "descanso": 18
+            },
+            {
+              "serie": 2,
+              "kg": "30",
+              "reps": "15",
+              "obs": "",
+              "duracao": 127,
+              "descanso": 18
+            },
+            {
+              "serie": 3,
+              "kg": "30",
+              "reps": "15",
+              "obs": "",
+              "duracao": 139,
+              "descanso": 33
+            }
+          ]
+        },
+        {
+          "exercicioId": "elevacao-lateral",
+          "nome": "Elevação Lateral",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "duracao": 134,
+              "descanso": 6
+            },
+            {
+              "serie": 2,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "duracao": 109,
+              "descanso": 6
+            },
+            {
+              "serie": 3,
+              "kg": "12",
+              "reps": "15",
+              "obs": "Rir 0",
+              "duracao": 147,
+              "descanso": 18
+            }
+          ]
+        },
+        {
+          "exercicioId": "triceps-polia",
+          "nome": "Tríceps na Polia — Corda",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "30",
+              "reps": "12",
+              "obs": "",
+              "duracao": 161,
+              "descanso": 12
+            },
+            {
+              "serie": 2,
+              "kg": "30",
+              "reps": "12",
+              "obs": "",
+              "duracao": 166,
+              "descanso": 6
+            },
+            {
+              "serie": 3,
+              "kg": "32",
+              "reps": "10",
+              "obs": "Rir. 0. Pesado",
+              "duracao": 213,
+              "descanso": 24
             }
           ]
         }
@@ -1838,5 +2012,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-27T13:40:17.054Z"
+  "at": "2026-06-27T14:34:35.630Z"
 }
