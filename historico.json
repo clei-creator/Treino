@@ -945,6 +945,36 @@
       "bloco": "B",
       "exercicios": [
         {
+          "exercicioId": "leg-press",
+          "nome": "Leg Press 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "200",
+              "reps": "12",
+              "obs": "Rir. 0. ",
+              "duracao": 65,
+              "descanso": 124
+            },
+            {
+              "serie": 2,
+              "kg": "200",
+              "reps": "12",
+              "obs": "Rir. 0. ",
+              "duracao": 62,
+              "descanso": 121
+            },
+            {
+              "serie": 3,
+              "kg": "200",
+              "reps": "12",
+              "obs": "Rir. 0. ",
+              "duracao": 84,
+              "descanso": 153
+            }
+          ]
+        },
+        {
           "exercicioId": "flexora",
           "nome": "Cadeira Flexora",
           "series": [
@@ -2170,5 +2200,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-28T15:22:50.632Z"
+  "at": "2026-06-28T15:34:30.894Z"
 }
