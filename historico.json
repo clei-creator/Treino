@@ -939,6 +939,44 @@
   ],
   "pull": [
     {
+      "data": "2026-06-28",
+      "tipo": "pull",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "B",
+      "exercicios": [
+        {
+          "exercicioId": "panturrilha",
+          "nome": "Panturrilha em Pé",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "20",
+              "obs": "",
+              "duracao": 2,
+              "descanso": 8
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "20",
+              "obs": "",
+              "duracao": 2,
+              "descanso": 6
+            },
+            {
+              "serie": 3,
+              "kg": "40",
+              "reps": "20",
+              "obs": "",
+              "duracao": 83,
+              "descanso": 8
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-06-21",
       "tipo": "pull",
       "ciclo": "Ciclo 1 · Mai–Ago 2026",
@@ -2012,5 +2050,5 @@
     "supino-declinado": "24 / 7 / pernas e abd contraídos ",
     "face-pull": "62 / 4"
   },
-  "at": "2026-06-28T13:38:23.456Z"
+  "at": "2026-06-28T14:49:14.182Z"
 }
