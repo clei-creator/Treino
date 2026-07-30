@@ -86,6 +86,8 @@
     .timer-green{color:var(--green)}
     .timer-yellow{color:var(--yellow)}
     .plus-btn{background:rgba(255,214,10,.18);border:none;color:var(--yellow);font-size:16px;font-weight:700;padding:12px 20px;border-radius:20px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .minus-btn{background:var(--card2);border:none;color:var(--text3);font-size:16px;font-weight:700;padding:12px 20px;border-radius:20px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .timer-btns{display:flex;gap:8px}
     .dur-line{font-size:15px;color:var(--text3);margin-bottom:14px}
 
     /* rest form */
@@ -1096,7 +1098,10 @@ function renderExPanel(tipo){
     html += `<div class="rest-title">Registrar Série ${state.curSerie} — o que você fez</div>`;
     html += `<div class="timer-row">
       <span class="timer-val timer-yellow" id="rest-timer">${fmtSec(Math.max(0,remaining))}</span>
-      <button class="plus-btn" onclick="adicionarTempo('${tipo}','${ex.id}')">+30s</button>
+      <div class="timer-btns">
+        <button class="minus-btn" onclick="subtrairTempo('${tipo}','${ex.id}')">-10s</button>
+        <button class="plus-btn" onclick="adicionarTempo('${tipo}','${ex.id}')">+30s</button>
+      </div>
     </div>`;
     html += `<div class="rest-bar-wrap"><div class="rest-bar-fill" id="rest-bar" style="width:${Math.max(0,(remaining/total)*100)}%"></div></div>`;
     html += `<div class="dur-line">Duração da série: ${fmtSec(state.greenDuration)}</div>`;
@@ -1310,6 +1315,16 @@ function adicionarTempo(tipo, exId){
   const state = getState(tipo, exId);
   state.yellowAdded = (state.yellowAdded||0) + 30;
   state._alerted    = false;
+  // Update timer in place (no full rebuild, user may be typing)
+  tickTimers(tipo);
+}
+
+function subtrairTempo(tipo, exId){
+  const state       = getState(tipo, exId);
+  const totalAtual   = state.yellowTotal + (state.yellowAdded||0);
+  const novoTotal    = Math.max(5, totalAtual - 10);
+  state.yellowAdded  = novoTotal - state.yellowTotal;
+  state._alerted     = false;
   // Update timer in place (no full rebuild, user may be typing)
   tickTimers(tipo);
 }
