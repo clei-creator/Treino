@@ -133,8 +133,7 @@
 
     /* bottom bar */
     .bottom-bar{position:fixed;bottom:0;left:0;right:0;padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom));background:rgba(0,0,0,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:.5px solid var(--border);display:flex;gap:10px}
-    .btn-registrar{flex:1;background:var(--blue);color:#fff;border:none;border-radius:12px;padding:14px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
-    .btn-backup{background:var(--card2);color:var(--text2);border:none;border-radius:12px;padding:14px 18px;font-size:15px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
+    .btn-backup{flex:1;background:var(--card2);color:var(--text2);border:none;border-radius:12px;padding:14px 18px;font-size:15px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
 
     /* history */
     .hist-card{background:var(--card);border-radius:16px;margin-bottom:14px;overflow:hidden;border-left:4px solid transparent;transition:border-color .2s}
@@ -246,6 +245,14 @@
     @keyframes flashPulse{
       0%{opacity:0} 15%{opacity:.6} 100%{opacity:0}
     }
+
+    /* workout-complete celebration */
+    .confetti-overlay{position:fixed;inset:0;z-index:2200;pointer-events:none;overflow:hidden}
+    .confetti-piece{position:absolute;top:-10vh;animation-name:confetti-fall;animation-timing-function:ease-in;animation-fill-mode:forwards}
+    @keyframes confetti-fall{
+      0%{transform:translateY(0) rotate(0deg);opacity:1}
+      100%{transform:translateY(120vh) rotate(720deg);opacity:0}
+    }
   </style>
 </head>
 <body>
@@ -275,7 +282,6 @@
 </div>
 
 <div class="bottom-bar" id="bottom-bar">
-  <button class="btn-registrar" onclick="registrarTreino()">✅ Registrar Treino</button>
   <button class="btn-backup" onclick="exportarMD()">☁ Backup</button>
   <button class="btn-limpar-dia" onclick="confirmarLimparDia()" title="Limpar dados do dia">⊘</button>
 </div>
@@ -555,8 +561,10 @@ function getHistorico(tipo){
 }
 
 function getLastSerie(exId, tipo, serieNum){
+  const hoje = hojeISO();
   const hist = getHistorico(tipo);
   for(const sessao of hist){
+    if(sessao.data === hoje) continue;
     for(const ex of (sessao.exercicios||[])){
       if(ex.exercicioId === exId){
         const sr = (ex.series||[]).find(s => s.serie === serieNum);
@@ -960,6 +968,24 @@ function tickTimers(tipo){
 function flashTela(){
   document.body.classList.add('flash-active');
   setTimeout(()=> document.body.classList.remove('flash-active'), 400);
+}
+
+function celebrarTreino(){
+  const emojis = ['🎉','🎊','✨','🏆','💪'];
+  const container = document.createElement('div');
+  container.className = 'confetti-overlay';
+  for(let i=0;i<28;i++){
+    const span = document.createElement('span');
+    span.className = 'confetti-piece';
+    span.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    span.style.left              = Math.random()*100 + 'vw';
+    span.style.animationDelay    = (Math.random()*0.6) + 's';
+    span.style.animationDuration = (2.2 + Math.random()*1.2) + 's';
+    span.style.fontSize          = (20 + Math.random()*20) + 'px';
+    container.appendChild(span);
+  }
+  document.body.appendChild(container);
+  setTimeout(()=> container.remove(), 3600);
 }
 
 function updateLiveBar(tipo){
@@ -1395,6 +1421,7 @@ function onProxima(tipo, exId){
   const descanso = (Date.now() - state.yellowStartTime) / 1000;
   state.completed.push({ kg:kgVal, reps:repsVal, obs:obsVal||'', duracao:state.greenDuration, descanso });
   state.dadosGravados = null;
+  autoSalvarHistorico(tipo);
 
   const exs2    = getExercicios(tipo);
   const exIdx   = exs2.findIndex(e => e.id === exId);
@@ -1415,11 +1442,14 @@ function onProxima(tipo, exId){
     if(tipo === 'push') exIdxPush = exIdx + 1;
     else                exIdxPull = exIdx + 1;
     showToast('✅ '+ex.nome+' concluído!');
+    ghSync(true);
   } else {
-    // Última série do último exercício
+    // Última série do último exercício — treino concluído
     state.phase    = 'done';
     state.curSerie = ex.series + 1;
-    showToast('🏆 Treino concluído! Toque Registrar para salvar.');
+    showToast('🏆 Treino concluído! Ótimo trabalho!');
+    ghSync(true);
+    celebrarTreino();
   }
 
   saveRascunho(tipo);
@@ -1435,17 +1465,14 @@ function resetEx(tipo, exId){
   renderAll();
 }
 
-// ── REGISTER SESSION ──────────────────────────────────────────────────────────
-function registrarTreino(){
-  const tipo = activeTab;
-  if(tipo==='hist'){ showToast('Selecione Push ou Pull primeiro.'); return; }
-
+// ── AUTO-SAVE TO HISTORY ──────────────────────────────────────────────────────
+function autoSalvarHistorico(tipo){
   const exs    = getExercicios(tipo);
   const states = getStates(tipo);
   const b      = getBlocoAtual();
 
   const hasData = exs.some(ex => states[ex.id] && states[ex.id].completed.length > 0);
-  if(!hasData){ showToast('⚠️ Nenhuma série registrada ainda.'); return; }
+  if(!hasData) return;
 
   const sessao = {
     data: hojeISO(), tipo,
@@ -1477,9 +1504,6 @@ function registrarTreino(){
   if(idx >= 0) hist.splice(idx, 1);
   hist.unshift(sessao);
   store.set('historico_v2_'+tipo, JSON.stringify(hist));
-  store.remove('rascunho_v2_'+tipo);
-  showToast('✅ Sessão salva com sucesso!');
-  ghSync(true); // silent background sync to GitHub
 }
 
 // ── EXPORT ────────────────────────────────────────────────────────────────────
