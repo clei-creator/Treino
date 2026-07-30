@@ -98,6 +98,9 @@
     .btn-green{background:var(--green);color:#000}
     .btn-yellow{background:var(--yellow);color:#000}
     .btn-idle{background:var(--card2);color:var(--text3)}
+    .btn-gravar{width:100%;padding:16px;border-radius:12px;border:1.5px solid var(--blue);background:transparent;color:var(--blue);font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:10px;-webkit-tap-highlight-color:transparent}
+    .btn-gravar.gravado{border-color:var(--green);color:var(--green);opacity:.7;cursor:default}
+    .btn-sub{display:block;font-size:12px;font-weight:600;opacity:.75;margin-top:2px}
 
     /* done state */
     .done-box{text-align:center;padding:20px 0}
@@ -215,6 +218,16 @@
     .gh-btn-row{display:flex;gap:8px;margin-top:0}
     .gh-btn-sync{flex:1;padding:12px;background:var(--card2);color:var(--text2);border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}
     .gh-btn-remove{padding:12px 14px;background:transparent;border:1.5px solid var(--border);color:var(--text3);border-radius:10px;font-size:13px;cursor:pointer;font-family:inherit}
+
+    /* rest-end flash */
+    body.flash-active::after{
+      content:''; position:fixed; inset:0; z-index:2000;
+      background:var(--green); opacity:0; pointer-events:none;
+      animation:flashPulse .4s ease-out;
+    }
+    @keyframes flashPulse{
+      0%{opacity:0} 15%{opacity:.6} 100%{opacity:0}
+    }
   </style>
 </head>
 <body>
@@ -549,7 +562,8 @@ function mkState(ex){
     phase:'ready', curSerie:1, completed:[],
     greenStartTime:null, yellowStartTime:null,
     yellowTotal:parsarDescanso(ex.prescricao), yellowAdded:0,
-    greenDuration:0, tempData:{kg:'',reps:'',obs:''}, _alerted:false
+    greenDuration:0, tempData:{kg:'',reps:'',obs:''}, _alerted:false,
+    dadosGravados:null
   };
 }
 
@@ -911,8 +925,15 @@ function tickTimers(tipo){
     if(done && !state._alerted){
       state._alerted = true;
       try{ navigator.vibrate && navigator.vibrate([200,100,200]); }catch(e){}
+      flashTela();
+      onProxima(tipo, ex.id);
     }
   }
+}
+
+function flashTela(){
+  document.body.classList.add('flash-active');
+  setTimeout(()=> document.body.classList.remove('flash-active'), 400);
 }
 
 function updateLiveBar(tipo){
@@ -1044,11 +1065,6 @@ function renderExPanel(tipo){
       ? `Iniciar Série ${state.curSerie+1} de ${ex.series}`
       : (nextEx ? `Próximo: ${nextEx.nome}` : 'Concluir Treino');
 
-    if(done && !state._alerted){
-      state._alerted = true;
-      try{ navigator.vibrate && navigator.vibrate([200,100,200]); }catch(e){}
-    }
-
     html += `<div class="rest-title">Registrar Série ${state.curSerie} — o que você fez</div>`;
     html += `<div class="timer-row">
       <span class="timer-val timer-yellow" id="rest-timer">${fmtSec(Math.max(0,remaining))}</span>
@@ -1096,8 +1112,14 @@ function renderExPanel(tipo){
       onchange="syncTemp('${tipo}','${ex.id}','obs',this.value)"
       >${esc(state.tempData.obs)}</textarea>`;
 
+    const jaGravado = !!state.dadosGravados;
+    html += `<button id="btn-gravar" class="btn-gravar ${jaGravado?'gravado':''}"
+      onclick="gravarSerieAtual('${tipo}','${ex.id}')" ${jaGravado?'disabled':''}>
+      ${jaGravado ? '✅ Série registrada' : '💾 Gravar série'}
+    </button>`;
+
     html += `<button id="btn-proxima" class="btn-main ${done?'btn-green':'btn-idle'}"
-      onclick="onProxima('${tipo}','${ex.id}')">${esc(nextLabel)}</button>`;
+      onclick="onProxima('${tipo}','${ex.id}')">⏭ Pular Descanso<span class="btn-sub">${esc(nextLabel)}</span></button>`;
   }
 
   html += `</div>`; // active-sec
@@ -1253,11 +1275,8 @@ function adicionarTempo(tipo, exId){
   tickTimers(tipo);
 }
 
-function onProxima(tipo, exId){
-  const state = getState(tipo, exId);
-  const ex    = getExercicios(tipo).find(e=>e.id===exId);
-
-  // Read latest from DOM then state
+function gravarSerieAtual(tipo, exId){
+  const state  = getState(tipo, exId);
   const kgEl   = document.getElementById('inp-kg');
   const repsEl = document.getElementById('inp-reps');
   const obsEl  = document.getElementById('inp-obs');
@@ -1265,17 +1284,46 @@ function onProxima(tipo, exId){
   const repsVal = ((repsEl ? repsEl.value : state.tempData.reps)+'').trim();
   const obsVal  =   obsEl  ? obsEl.value  : state.tempData.obs;
 
-  if(!kgVal || !repsVal){
-    showToast('⚠️ Preencha kg e reps antes de continuar.');
-    return;
-  }
-  if(parseFloat(kgVal) < 0 || parseInt(repsVal) < 1){
-    showToast('⚠️ Valores inválidos.');
-    return;
+  if(!kgVal || !repsVal){ showToast('⚠️ Preencha kg e reps antes de gravar.'); return; }
+  if(parseFloat(kgVal) < 0 || parseInt(repsVal) < 1){ showToast('⚠️ Valores inválidos.'); return; }
+
+  state.dadosGravados = { kg:kgVal, reps:repsVal, obs:obsVal||'' };
+  saveRascunho(tipo);
+
+  const btn = document.getElementById('btn-gravar');
+  if(btn){ btn.textContent='✅ Série registrada'; btn.classList.add('gravado'); btn.disabled=true; }
+  showToast('💾 Série registrada. Descanso continua.');
+}
+
+function onProxima(tipo, exId){
+  const state = getState(tipo, exId);
+  const ex    = getExercicios(tipo).find(e=>e.id===exId);
+
+  let kgVal, repsVal, obsVal;
+  if(state.dadosGravados){
+    ({kg:kgVal, reps:repsVal, obs:obsVal} = state.dadosGravados);
+  } else {
+    // Read latest from DOM then state
+    const kgEl   = document.getElementById('inp-kg');
+    const repsEl = document.getElementById('inp-reps');
+    const obsEl  = document.getElementById('inp-obs');
+    kgVal   = ((kgEl   ? kgEl.value   : state.tempData.kg)  +'').trim();
+    repsVal = ((repsEl ? repsEl.value : state.tempData.reps)+'').trim();
+    obsVal  =   obsEl  ? obsEl.value  : state.tempData.obs;
+
+    if(!kgVal || !repsVal){
+      showToast('⚠️ Preencha kg e reps antes de continuar.');
+      return;
+    }
+    if(parseFloat(kgVal) < 0 || parseInt(repsVal) < 1){
+      showToast('⚠️ Valores inválidos.');
+      return;
+    }
   }
 
   const descanso = (Date.now() - state.yellowStartTime) / 1000;
   state.completed.push({ kg:kgVal, reps:repsVal, obs:obsVal||'', duracao:state.greenDuration, descanso });
+  state.dadosGravados = null;
 
   const exs2    = getExercicios(tipo);
   const exIdx   = exs2.findIndex(e => e.id === exId);
