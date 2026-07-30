@@ -117,6 +117,7 @@
     .rest-focus-label{font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3)}
     .rest-focus-timer{font-size:128px;font-weight:800;color:var(--yellow);font-variant-numeric:tabular-nums;line-height:1}
     .rest-focus-next{font-size:16px;color:var(--text2)}
+    .rest-focus-next-sugestao{font-size:15px;color:var(--orange);font-weight:600}
     .rest-focus-hint{font-size:13px;color:var(--text3);margin-top:8px}
 
     /* done state */
@@ -1099,6 +1100,7 @@ function renderExPanel(tipo){
     const nextLabel = !isLast
       ? `Iniciar Série ${state.curSerie+1} de ${ex.series}`
       : (nextEx ? `Próximo: ${nextEx.nome}` : 'Concluir Treino');
+    const _nextSr = !isLast ? getLastSerie(ex.id, tipo, state.curSerie + 1) : null;
 
     html += `<div class="rest-title">Registrar Série ${state.curSerie} — o que você fez</div>`;
     html += `<div class="timer-row">
@@ -1165,6 +1167,7 @@ function renderExPanel(tipo){
         <div class="rest-focus-label">Descanso · Série ${state.curSerie} de ${ex.series}</div>
         <div class="rest-focus-timer" id="rest-timer-focus">${fmtSec(Math.max(0,remaining))}</div>
         <div class="rest-focus-next">${esc(nextLabel)}</div>
+        ${_nextSr ? `<div class="rest-focus-next-sugestao">Sugestão: ${esc(_nextSr.kg)} kg × ${esc(_nextSr.reps)} reps</div>` : ''}
         <div class="rest-focus-hint">Toque para voltar</div>
       </div>`;
     }
@@ -1357,7 +1360,8 @@ function gravarSerieAtual(tipo, exId){
 
 function sairFocoDescanso(tipo, exId){
   const state = getState(tipo, exId);
-  state._focusMode = false;
+  state._focusMode    = false;
+  state.dadosGravados = null;
   needsFullRender = true;
   renderAll();
 }
