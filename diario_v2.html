@@ -72,6 +72,14 @@
     .active-sec{padding:16px}
     .serie-label{font-size:17px;font-weight:700;letter-spacing:.4px;color:var(--text3);text-transform:uppercase;margin-bottom:16px}
 
+    /* exec phase — big series/reps stats, readable from a distance */
+    .exec-hero{text-align:center;margin-bottom:6px}
+    .exec-hero-label{font-size:15px;font-weight:700;letter-spacing:.5px;color:var(--text3);text-transform:uppercase;margin-bottom:2px}
+    .exec-stat-serie{font-size:80px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+    .exec-stat-serie .exec-stat-of{color:var(--text3);font-size:.5em}
+    .exec-stat-reps{font-size:56px;font-weight:800;line-height:1;color:var(--green);margin-top:6px;font-variant-numeric:tabular-nums}
+    .exec-stat-reps .exec-stat-reps-label{font-size:.4em;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-left:6px}
+
     /* timers */
     .timer-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px}
     .timer-val{font-size:88px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1}
@@ -516,6 +524,11 @@ function parsarDescanso(prescricao){
   const val  = parseInt(m[1]);
   const unit = m[3].toLowerCase();
   return unit === 'min' ? val * 60 : val;
+}
+
+function getRepsAlvo(prescricao){
+  const m = (prescricao||'').match(/×\s*([\d\-–]+)\s*reps/i);
+  return m ? m[1] : '';
 }
 
 function esc(s){
@@ -1058,8 +1071,13 @@ function renderExPanel(tipo){
     html += `<button class="btn-pular" onclick="mostrarOpcoesSkip('${tipo}','${ex.id}')">Pular exercício</button>`;
 
   } else if(state.phase === 'exec'){
-    const elapsed = (Date.now() - state.greenStartTime) / 1000;
-    html += `<div class="serie-label">Série ${state.curSerie} de ${ex.series} — em execução</div>`;
+    const elapsed  = (Date.now() - state.greenStartTime) / 1000;
+    const repsAlvo = getRepsAlvo(ex.prescricao);
+    html += `<div class="exec-hero">
+      <div class="exec-hero-label">Em execução</div>
+      <div class="exec-stat-serie">${state.curSerie}<span class="exec-stat-of">/${ex.series}</span></div>
+      ${repsAlvo ? `<div class="exec-stat-reps">${esc(repsAlvo)}<span class="exec-stat-reps-label">reps</span></div>` : ''}
+    </div>`;
     html += `<div class="timer-row">
       <span class="timer-val timer-green" id="exec-timer">${fmtSec(elapsed)}</span>
     </div>`;
