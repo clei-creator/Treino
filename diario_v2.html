@@ -102,6 +102,13 @@
     .btn-gravar.gravado{border-color:var(--green);color:var(--green);opacity:.7;cursor:default}
     .btn-sub{display:block;font-size:12px;font-weight:600;opacity:.75;margin-top:2px}
 
+    /* rest focus overlay */
+    .rest-focus-overlay{position:fixed;inset:0;z-index:900;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:20px;text-align:center;-webkit-tap-highlight-color:transparent}
+    .rest-focus-label{font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--text3)}
+    .rest-focus-timer{font-size:128px;font-weight:800;color:var(--yellow);font-variant-numeric:tabular-nums;line-height:1}
+    .rest-focus-next{font-size:16px;color:var(--text2)}
+    .rest-focus-hint{font-size:13px;color:var(--text3);margin-top:8px}
+
     /* done state */
     .done-box{text-align:center;padding:20px 0}
     .done-icon{font-size:44px;margin-bottom:8px}
@@ -563,7 +570,7 @@ function mkState(ex){
     greenStartTime:null, yellowStartTime:null,
     yellowTotal:parsarDescanso(ex.prescricao), yellowAdded:0,
     greenDuration:0, tempData:{kg:'',reps:'',obs:''}, _alerted:false,
-    dadosGravados:null
+    dadosGravados:null, _focusMode:false
   };
 }
 
@@ -916,6 +923,9 @@ function tickTimers(tipo){
     const timerEl = document.getElementById('rest-timer');
     if(timerEl) timerEl.textContent = fmtSec(Math.max(0, remaining));
 
+    const focusTimerEl = document.getElementById('rest-timer-focus');
+    if(focusTimerEl) focusTimerEl.textContent = fmtSec(Math.max(0, remaining));
+
     const barEl = document.getElementById('rest-bar');
     if(barEl) barEl.style.width = Math.max(0, (remaining/total)*100) + '%';
 
@@ -1120,6 +1130,16 @@ function renderExPanel(tipo){
 
     html += `<button id="btn-proxima" class="btn-main ${done?'btn-green':'btn-idle'}"
       onclick="onProxima('${tipo}','${ex.id}')">⏭ Pular Descanso<span class="btn-sub">${esc(nextLabel)}</span></button>`;
+
+    if(state._focusMode){
+      html += `<div class="rest-focus-overlay" id="rest-focus-overlay"
+        onclick="sairFocoDescanso('${tipo}','${ex.id}')">
+        <div class="rest-focus-label">Descanso · Série ${state.curSerie} de ${ex.series}</div>
+        <div class="rest-focus-timer" id="rest-timer-focus">${fmtSec(Math.max(0,remaining))}</div>
+        <div class="rest-focus-next">${esc(nextLabel)}</div>
+        <div class="rest-focus-hint">Toque para voltar</div>
+      </div>`;
+    }
   }
 
   html += `</div>`; // active-sec
@@ -1261,6 +1281,7 @@ function onFeito(tipo, exId){
   state.yellowStartTime = Date.now();
   state.yellowAdded    = 0;
   state._alerted       = false;
+  state._focusMode     = false;
   needsFullRender      = true;
   renderAll();
   // Auto-focus kg input after render
@@ -1288,11 +1309,19 @@ function gravarSerieAtual(tipo, exId){
   if(parseFloat(kgVal) < 0 || parseInt(repsVal) < 1){ showToast('⚠️ Valores inválidos.'); return; }
 
   state.dadosGravados = { kg:kgVal, reps:repsVal, obs:obsVal||'' };
+  state._focusMode    = true;
   saveRascunho(tipo);
 
-  const btn = document.getElementById('btn-gravar');
-  if(btn){ btn.textContent='✅ Série registrada'; btn.classList.add('gravado'); btn.disabled=true; }
   showToast('💾 Série registrada. Descanso continua.');
+  needsFullRender = true;
+  renderAll();
+}
+
+function sairFocoDescanso(tipo, exId){
+  const state = getState(tipo, exId);
+  state._focusMode = false;
+  needsFullRender = true;
+  renderAll();
 }
 
 function onProxima(tipo, exId){
