@@ -1066,7 +1066,12 @@ function renderExPanel(tipo){
     </div>`;
 
   } else if(state.phase === 'ready'){
-    html += `<div class="serie-label">Série ${state.curSerie} de ${ex.series}</div>`;
+    const repsAlvo = getRepsAlvo(ex.prescricao);
+    html += `<div class="exec-hero">
+      <div class="exec-hero-label">Pronto para iniciar</div>
+      <div class="exec-stat-serie">${state.curSerie}<span class="exec-stat-of">/${ex.series}</span></div>
+      ${repsAlvo ? `<div class="exec-stat-reps">${esc(repsAlvo)}<span class="exec-stat-reps-label">reps</span></div>` : ''}
+    </div>`;
     html += `<button class="btn-main btn-green" onclick="onIniciar('${tipo}','${ex.id}')">
       Iniciar Série ${state.curSerie}
     </button>`;
