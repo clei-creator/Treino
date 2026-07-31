@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Diagnóstico — Treino</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding:20px;max-width:600px;margin:0 auto}
+    h1{font-size:19px;font-weight:700;margin-bottom:6px}
+    .sub{font-size:13px;color:rgba(235,235,245,.55);margin-bottom:24px;line-height:1.5}
+    .card{background:#1c1c1e;border-radius:14px;padding:16px;margin-bottom:14px}
+    .card-title{font-size:13px;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+    .badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:8px;text-transform:uppercase}
+    .badge-ok{background:rgba(48,209,88,.18);color:#30d158}
+    .badge-empty{background:rgba(235,235,245,.1);color:rgba(235,235,245,.4)}
+    .badge-warn{background:rgba(255,159,10,.18);color:#ff9f0a}
+    pre{white-space:pre-wrap;word-break:break-word;font-size:11px;color:rgba(235,235,245,.7);background:#000;border-radius:8px;padding:10px;max-height:300px;overflow-y:auto;font-family:ui-monospace,monospace}
+    .note{font-size:12px;color:rgba(235,235,245,.4);margin-top:6px;font-style:italic}
+    .safe{font-size:12px;color:#30d158;margin-bottom:20px;padding:10px 14px;background:rgba(48,209,88,.1);border-radius:10px}
+  </style>
+</head>
+<body>
+
+<h1>🔍 Diagnóstico do armazenamento local</h1>
+<p class="sub">Página somente leitura — não altera nada no localStorage. Serve só para ver o que existe neste dispositivo/ícone antes de abrir o app normal de novo.</p>
+<div class="safe">✅ Esta página não grava nada. Pode abrir à vontade sem risco de perder dados.</div>
+
+<div id="output"></div>
+
+<script>
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+
+function resumoSessoes(json){
+  try{
+    const arr = JSON.parse(json);
+    if(!Array.isArray(arr)) return 'formato inesperado';
+    if(arr.length === 0) return '0 sessões';
+    const datas = arr.map(s=>s.data).join(', ');
+    return `${arr.length} sessão(ões) — datas: ${datas}`;
+  }catch(e){ return 'erro ao ler JSON: '+e.message; }
+}
+
+function resumoRascunho(json){
+  try{
+    const r = JSON.parse(json);
+    const nExs = Object.keys(r.states||{}).length;
+    let totalSeries = 0;
+    for(const st of Object.values(r.states||{})){
+      totalSeries += (st.completed||[]).length;
+    }
+    return `data do rascunho: ${r.data} — ${nExs} exercício(s) com estado, ${totalSeries} série(s) já completadas`;
+  }catch(e){ return 'erro ao ler JSON: '+e.message; }
+}
+
+const keys = [
+  { key:'historico_v2_push', label:'Histórico Push (permanente)', tipo:'hist' },
+  { key:'historico_v2_pull', label:'Histórico Pull (permanente)', tipo:'hist' },
+  { key:'rascunho_v2_push',  label:'Rascunho Push (do dia)',       tipo:'rasc' },
+  { key:'rascunho_v2_pull',  label:'Rascunho Pull (do dia)',       tipo:'rasc' },
+];
+
+const out = document.getElementById('output');
+for(const {key, label, tipo} of keys){
+  const raw = lsGet(key);
+  const card = document.createElement('div');
+  card.className = 'card';
+  if(!raw){
+    card.innerHTML = `<div class="card-title">${label} <span class="badge badge-empty">vazio</span></div>
+      <div class="note">Nada guardado sob a chave "${key}" neste dispositivo.</div>`;
+  } else {
+    const resumo = tipo === 'hist' ? resumoSessoes(raw) : resumoRascunho(raw);
+    card.innerHTML = `<div class="card-title">${label} <span class="badge badge-ok">${resumo}</span></div>
+      <pre>${raw.replace(/</g,'&lt;')}</pre>`;
+  }
+  out.appendChild(card);
+}
+</script>
+</body>
+</html>
