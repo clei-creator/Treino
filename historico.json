@@ -1,6 +1,474 @@
 {
   "push": [
     {
+      "data": "2026-07-19",
+      "tipo": "push",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "C",
+      "exercicios": [
+        {
+          "exercicioId": "supino-reto",
+          "nome": "Supino Reto na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "87.5",
+              "reps": "6",
+              "obs": "Ok.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "87.5",
+              "reps": "6",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "92.5",
+              "reps": "6",
+              "obs": "Rir. 1.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 4,
+              "kg": "95",
+              "reps": "6",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "supino-inclinado",
+          "nome": "Supino Inclinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "62.5",
+              "reps": "8",
+              "obs": "Rir. 3.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "65",
+              "reps": "8",
+              "obs": "Rir. 3",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "70",
+              "reps": "8",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 4,
+              "kg": "70",
+              "reps": "8",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "crossover",
+          "nome": "Crossover — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "15",
+              "reps": "10",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "15",
+              "reps": "10",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "15",
+              "reps": "10",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "supino-declinado",
+          "nome": "Supino Declinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "45",
+              "reps": "10",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "50",
+              "reps": "8",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "50",
+              "reps": "8",
+              "obs": "Rir. 0. Pesada.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "face-pull",
+          "nome": "Face Pulls — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "30",
+              "reps": "15",
+              "obs": "Rir. 1.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "32.5",
+              "reps": "15",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "32.5",
+              "reps": "15",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "elevacao-lateral",
+          "nome": "Elevação Lateral",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "10",
+              "reps": "15",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "10",
+              "reps": "15",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "triceps-polia",
+          "nome": "Tríceps na Polia — Corda",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "30",
+              "reps": "8",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "32.5",
+              "reps": "8",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "35",
+              "reps": "7",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "data": "2026-07-11",
+      "tipo": "push",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "C",
+      "exercicios": [
+        {
+          "exercicioId": "supino-reto",
+          "nome": "Supino Reto na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "87.5",
+              "reps": "6",
+              "obs": "Ok",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "87.5",
+              "reps": "6",
+              "obs": "Rir. 1",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "90",
+              "reps": "6",
+              "obs": "Rir. 0",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 4,
+              "kg": "90",
+              "reps": "6",
+              "obs": "Rir. 0",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "supino-inclinado",
+          "nome": "Supino Inclinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "55",
+              "reps": "8",
+              "obs": "Rir. 2",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "65",
+              "reps": "6",
+              "obs": "Rir. 1.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "70",
+              "reps": "6",
+              "obs": "Rir. 1",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 4,
+              "kg": "70",
+              "reps": "6",
+              "obs": "Rir. 0",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "crossover",
+          "nome": "Crossover — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "15",
+              "reps": "10",
+              "obs": "Ok",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "15",
+              "reps": "10",
+              "obs": "Rir. 1",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "15",
+              "reps": "10",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "supino-declinado",
+          "nome": "Supino Declinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "8",
+              "obs": "Rir. 3",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "50",
+              "reps": "6",
+              "obs": "Rir. 0",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "45",
+              "reps": "8",
+              "obs": "Rir. 0. Máximo 45 pra 8 rep.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "face-pull",
+          "nome": "Face Pulls — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "30",
+              "reps": "15",
+              "obs": "Rir. 3.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "30",
+              "reps": "15",
+              "obs": "Rir. 2.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "30",
+              "reps": "15",
+              "obs": "Rir. 1.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "elevacao-lateral",
+          "nome": "Elevação Lateral",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "10",
+              "reps": "15",
+              "obs": "Rir. 0. Não estou conseguindo aumentar a carga, parei em 10 kg. Pra 15 repetições. (Analisar).",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "10",
+              "reps": "15",
+              "obs": "Rir. 1.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "10",
+              "reps": "15",
+              "obs": "Rir. 1.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "triceps-polia",
+          "nome": "Tríceps na Polia — Corda",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "30",
+              "reps": "8",
+              "obs": "Rir. 3.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "32.5",
+              "reps": "8",
+              "obs": "Rir. 1.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "33.5",
+              "reps": "7",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-06-27",
       "tipo": "push",
       "ciclo": "Ciclo 1 · Mai–Ago 2026",
@@ -938,6 +1406,354 @@
     }
   ],
   "pull": [
+    {
+      "data": "2026-07-23",
+      "tipo": "pull",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "C",
+      "exercicios": [
+        {
+          "exercicioId": "puxada-alta",
+          "nome": "Puxada Alta na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "92.5",
+              "reps": "6",
+              "obs": "Aquecendo",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "92.5",
+              "reps": "6",
+              "obs": "Rir. 3.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "102.5",
+              "reps": "6",
+              "obs": "Rir. 2.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 4,
+              "kg": "102.5",
+              "reps": "6",
+              "obs": "Rir. 1.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "leg-press",
+          "nome": "Leg Press 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "200",
+              "reps": "10",
+              "obs": "Aquecendo…",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "220",
+              "reps": "10",
+              "obs": "Rir. 1. Aquecendo ainda",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "220",
+              "reps": "10",
+              "obs": "Rir. 1.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 4,
+              "kg": "220",
+              "reps": "10",
+              "obs": "Rir 0.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "flexora",
+          "nome": "Cadeira Flexora",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "62.5",
+              "reps": "10",
+              "obs": "Rir. 2.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "65",
+              "reps": "10",
+              "obs": "Rir. 2.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "67.5",
+              "reps": "10",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "stiff",
+          "nome": "Stiff na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "45",
+              "reps": "12",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "45",
+              "reps": "12",
+              "obs": "Rir. 2.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "45",
+              "reps": "12",
+              "obs": "",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "hiperextensao",
+          "nome": "Hiperextensão Lombar 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "0",
+              "reps": "15",
+              "obs": "Rir. 3.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "0",
+              "reps": "15",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "0",
+              "reps": "15",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "rosca",
+          "nome": "Rosca Direta — Máquina/Scott",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "27.5",
+              "reps": "6",
+              "obs": "Rir. 2.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "30",
+              "reps": "8",
+              "obs": "Rir. 2.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "32.5",
+              "reps": "8",
+              "obs": "Rir. 1.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "data": "2026-07-13",
+      "tipo": "pull",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "C",
+      "exercicios": [
+        {
+          "exercicioId": "puxada-alta",
+          "nome": "Puxada Alta na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "92.5",
+              "reps": "6",
+              "obs": "OK.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "97.5",
+              "reps": "7",
+              "obs": "Rir. 2",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "105",
+              "reps": "6",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 4,
+              "kg": "105",
+              "reps": "6",
+              "obs": "Rir. 0",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "remada-sentada",
+          "nome": "Remada Sentada na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "50",
+              "reps": "6",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "50",
+              "reps": "6",
+              "obs": "Rir. 0",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "50",
+              "reps": "6",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 4,
+              "kg": "50",
+              "reps": "6",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "rosca",
+          "nome": "Rosca Direta — Máquina/Scott",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "27.5",
+              "reps": "6",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "30",
+              "reps": "8",
+              "obs": "Rir. 1.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "32.5",
+              "reps": "8",
+              "obs": "Rir. 0. Máximo.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        },
+        {
+          "exercicioId": "panturrilha",
+          "nome": "Panturrilha em Pé",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "20",
+              "obs": "OK.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 2,
+              "kg": "60",
+              "reps": "20",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            },
+            {
+              "serie": 3,
+              "kg": "60",
+              "reps": "20",
+              "obs": "Rir. 0.",
+              "duracao": 0,
+              "descanso": 0
+            }
+          ]
+        }
+      ]
+    },
     {
       "data": "2026-06-28",
       "tipo": "pull",
