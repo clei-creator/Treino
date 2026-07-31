@@ -67,6 +67,14 @@
     .c-data{font-size:14px;font-weight:600;flex:1}
     .c-dur{font-size:11px;color:var(--text3);flex-shrink:0}
     .c-obs-row{display:flex;padding:2px 16px 8px 54px;font-size:11px;color:var(--text3);font-style:italic}
+    .c-rir{font-size:11px;font-weight:700;color:var(--orange);flex-shrink:0}
+
+    /* RIR chips */
+    .rir-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+    .rir-row-label{font-size:12px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;flex-shrink:0}
+    .rir-chips{display:flex;gap:6px;flex:1}
+    .rir-chip{flex:1;padding:10px 0;border:1.5px solid var(--border);background:var(--card2);color:var(--text2);font-size:14px;font-weight:700;border-radius:10px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
+    .rir-chip.active{background:var(--orange);border-color:var(--orange);color:#000}
 
     /* active section */
     .active-sec{padding:16px}
@@ -158,6 +166,7 @@
     .hist-sr-label{font-size:10px;font-weight:700;color:var(--text3);min-width:22px;flex-shrink:0}
     .hist-sr-data{font-weight:600;color:var(--text);flex-shrink:0}
     .hist-sr-obs{font-size:11px;color:var(--text3);font-style:italic;flex:1;line-height:1.3}
+    .hist-sr-rir{font-size:11px;font-weight:700;color:var(--orange);flex-shrink:0}
     .hist-empty{text-align:center;padding:48px 20px}
     .hist-empty-icon{font-size:36px;margin-bottom:12px}
     .hist-empty-text{font-size:15px;color:var(--text3);margin-bottom:6px}
@@ -593,7 +602,7 @@ function mkState(ex){
     phase:'ready', curSerie:1, completed:[],
     greenStartTime:null, yellowStartTime:null,
     yellowTotal:parsarDescanso(ex.prescricao), yellowAdded:0,
-    greenDuration:0, tempData:{kg:'',reps:'',obs:''}, _alerted:false,
+    greenDuration:0, tempData:{kg:'',reps:'',obs:'',rir:null}, _alerted:false,
     dadosGravados:null, _focusMode:false
   };
 }
@@ -1069,6 +1078,7 @@ function renderExPanel(tipo){
       html += `<div class="c-row">
         <span class="c-badge">S${i+1} ✓</span>
         <span class="c-data">${esc(c.kg)} kg × ${esc(c.reps)} reps</span>
+        ${c.rir ? `<span class="c-rir">RIR ${esc(c.rir)}</span>` : ''}
         <span class="c-dur">${fmtSec(c.duracao)}</span>
       </div>`;
       if(c.obs) html += `<div class="c-obs-row">${esc(c.obs)}</div>`;
@@ -1173,7 +1183,14 @@ function renderExPanel(tipo){
       </div>
     </div>`;
 
-    html += `<textarea class="obs-input" id="inp-obs" placeholder="Observação (opcional)..."
+    html += `<div class="rir-row">
+      <span class="rir-row-label">RIR</span>
+      <div class="rir-chips">
+        ${['0','1','2','3+'].map(v => `<button class="rir-chip ${state.tempData.rir===v?'active':''}" data-val="${v}" onclick="setRir('${tipo}','${ex.id}','${v}')">${v}</button>`).join('')}
+      </div>
+    </div>`;
+
+    html += `<textarea class="obs-input" id="inp-obs" placeholder="💬 Comentário pro Coach (dor, sensação, contexto)..."
       oninput="syncTemp('${tipo}','${ex.id}','obs',this.value)"
       onchange="syncTemp('${tipo}','${ex.id}','obs',this.value)"
       >${esc(state.tempData.obs)}</textarea>`;
@@ -1272,6 +1289,7 @@ function renderHistPanel(){
         html += `<div class="hist-sr">
           <span class="hist-sr-label">S${sr.serie}</span>
           <span class="hist-sr-data">${esc(sr.kg)} kg × ${esc(sr.reps)}</span>
+          ${sr.rir ? `<span class="hist-sr-rir">RIR ${esc(sr.rir)}</span>` : ''}
           ${sr.obs ? `<span class="hist-sr-obs">${esc(sr.obs)}</span>` : ''}
         </div>`;
       }
@@ -1310,6 +1328,16 @@ function navEx(tipo, dir){
 
 function syncTemp(tipo, exId, field, val){
   getState(tipo, exId).tempData[field] = val;
+}
+
+function setRir(tipo, exId, val){
+  const state = getState(tipo, exId);
+  state.tempData.rir = (state.tempData.rir === val) ? null : val;
+  document.querySelectorAll('.rir-chip').forEach(el => el.classList.remove('active'));
+  if(state.tempData.rir !== null){
+    const btn = document.querySelector(`.rir-chip[data-val="${state.tempData.rir}"]`);
+    if(btn) btn.classList.add('active');
+  }
 }
 
 function usarAnterior(tipo, exId, kg, reps){
@@ -1375,7 +1403,7 @@ function gravarSerieAtual(tipo, exId){
   if(!kgVal || !repsVal){ showToast('⚠️ Preencha kg e reps antes de gravar.'); return; }
   if(parseFloat(kgVal) < 0 || parseInt(repsVal) < 1){ showToast('⚠️ Valores inválidos.'); return; }
 
-  state.dadosGravados = { kg:kgVal, reps:repsVal, obs:obsVal||'' };
+  state.dadosGravados = { kg:kgVal, reps:repsVal, obs:obsVal||'', rir:state.tempData.rir };
   state._focusMode    = true;
   saveRascunho(tipo);
 
@@ -1396,9 +1424,9 @@ function onProxima(tipo, exId){
   const state = getState(tipo, exId);
   const ex    = getExercicios(tipo).find(e=>e.id===exId);
 
-  let kgVal, repsVal, obsVal;
+  let kgVal, repsVal, obsVal, rirVal;
   if(state.dadosGravados){
-    ({kg:kgVal, reps:repsVal, obs:obsVal} = state.dadosGravados);
+    ({kg:kgVal, reps:repsVal, obs:obsVal, rir:rirVal} = state.dadosGravados);
   } else {
     // Read latest from DOM then state
     const kgEl   = document.getElementById('inp-kg');
@@ -1407,6 +1435,7 @@ function onProxima(tipo, exId){
     kgVal   = ((kgEl   ? kgEl.value   : state.tempData.kg)  +'').trim();
     repsVal = ((repsEl ? repsEl.value : state.tempData.reps)+'').trim();
     obsVal  =   obsEl  ? obsEl.value  : state.tempData.obs;
+    rirVal  =   state.tempData.rir;
 
     if(!kgVal || !repsVal){
       showToast('⚠️ Preencha kg e reps antes de continuar.');
@@ -1419,7 +1448,7 @@ function onProxima(tipo, exId){
   }
 
   const descanso = (Date.now() - state.yellowStartTime) / 1000;
-  state.completed.push({ kg:kgVal, reps:repsVal, obs:obsVal||'', duracao:state.greenDuration, descanso });
+  state.completed.push({ kg:kgVal, reps:repsVal, obs:obsVal||'', rir:rirVal||null, duracao:state.greenDuration, descanso });
   state.dadosGravados = null;
   autoSalvarHistorico(tipo);
 
@@ -1433,7 +1462,7 @@ function onProxima(tipo, exId){
     state.curSerie++;
     state.phase          = 'exec';
     state.greenStartTime = Date.now();
-    state.tempData       = {kg:'', reps:'', obs:''};
+    state.tempData       = {kg:'', reps:'', obs:'', rir:null};
     state._alerted       = false;
   } else if(hasNext){
     // Última série deste exercício: navega automaticamente para o próximo
@@ -1492,6 +1521,7 @@ function autoSalvarHistorico(tipo){
         kg:       c.kg,
         reps:     c.reps,
         obs:      c.obs||'',
+        rir:      c.rir||null,
         duracao:  Math.round(c.duracao),
         descanso: Math.round(c.descanso||0)
       }))
