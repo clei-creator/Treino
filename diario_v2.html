@@ -701,6 +701,15 @@ function salvarGhToken(){
   store.set('gh_token', val);
   inp.value = '';
   atualizarGhStatus();
+
+  const temDadosLocais = store.get('historico_v2_push') || store.get('historico_v2_pull');
+  if(temDadosLocais){
+    // Já existe histórico neste dispositivo — não sobrescrever automaticamente.
+    // O usuário escolhe explicitamente Enviar (push) ou Restaurar (pull) depois de conectar.
+    showToast('✅ Token conectado. Use "Enviar" ou "Restaurar" pra sincronizar.');
+    return;
+  }
+
   showToast('Token salvo! Restaurando histórico…');
   ghRestore().then(ok=>{
     if(ok){ needsFullRender=true; renderAll(); atualizarGhStatus(); showToast('☁ Histórico restaurado do GitHub!'); }
