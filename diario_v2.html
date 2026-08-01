@@ -142,6 +142,29 @@
     /* bottom bar */
     .bottom-bar{position:fixed;bottom:0;left:0;right:0;padding:12px 16px;padding-bottom:calc(12px + env(safe-area-inset-bottom));background:rgba(0,0,0,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:.5px solid var(--border);display:flex;gap:10px}
     .btn-backup{flex:1;background:var(--card2);color:var(--text2);border:none;border-radius:12px;padding:14px 18px;font-size:15px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
+    .btn-extra{flex:1;background:var(--card2);color:var(--text2);border:none;border-radius:12px;padding:14px 18px;font-size:15px;cursor:pointer;font-family:inherit;-webkit-tap-highlight-color:transparent}
+
+    /* academia (gym context) */
+    .academia-pill{background:var(--card2);color:var(--text3);border:1px solid var(--border);border-radius:20px;padding:4px 12px;font-size:12px;font-weight:600;cursor:pointer;-webkit-tap-highlight-color:transparent}
+
+    /* extra activity */
+    .extra-form{background:var(--card);border-radius:16px;padding:16px;margin-bottom:12px;border:1.5px solid var(--orange)}
+    .extra-form-title{font-size:15px;font-weight:700;color:var(--orange);margin-bottom:12px}
+    .extra-input{background:var(--card2);border:1.5px solid var(--border);border-radius:10px;color:var(--text);font-size:15px;padding:10px 12px;width:100%;font-family:inherit;outline:none;margin-bottom:10px;display:block;box-sizing:border-box}
+    .extra-input::placeholder{color:var(--text3)}
+    .extra-row2{display:flex;gap:10px}
+    .extra-row2 .extra-input{flex:1}
+    .extra-check-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;font-size:13px;color:var(--text2)}
+    .extra-form-btns{display:flex;gap:10px}
+    .btn-extra-salvar{flex:1;background:var(--orange);color:#000;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+    .btn-extra-cancelar{background:transparent;border:1.5px solid var(--border);color:var(--text3);border-radius:10px;padding:12px 16px;font-size:14px;cursor:pointer;font-family:inherit}
+    .extra-list-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:10px;border-left:4px solid var(--orange)}
+    .extra-item-name{font-size:14px;font-weight:700;color:var(--text2)}
+    .extra-item-meta{font-size:12px;color:var(--text3);margin-top:2px}
+    .extra-item-sub{font-size:11px;color:var(--orange);font-weight:700;text-transform:uppercase;margin-top:2px}
+    .extra-item-del{background:transparent;border:none;color:var(--text3);font-size:18px;cursor:pointer;padding:4px 8px;flex-shrink:0}
+    .hist-extra-item{padding:8px 16px;font-size:12px;color:var(--text2);border-top:.5px solid var(--border);background:rgba(255,159,10,.06)}
+    .hist-extra-badge{font-size:10px;font-weight:700;color:var(--orange);text-transform:uppercase;margin-right:6px}
 
     /* history */
     .hist-card{background:var(--card);border-radius:16px;margin-bottom:14px;overflow:hidden;border-left:4px solid transparent;transition:border-color .2s}
@@ -269,6 +292,7 @@
 
 <div class="topbar">
   <span class="topbar-title">Treino v3 <span class="week-badge" id="week-badge"></span></span>
+  <span class="academia-pill" id="academia-pill" onclick="trocarAcademia()">🏢 …</span>
 </div>
 
 <div class="tabbar">
@@ -292,6 +316,7 @@
 </div>
 
 <div class="bottom-bar" id="bottom-bar">
+  <button class="btn-extra" onclick="toggleExtraForm()">➕ Extra</button>
   <button class="btn-backup" onclick="exportarMD()">☁ Backup</button>
   <button class="btn-limpar-dia" onclick="confirmarLimparDia()" title="Limpar dados do dia">⊘</button>
 </div>
@@ -556,13 +581,51 @@ function esc(s){
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ── MACHINE CONFIG ────────────────────────────────────────────────────────────
+// ── ACADEMIA (GYM CONTEXT) ──────────────────────────────────────────────────
+const ACADEMIA_NOMES_PROIBIDOS = ['__proto__', 'constructor', 'prototype'];
+function academiaAtual(){
+  const v = store.get('academia_atual') || 'Academia Principal';
+  return ACADEMIA_NOMES_PROIBIDOS.includes(v) ? 'Academia Principal' : v;
+}
+function trocarAcademia(){
+  const atual = academiaAtual();
+  const nova  = prompt('Nome da academia atual:', atual);
+  if(nova === null) return;
+  const val = nova.trim();
+  if(!val) return;
+  if(ACADEMIA_NOMES_PROIBIDOS.includes(val)){ showToast('⚠ Nome de academia inválido.'); return; }
+  store.set('academia_atual', val);
+  atualizarAcademiaPill();
+  needsFullRender = true;
+  renderAll();
+  showToast('🏢 Academia: ' + val);
+}
+function atualizarAcademiaPill(){
+  const el = document.getElementById('academia-pill');
+  if(el) el.textContent = '🏢 ' + academiaAtual();
+}
+
+// ── MACHINE CONFIG (por academia — máquinas diferentes têm ajustes diferentes) ─
+function getConfigAll(){
+  const raw = JSON.parse(store.get('config_maquinas')||'{}');
+  const keys = Object.keys(raw);
+  const formatoAntigo = keys.length > 0 && typeof raw[keys[0]] === 'string';
+  if(formatoAntigo){
+    // migração única: config antiga era um mapa exId->texto sem academia
+    const migrado = { [academiaAtual()]: raw };
+    store.set('config_maquinas', JSON.stringify(migrado));
+    return migrado;
+  }
+  return raw;
+}
 function getConfig(exId){
-  return (JSON.parse(store.get('config_maquinas')||'{}'))[exId]||'';
+  const all = getConfigAll();
+  return (all[academiaAtual()]||{})[exId] || '';
 }
 function setConfig(exId, val){
-  const all = JSON.parse(store.get('config_maquinas')||'{}');
-  all[exId] = val;
+  const all = getConfigAll();
+  if(!all[academiaAtual()]) all[academiaAtual()] = {};
+  all[academiaAtual()][exId] = val;
   store.set('config_maquinas', JSON.stringify(all));
 }
 
@@ -592,12 +655,17 @@ let exIdxPush   = 0;
 let exIdxPull   = 0;
 let pushStates  = {};
 let pullStates  = {};
+let extrasPush  = [];
+let extrasPull  = [];
+let extraFormAberto = {push:false, pull:false};
 let needsFullRender = true;
 let histModoEdicao  = false;
 let histSelecao     = new Set();
 
 function getStates(tipo){ return tipo==='push' ? pushStates : pullStates; }
 function getExIdx(tipo){ return tipo==='push' ? exIdxPush : exIdxPull; }
+function getExtras(tipo){ return tipo==='push' ? extrasPush : extrasPull; }
+function setExtras(tipo, arr){ if(tipo==='push') extrasPush = arr; else extrasPull = arr; }
 
 function mkState(ex){
   return {
@@ -621,7 +689,7 @@ function getState(tipo, exId){
 function saveRascunho(tipo){
   const exs    = getExercicios(tipo);
   const states = getStates(tipo);
-  const r      = {data:hojeISO(), states:{}};
+  const r      = {data:hojeISO(), states:{}, extras:getExtras(tipo)};
   for(const ex of exs){ if(states[ex.id]) r.states[ex.id] = states[ex.id]; }
   store.set('rascunho_v2_'+tipo, JSON.stringify(r));
 }
@@ -634,6 +702,7 @@ function loadRascunho(tipo){
     if(r.data !== hojeISO()) return;
     const states = getStates(tipo);
     for(const [id,st] of Object.entries(r.states)) states[id] = st;
+    if(Array.isArray(r.extras)) setExtras(tipo, r.extras);
   }catch(e){}
 }
 
@@ -875,12 +944,63 @@ function confirmarLimparDia(){
       const states = getStates(tipo);
       for(const ex of exs) states[ex.id] = mkState(ex);
       if(tipo==='push') exIdxPush=0; else exIdxPull=0;
+      setExtras(tipo, []);
+      extraFormAberto[tipo] = false;
       store.remove('rascunho_v2_'+tipo);
+      autoSalvarHistorico(tipo); // remove sessão de hoje já salva, se houver (hasData agora é false)
+      ghSync(true);
       needsFullRender=true;
       renderAll();
       showToast('🗑 Dados do dia apagados.');
     }
   });
+}
+
+// ── EXTRA ACTIVITY ────────────────────────────────────────────────────────────
+function toggleExtraForm(){
+  const tipo = activeTab;
+  if(tipo === 'hist'){ showToast('Selecione Push ou Pull primeiro.'); return; }
+  extraFormAberto[tipo] = !extraFormAberto[tipo];
+  needsFullRender = true;
+  renderAll();
+}
+
+function salvarExtra(tipo){
+  const nomeEl = document.getElementById('extra-inp-nome');
+  const durEl  = document.getElementById('extra-inp-dur');
+  const distEl = document.getElementById('extra-inp-dist');
+  const obsEl  = document.getElementById('extra-inp-obs');
+  const subEl  = document.getElementById('extra-inp-sub');
+
+  const nome = ((nomeEl ? nomeEl.value : '')||'').trim();
+  if(!nome){ showToast('⚠️ Diga o nome da atividade.'); return; }
+
+  const extra = {
+    nome,
+    duracaoMin:  ((durEl  ? durEl.value  : '')||'').trim(),
+    distanciaKm: ((distEl ? distEl.value : '')||'').trim(),
+    obs:         ((obsEl  ? obsEl.value  : '')||'').trim(),
+    substituido: !!(subEl && subEl.checked)
+  };
+
+  getExtras(tipo).push(extra);
+  extraFormAberto[tipo] = false;
+  saveRascunho(tipo);
+  autoSalvarHistorico(tipo);
+  ghSync(true);
+
+  showToast('✅ Atividade extra registrada.');
+  needsFullRender = true;
+  renderAll();
+}
+
+function removerExtra(tipo, idx){
+  getExtras(tipo).splice(idx, 1);
+  saveRascunho(tipo);
+  autoSalvarHistorico(tipo);
+  ghSync(true);
+  needsFullRender = true;
+  renderAll();
 }
 
 // ── HISTORY EDIT ──────────────────────────────────────────────────────────────
@@ -1051,6 +1171,38 @@ function renderExPanel(tipo){
     <span class="ex-nav-info">${exIdx+1} de ${exs.length}</span>
     <button class="ex-nav-btn" onclick="navEx('${tipo}',1)" ${exIdx===exs.length-1?'disabled':''}>›</button>
   </div>`;
+
+  // Extra activities (day-level, não ligado a um exercício específico)
+  const extras = getExtras(tipo);
+  if(extraFormAberto[tipo]){
+    html += `<div class="extra-form">
+      <div class="extra-form-title">➕ Atividade extra</div>
+      <input class="extra-input" id="extra-inp-nome" type="text" placeholder="Nome (ex: Corrida, Bike, Natação)...">
+      <div class="extra-row2">
+        <input class="extra-input" id="extra-inp-dur" type="number" inputmode="numeric" min="0" placeholder="Duração (min)">
+        <input class="extra-input" id="extra-inp-dist" type="number" inputmode="decimal" min="0" step="0.1" placeholder="Distância (km)">
+      </div>
+      <textarea class="extra-input obs-input" id="extra-inp-obs" placeholder="Observação (opcional)..."></textarea>
+      <label class="extra-check-row">
+        <input type="checkbox" id="extra-inp-sub">
+        Substituiu o treino de hoje (não fiz a ficha)
+      </label>
+      <div class="extra-form-btns">
+        <button class="btn-extra-cancelar" onclick="toggleExtraForm()">Cancelar</button>
+        <button class="btn-extra-salvar" onclick="salvarExtra('${tipo}')">💾 Salvar atividade</button>
+      </div>
+    </div>`;
+  }
+  if(extras.length){
+    html += extras.map((e,i) => `<div class="extra-list-item">
+      <div>
+        <div class="extra-item-name">${e.substituido?'🔁 ':'➕ '}${esc(e.nome)}</div>
+        <div class="extra-item-meta">${[e.duracaoMin?esc(String(e.duracaoMin))+' min':'', e.distanciaKm?esc(String(e.distanciaKm))+' km':''].filter(Boolean).join(' · ')}${e.obs?' · '+esc(e.obs):''}</div>
+        ${e.substituido?'<div class="extra-item-sub">Substituiu o treino</div>':''}
+      </div>
+      <button class="extra-item-del" onclick="removerExtra('${tipo}',${i})">✕</button>
+    </div>`).join('');
+  }
 
   html += `<div class="ex-card">`;
 
@@ -1284,6 +1436,7 @@ function renderHistPanel(){
         <div class="hist-type-row">
           <span class="hist-type-badge ${tipoClass}">${tipoLabel}</span>
           ${s.bloco ? `<span class="hist-bloco-badge">Bloco ${esc(s.bloco)}</span>` : ''}
+          ${s.academia ? `<span class="hist-bloco-badge">🏢 ${esc(s.academia)}</span>` : ''}
         </div>
         <div class="hist-date-str">${fmtData(s.data)}</div>
         ${s.ciclo ? `<div class="hist-ciclo-str">${esc(s.ciclo)}</div>` : ''}
@@ -1305,6 +1458,14 @@ function renderHistPanel(){
         </div>`;
       }
       html += `</div></div>`;
+    }
+    if(s.extras && s.extras.length){
+      for(const e of s.extras){
+        html += `<div class="hist-extra-item">
+          <span class="hist-extra-badge">${e.substituido?'🔁 substituiu':'➕ extra'}</span>
+          ${esc(e.nome)}${e.duracaoMin?' · '+esc(String(e.duracaoMin))+' min':''}${e.distanciaKm?' · '+esc(String(e.distanciaKm))+' km':''}${e.obs?' · '+esc(e.obs):''}
+        </div>`;
+      }
     }
     html += `</div></div>`;
   }
@@ -1510,14 +1671,23 @@ function autoSalvarHistorico(tipo){
   const exs    = getExercicios(tipo);
   const states = getStates(tipo);
   const b      = getBlocoAtual();
+  const extras = getExtras(tipo);
+  const hist   = getHistorico(tipo);
+  const today  = hojeISO();
 
-  const hasData = exs.some(ex => states[ex.id] && states[ex.id].completed.length > 0);
-  if(!hasData) return;
+  const hasData = exs.some(ex => states[ex.id] && states[ex.id].completed.length > 0) || extras.length > 0;
+  if(!hasData){
+    // nada pra salvar hoje — se existia uma sessão de hoje (ex: última série/extra foi removida), some com ela
+    const idxVazio = hist.findIndex(s=>s.data===today);
+    if(idxVazio >= 0){ hist.splice(idxVazio, 1); store.set('historico_v2_'+tipo, JSON.stringify(hist)); }
+    return;
+  }
 
   const sessao = {
-    data: hojeISO(), tipo,
+    data: today, tipo,
     ciclo: b ? b.cicloNome : '—',
     bloco: b ? b.bloco     : '—',
+    academia: academiaAtual(),
     exercicios: []
   };
 
@@ -1539,9 +1709,12 @@ function autoSalvarHistorico(tipo){
     });
   }
 
-  const hist  = getHistorico(tipo);
-  const today = hojeISO();
-  const idx   = hist.findIndex(s=>s.data===today);
+  if(extras.length){
+    sessao.extras = extras.map(e => ({...e}));
+    if(extras.some(e => e.substituido)) sessao.substituido = true;
+  }
+
+  const idx = hist.findIndex(s=>s.data===today);
   if(idx >= 0) hist.splice(idx, 1);
   hist.unshift(sessao);
   store.set('historico_v2_'+tipo, JSON.stringify(hist));
@@ -1560,10 +1733,17 @@ function exportarMD(){
   for(const s of all){
     md += `## ${s.data} — ${s.tipo==='push'?'Push':'Pull'}\n`;
     if(s.bloco) md += `Bloco ${s.bloco}\n\n`;
+    if(s.academia) md += `Academia: ${s.academia}\n\n`;
     for(const ex of (s.exercicios||[])){
       md += `### ${ex.nome}\n`;
       for(const sr of (ex.series||[]))
         md += `- S${sr.serie}: ${sr.kg}kg × ${sr.reps}${sr.obs?' — '+sr.obs:''}\n`;
+      md += '\n';
+    }
+    if(s.extras && s.extras.length){
+      md += `### Atividades extras${s.substituido?' (substituiu o treino)':''}\n`;
+      for(const e of s.extras)
+        md += `- ${e.nome}${e.duracaoMin?' — '+e.duracaoMin+' min':''}${e.distanciaKm?' — '+e.distanciaKm+' km':''}${e.obs?' — '+e.obs:''}\n`;
       md += '\n';
     }
   }
@@ -1603,6 +1783,7 @@ function showToast(msg){
 loadRascunho('push');
 loadRascunho('pull');
 iniciarBemVindo();
+atualizarAcademiaPill();
 renderAll();
 setInterval(renderAll, 1000);
 
