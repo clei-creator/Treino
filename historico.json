@@ -1,6 +1,39 @@
 {
   "push": [
     {
+      "data": "2026-08-01",
+      "tipo": "push",
+      "ciclo": "Ciclo 1 · Mai–Ago 2026",
+      "bloco": "Deload",
+      "academia": "Academia Principal",
+      "exercicios": [
+        {
+          "exercicioId": "supino-reto",
+          "nome": "Supino Reto na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "72.5",
+              "reps": "10",
+              "obs": "Aquecendo ",
+              "rir": "3+",
+              "duracao": 68,
+              "descanso": 120
+            },
+            {
+              "serie": 2,
+              "kg": "72.5",
+              "reps": "10",
+              "obs": "Acapela contraída ou não? Qual o certo?",
+              "rir": "3+",
+              "duracao": 45,
+              "descanso": 132
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-07-19",
       "tipo": "push",
       "ciclo": "Ciclo 1 · Mai–Ago 2026",
@@ -3086,19 +3119,21 @@
     }
   ],
   "config": {
-    "puxada-alta": "Maq. 32 / 9",
-    "remada-sentada": "Maq. 31 / 9",
-    "leg-press": "09 /",
-    "flexora": "10 / pé 3",
-    "hiperextensao": "Maq. 44 / 4",
-    "rosca": "Maq. 53 | Banco: 7",
-    "supino-inclinado": "22 / 3",
-    "triceps-polia": "Polia / 7",
-    "stiff": "Barra grande. ",
-    "supino-reto": "20 / 6 / contrair escapulas",
-    "crossover": "61 / 2",
-    "supino-declinado": "24 / 7 / pernas e abd contraídos ",
-    "face-pull": "62 / 4"
+    "Academia Principal": {
+      "puxada-alta": "Maq. 32 / 9",
+      "remada-sentada": "Maq. 31 / 9",
+      "leg-press": "09 /",
+      "flexora": "10 / pé 3",
+      "hiperextensao": "Maq. 44 / 4",
+      "rosca": "Maq. 53 | Banco: 7",
+      "supino-inclinado": "22 / 3",
+      "triceps-polia": "Polia / 7",
+      "stiff": "Barra grande. ",
+      "supino-reto": "20 / 6 / contrair escapulas",
+      "crossover": "61 / 2",
+      "supino-declinado": "24 / 7 / pernas e abd contraídos ",
+      "face-pull": "62 / 4"
+    }
   },
-  "at": "2026-07-31T16:26:37.581Z"
+  "at": "2026-08-01T19:28:10.255Z"
 }
