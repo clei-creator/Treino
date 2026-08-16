@@ -1,6 +1,57 @@
 {
   "push": [
     {
+      "data": "2026-08-16",
+      "tipo": "push",
+      "ciclo": "—",
+      "bloco": "—",
+      "academia": "Academia Principal",
+      "exercicios": [
+        {
+          "exercicioId": "supino-reto",
+          "nome": "Supino Reto na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "90",
+              "reps": "6",
+              "obs": "",
+              "rir": "1",
+              "duracao": 65,
+              "descanso": 121
+            },
+            {
+              "serie": 2,
+              "kg": "92.5",
+              "reps": "6",
+              "obs": "",
+              "rir": "0",
+              "duracao": 41,
+              "descanso": 120
+            },
+            {
+              "serie": 3,
+              "kg": "92.5",
+              "reps": "6",
+              "obs": "",
+              "rir": "0",
+              "duracao": 40,
+              "descanso": 120
+            },
+            {
+              "serie": 4,
+              "kg": "95",
+              "reps": "6",
+              "obs": "",
+              "rir": "0",
+              "duracao": 50,
+              "descanso": 120
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-08-01",
       "tipo": "push",
       "ciclo": "Ciclo 1 · Mai–Ago 2026",
@@ -3279,5 +3330,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-08-16T12:24:53.275Z"
+  "at": "2026-08-16T13:57:34.196Z"
 }
