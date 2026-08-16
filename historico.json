@@ -90,6 +90,39 @@
               "descanso": 4
             }
           ]
+        },
+        {
+          "exercicioId": "crossover",
+          "nome": "Crossover — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "12.5",
+              "reps": "15",
+              "obs": "",
+              "rir": "2",
+              "duracao": 46,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "17",
+              "reps": "9",
+              "obs": "Pesado",
+              "rir": "0",
+              "duracao": 67,
+              "descanso": 90
+            },
+            {
+              "serie": 3,
+              "kg": "15",
+              "reps": "10",
+              "obs": "Ok",
+              "rir": "0",
+              "duracao": 56,
+              "descanso": 99
+            }
+          ]
         }
       ]
     },
@@ -3372,5 +3405,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-08-16T14:07:36.475Z"
+  "at": "2026-08-16T14:16:55.815Z"
 }
