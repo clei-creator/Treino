@@ -123,6 +123,39 @@
               "descanso": 99
             }
           ]
+        },
+        {
+          "exercicioId": "supino-declinado",
+          "nome": "Supino Declinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "45",
+              "reps": "8",
+              "obs": "",
+              "rir": "0",
+              "duracao": 3,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "45",
+              "reps": "7",
+              "obs": "Pesou",
+              "rir": "0",
+              "duracao": 51,
+              "descanso": 91
+            },
+            {
+              "serie": 3,
+              "kg": "45",
+              "reps": "8",
+              "obs": "",
+              "rir": "0",
+              "duracao": 54,
+              "descanso": 91
+            }
+          ]
         }
       ]
     },
@@ -3405,5 +3438,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-08-16T14:16:55.815Z"
+  "at": "2026-08-16T14:24:40.595Z"
 }
