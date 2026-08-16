@@ -48,6 +48,48 @@
               "descanso": 120
             }
           ]
+        },
+        {
+          "exercicioId": "supino-inclinado",
+          "nome": "Supino Inclinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "70",
+              "reps": "6",
+              "obs": "Pesado. ",
+              "rir": "0",
+              "duracao": 69,
+              "descanso": 121
+            },
+            {
+              "serie": 2,
+              "kg": "60",
+              "reps": "8",
+              "obs": "",
+              "rir": "1",
+              "duracao": 58,
+              "descanso": 120
+            },
+            {
+              "serie": 3,
+              "kg": "62.5",
+              "reps": "8",
+              "obs": "",
+              "rir": "0",
+              "duracao": 47,
+              "descanso": 120
+            },
+            {
+              "serie": 4,
+              "kg": "62.5",
+              "reps": "8",
+              "obs": "",
+              "rir": "0",
+              "duracao": 58,
+              "descanso": 4
+            }
+          ]
         }
       ]
     },
@@ -3321,7 +3363,7 @@
       "flexora": "10 / pé 3",
       "hiperextensao": "Maq. 44 / 4",
       "rosca": "Maq. 53 | Banco: 7",
-      "supino-inclinado": "22 / 3",
+      "supino-inclinado": "22 / 4",
       "triceps-polia": "Polia / 7",
       "stiff": "Barra grande. ",
       "supino-reto": "20 / 6 / contrair escapulas",
@@ -3330,5 +3372,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-08-16T13:57:34.196Z"
+  "at": "2026-08-16T14:07:36.475Z"
 }
