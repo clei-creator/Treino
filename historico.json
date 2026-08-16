@@ -189,6 +189,39 @@
               "descanso": 61
             }
           ]
+        },
+        {
+          "exercicioId": "elevacao-lateral",
+          "nome": "Elevação Lateral",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 1,
+              "descanso": 91
+            },
+            {
+              "serie": 2,
+              "kg": "10",
+              "reps": "15",
+              "obs": "Descanso 1:30 é o ideal. ",
+              "rir": "0",
+              "duracao": 57,
+              "descanso": 91
+            },
+            {
+              "serie": 3,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 57,
+              "descanso": 91
+            }
+          ]
         }
       ]
     },
@@ -3471,5 +3504,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-08-16T14:31:56.332Z"
+  "at": "2026-08-16T14:39:19.116Z"
 }
