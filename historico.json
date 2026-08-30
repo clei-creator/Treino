@@ -171,6 +171,39 @@
               "descanso": 60
             }
           ]
+        },
+        {
+          "exercicioId": "elevacao-lateral",
+          "nome": "Elevação Lateral",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 42,
+              "descanso": 91
+            },
+            {
+              "serie": 2,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 72,
+              "descanso": 61
+            },
+            {
+              "serie": 3,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 47,
+              "descanso": 61
+            }
+          ]
         }
       ]
     },
@@ -3711,5 +3744,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-08-30T13:27:29.393Z"
+  "at": "2026-08-30T13:33:44.886Z"
 }
