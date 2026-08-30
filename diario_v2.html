@@ -614,6 +614,14 @@ function desativarModoRetorno(){
   iniciarBemVindo();
   showToast('Modo retorno encerrado.');
 }
+function consumirModoRetorno(tipo){
+  const r = getRetornoAtivo();
+  if(!r || !r.restantes || !r.restantes[tipo]) return;
+  r.restantes[tipo] = 0;
+  if(!r.restantes.push && !r.restantes.pull) store.remove('retorno_ativo');
+  else store.set('retorno_ativo', JSON.stringify(r));
+  atualizarRetornoWidget();
+}
 function confirmarAtivarRetorno(){
   showModal({
     title: '🩹 Ativar modo retorno?',
@@ -1726,6 +1734,7 @@ function onProxima(tipo, exId){
     showToast('🏆 Treino concluído! Ótimo trabalho!');
     ghSync(true);
     celebrarTreino();
+    consumirModoRetorno(tipo);
   }
 
   saveRascunho(tipo);
@@ -1793,16 +1802,6 @@ function autoSalvarHistorico(tipo){
   if(idx >= 0) hist.splice(idx, 1);
   hist.unshift(sessao);
   store.set('historico_v2_'+tipo, JSON.stringify(hist));
-
-  // Consome 1 sessão de modo retorno quando exercícios de verdade foram completados (não conta dia só de extra)
-  if(sessao.exercicios.length > 0){
-    const r = getRetornoAtivo();
-    if(r && r.restantes && r.restantes[tipo]){
-      r.restantes[tipo] = 0;
-      if(!r.restantes.push && !r.restantes.pull) store.remove('retorno_ativo');
-      else store.set('retorno_ativo', JSON.stringify(r));
-    }
-  }
 }
 
 // ── EXPORT ────────────────────────────────────────────────────────────────────
