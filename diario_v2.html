@@ -257,6 +257,9 @@
     .welcome-sub code{background:#2c2c2e;padding:1px 5px;border-radius:4px;font-size:12px}
     .btn-welcome-start{width:100%;padding:20px;background:#0a84ff;color:#fff;border:none;border-radius:14px;font-size:18px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:8px}
     .welcome-diag-link{display:block;text-align:center;font-size:13px;color:var(--text3);margin-top:16px;text-decoration:underline}
+    .retorno-ativar-link{display:block;text-align:center;font-size:13px;color:var(--text3);text-decoration:underline;background:none;border:none;font-family:inherit;cursor:pointer;width:100%;padding:0}
+    .retorno-status{background:rgba(255,159,10,.12);border:1px solid rgba(255,159,10,.35);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--orange);text-align:center;margin-bottom:6px}
+    .retorno-encerrar-btn{display:block;margin:0 auto;font-size:12px;color:var(--text3);text-decoration:underline;background:none;border:none;font-family:inherit;cursor:pointer;padding:4px}
 
     /* github sync */
     .gh-status-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
@@ -340,6 +343,7 @@
     <h1 class="welcome-title">Treino v3</h1>
     <div id="welcome-badge" class="week-badge" style="margin:0 auto 24px;display:none"></div>
     <a href="guia_ciclo_12_semanas.html" class="welcome-diag-link" style="margin:-12px 0 20px">📖 Programa de treino atual (guia do ciclo)</a>
+    <div id="retorno-widget" style="margin-bottom:20px"></div>
 
     <div class="welcome-section">
       <div class="welcome-sec-title">💪 Push — Sábados</div>
@@ -533,8 +537,18 @@ function getBlocoAtual(){
 
 function getExercicios(tipo){
   const b = getBlocoAtual();
-  if(!b){ const u = CICLOS[CICLOS.length-1]; return u[tipo]['C']; }
-  return b.cicloObj[tipo][b.bloco];
+  const base = b ? b.cicloObj[tipo][b.bloco] : CICLOS[CICLOS.length-1][tipo]['C'];
+  return aplicarModoRetorno(tipo, base);
+}
+
+function aplicarModoRetorno(tipo, exs){
+  const r = getRetornoAtivo();
+  if(!r || !r.restantes || !r.restantes[tipo]) return exs;
+  return exs.map(ex => ({
+    ...ex,
+    series: Math.max(2, ex.series - 1),
+    prescricao: ex.prescricao + ' · 🩹 Retorno: ~60-70% da carga anterior, RIR 3-4 (sem ir à falha)'
+  }));
 }
 
 // ── UTILITIES ─────────────────────────────────────────────────────────────────
@@ -580,6 +594,43 @@ function getRepsAlvo(prescricao){
 function esc(s){
   if(s == null) return '';
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── MODO RETORNO (reentrada leve após pausa) ─────────────────────────────────
+function getRetornoAtivo(){
+  try{ return JSON.parse(store.get('retorno_ativo')||'null'); }catch(e){ return null; }
+}
+function ativarModoRetorno(){
+  store.set('retorno_ativo', JSON.stringify({ativadoEm: hojeISO(), restantes:{push:1, pull:1}}));
+  needsFullRender = true;
+  renderAll();
+  iniciarBemVindo();
+  showToast('🩹 Modo retorno ativado — próxima Push e próxima Pull mais leves.');
+}
+function desativarModoRetorno(){
+  store.remove('retorno_ativo');
+  needsFullRender = true;
+  renderAll();
+  iniciarBemVindo();
+  showToast('Modo retorno encerrado.');
+}
+function confirmarAtivarRetorno(){
+  showModal({
+    title: '🩹 Ativar modo retorno?',
+    body:  'Reduz em 1 série cada exercício e adiciona uma instrução de carga/RIR mais conservadora (60-70% da carga anterior, RIR 3-4, sem ir à falha) na próxima sessão Push e na próxima sessão Pull. Depois dessas duas, volta ao normal sozinho.',
+    confirmText: 'Ativar',
+    confirmColor: 'blue',
+    onConfirm: ativarModoRetorno
+  });
+}
+function confirmarDesativarRetorno(){
+  showModal({
+    title: 'Encerrar modo retorno?',
+    body:  'As próximas sessões voltam a usar séries e carga normais.',
+    confirmText: 'Encerrar',
+    confirmColor: 'red',
+    onConfirm: desativarModoRetorno
+  });
 }
 
 // ── ACADEMIA (GYM CONTEXT) ──────────────────────────────────────────────────
@@ -895,6 +946,20 @@ function iniciarBemVindo(){
       `<div class="welcome-ex-item">${esc(ex.nome)}<div class="welcome-ex-presc">${esc(ex.prescricao)}</div></div>`
     ).join('');
   }
+  atualizarRetornoWidget();
+}
+
+function atualizarRetornoWidget(){
+  const el = document.getElementById('retorno-widget');
+  if(!el) return;
+  const r = getRetornoAtivo();
+  if(!r || !r.restantes || (!r.restantes.push && !r.restantes.pull)){
+    el.innerHTML = `<button class="retorno-ativar-link" onclick="confirmarAtivarRetorno()">🩹 Voltando de pausa? Ativar modo retorno</button>`;
+    return;
+  }
+  const faltam = ['push','pull'].filter(t => r.restantes[t]).map(t => t==='push' ? 'Push' : 'Pull');
+  el.innerHTML = `<div class="retorno-status">🩹 Modo retorno ativo — falta: ${faltam.join(', ')}</div>
+    <button class="retorno-encerrar-btn" onclick="confirmarDesativarRetorno()">Encerrar modo retorno</button>`;
 }
 
 // ── SKIP EXERCISE ─────────────────────────────────────────────────────────────
@@ -1045,8 +1110,17 @@ function renderAll(){
   const b     = getBlocoAtual();
   const badge = document.getElementById('week-badge');
   if(badge){
-    if(b){ badge.textContent='Sem.'+b.sem+' · Bloco '+b.bloco; badge.style.background=b.cor; badge.style.display='inline-block'; }
-    else { badge.style.display='none'; }
+    const r = getRetornoAtivo();
+    const retornoPendente = !!(r && r.restantes && (r.restantes.push || r.restantes.pull));
+    if(b || retornoPendente){
+      let texto = b ? ('Sem.'+b.sem+' · Bloco '+b.bloco) : '—';
+      if(retornoPendente) texto = '🩹 Retorno · ' + texto;
+      badge.textContent      = texto;
+      badge.style.background = b ? b.cor : 'var(--orange)';
+      badge.style.display    = 'inline-block';
+    } else {
+      badge.style.display = 'none';
+    }
   }
 
   const bb = document.getElementById('bottom-bar');
@@ -1719,6 +1793,16 @@ function autoSalvarHistorico(tipo){
   if(idx >= 0) hist.splice(idx, 1);
   hist.unshift(sessao);
   store.set('historico_v2_'+tipo, JSON.stringify(hist));
+
+  // Consome 1 sessão de modo retorno quando exercícios de verdade foram completados (não conta dia só de extra)
+  if(sessao.exercicios.length > 0){
+    const r = getRetornoAtivo();
+    if(r && r.restantes && r.restantes[tipo]){
+      r.restantes[tipo] = 0;
+      if(!r.restantes.push && !r.restantes.pull) store.remove('retorno_ativo');
+      else store.set('retorno_ativo', JSON.stringify(r));
+    }
+  }
 }
 
 // ── EXPORT ────────────────────────────────────────────────────────────────────
