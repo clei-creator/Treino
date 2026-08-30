@@ -238,6 +238,15 @@
             }
           ]
         }
+      ],
+      "extras": [
+        {
+          "nome": "Barra máquina n. 61",
+          "duracaoMin": "",
+          "distanciaKm": "",
+          "obs": "Aberta: 2x 10 rep. Com 27,5 kg. \nBíceps: 2x 10 rep. Com 42,5 kg.",
+          "substituido": false
+        }
       ]
     },
     {
@@ -3777,5 +3786,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-08-30T13:40:19.350Z"
+  "at": "2026-08-30T13:47:55.828Z"
 }
