@@ -222,6 +222,39 @@
               "descanso": 60
             }
           ]
+        },
+        {
+          "exercicioId": "triceps-polia",
+          "nome": "Tríceps na Polia — Corda",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "25",
+              "reps": "13",
+              "obs": "Leve. ",
+              "rir": "3+",
+              "duracao": 66,
+              "descanso": 60
+            },
+            {
+              "serie": 2,
+              "kg": "30.5",
+              "reps": "8",
+              "obs": "OK",
+              "rir": "1",
+              "duracao": 46,
+              "descanso": 60
+            },
+            {
+              "serie": 3,
+              "kg": "30.5",
+              "reps": "8",
+              "obs": "",
+              "rir": "0",
+              "duracao": 130,
+              "descanso": 61
+            }
+          ]
         }
       ]
     },
@@ -4011,5 +4044,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-09-19T13:14:49.560Z"
+  "at": "2026-09-19T13:23:10.581Z"
 }
