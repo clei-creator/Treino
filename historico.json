@@ -2513,6 +2513,39 @@
               "descanso": 90
             }
           ]
+        },
+        {
+          "exercicioId": "stiff",
+          "nome": "Stiff na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "45",
+              "reps": "12",
+              "obs": "Barra livre. Voltando depois de 59 dias. ",
+              "rir": "1",
+              "duracao": 63,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "45",
+              "reps": "12",
+              "obs": "",
+              "rir": "1",
+              "duracao": 75,
+              "descanso": 91
+            },
+            {
+              "serie": 3,
+              "kg": "45",
+              "reps": "12",
+              "obs": "",
+              "rir": "1",
+              "duracao": 77,
+              "descanso": 90
+            }
+          ]
         }
       ]
     },
@@ -4212,5 +4245,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-09-20T15:33:32.829Z"
+  "at": "2026-09-20T15:42:47.041Z"
 }
