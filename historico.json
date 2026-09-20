@@ -2349,6 +2349,57 @@
   ],
   "pull": [
     {
+      "data": "2026-09-20",
+      "tipo": "pull",
+      "ciclo": "—",
+      "bloco": "—",
+      "academia": "Academia Principal",
+      "exercicios": [
+        {
+          "exercicioId": "puxada-alta",
+          "nome": "Puxada Alta na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "90",
+              "reps": "6",
+              "obs": "Voltando depois de 59 dias. ",
+              "rir": "2",
+              "duracao": 31,
+              "descanso": 121
+            },
+            {
+              "serie": 2,
+              "kg": "90",
+              "reps": "6",
+              "obs": "",
+              "rir": "2",
+              "duracao": 24,
+              "descanso": 121
+            },
+            {
+              "serie": 3,
+              "kg": "95",
+              "reps": "6",
+              "obs": "",
+              "rir": "2",
+              "duracao": 26,
+              "descanso": 120
+            },
+            {
+              "serie": 4,
+              "kg": "102.5",
+              "reps": "6",
+              "obs": "",
+              "rir": "1",
+              "duracao": 46,
+              "descanso": 121
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-07-23",
       "tipo": "pull",
       "ciclo": "Ciclo 1 · Mai–Ago 2026",
@@ -4044,5 +4095,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-09-19T13:23:10.581Z"
+  "at": "2026-09-20T15:00:50.031Z"
 }
