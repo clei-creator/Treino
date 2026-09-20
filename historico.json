@@ -2612,6 +2612,39 @@
               "descanso": 60
             }
           ]
+        },
+        {
+          "exercicioId": "panturrilha",
+          "nome": "Panturrilha em Pé",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "20",
+              "obs": "",
+              "rir": "2",
+              "duracao": 72,
+              "descanso": 46
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "20",
+              "obs": "",
+              "rir": "0",
+              "duracao": 43,
+              "descanso": 46
+            },
+            {
+              "serie": 3,
+              "kg": "40",
+              "reps": "20",
+              "obs": "",
+              "rir": "0",
+              "duracao": 52,
+              "descanso": 46
+            }
+          ]
         }
       ]
     },
@@ -4311,5 +4344,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-09-20T15:55:30.082Z"
+  "at": "2026-09-20T16:01:13.898Z"
 }
