@@ -2579,6 +2579,39 @@
               "descanso": 60
             }
           ]
+        },
+        {
+          "exercicioId": "rosca",
+          "nome": "Rosca Direta — Máquina/Scott",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "27.5",
+              "reps": "8",
+              "obs": "",
+              "rir": "1",
+              "duracao": 2,
+              "descanso": 61
+            },
+            {
+              "serie": 2,
+              "kg": "30",
+              "reps": "8",
+              "obs": "Ok",
+              "rir": "1",
+              "duracao": 68,
+              "descanso": 61
+            },
+            {
+              "serie": 3,
+              "kg": "30",
+              "reps": "8",
+              "obs": "Dor na munheca direita. ",
+              "rir": "0",
+              "duracao": 41,
+              "descanso": 60
+            }
+          ]
         }
       ]
     },
@@ -4278,5 +4311,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-09-20T15:48:58.521Z"
+  "at": "2026-09-20T15:55:30.082Z"
 }
