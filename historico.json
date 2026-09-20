@@ -2546,6 +2546,39 @@
               "descanso": 90
             }
           ]
+        },
+        {
+          "exercicioId": "hiperextensao",
+          "nome": "Hiperextensão Lombar 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "0",
+              "reps": "15",
+              "obs": "Ok. Sem dor. ",
+              "rir": null,
+              "duracao": 33,
+              "descanso": 61
+            },
+            {
+              "serie": 2,
+              "kg": "0",
+              "reps": "15",
+              "obs": "Dor a partir da 13º. ",
+              "rir": "0",
+              "duracao": 50,
+              "descanso": 60
+            },
+            {
+              "serie": 3,
+              "kg": "0",
+              "reps": "15",
+              "obs": "Dor a partir da 13º",
+              "rir": "0",
+              "duracao": 53,
+              "descanso": 60
+            }
+          ]
         }
       ]
     },
@@ -4245,5 +4278,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-09-20T15:42:47.041Z"
+  "at": "2026-09-20T15:48:58.521Z"
 }
