@@ -2480,6 +2480,39 @@
               "descanso": 120
             }
           ]
+        },
+        {
+          "exercicioId": "flexora",
+          "nome": "Cadeira Flexora",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "50",
+              "reps": "12",
+              "obs": "Voltando depois de 59 dias. ",
+              "rir": "2",
+              "duracao": 66,
+              "descanso": 91
+            },
+            {
+              "serie": 2,
+              "kg": "60",
+              "reps": "10",
+              "obs": "",
+              "rir": "1",
+              "duracao": 52,
+              "descanso": 91
+            },
+            {
+              "serie": 3,
+              "kg": "65",
+              "reps": "10",
+              "obs": "",
+              "rir": "0",
+              "duracao": 44,
+              "descanso": 90
+            }
+          ]
         }
       ]
     },
@@ -4179,5 +4212,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-09-20T15:25:14.841Z"
+  "at": "2026-09-20T15:33:32.829Z"
 }
