@@ -2,82 +2,56 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Treino · Marcioclei</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Treino · Ciclo 2</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; padding: 16px; }
-  .wrap { max-width: 440px; margin: 0 auto; }
-
-  .hdr { text-align: center; color: #fff; padding: 28px 0 24px; }
-  .hdr h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
-  .hdr p { font-size: 13px; color: #64748b; }
-
-  .card { display: block; background: #fff; border-radius: 14px; padding: 18px 20px; margin-bottom: 12px; text-decoration: none; box-shadow: 0 4px 14px rgba(0,0,0,.25); display: flex; align-items: center; gap: 16px; }
-  .card:active { opacity: .85; }
-
-  .icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 24px; flex-shrink: 0; }
-  .c1 .icon { background: #dbeafe; }
-  .c2 .icon { background: #d1fae5; }
-  .c3 .icon { background: #fce7f3; }
-  .c4 .icon { background: #fef9c3; }
-  .c5 .icon { background: #ede9fe; }
-
-  .card-text .title { font-size: 16px; font-weight: 700; color: #0f172a; }
-  .card-text .sub { font-size: 12px; color: #64748b; margin-top: 3px; }
-
-  .footer { text-align: center; color: #334155; font-size: 11px; padding: 24px 0; }
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#0f172a;--card:#fff;--ink:#0f172a;--muted:#64748b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--card:#f8fafc}}
+:root[data-theme="dark"]{--bg:#0b1220;--card:#f8fafc}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;min-height:100%;padding:16px}
+html,body{height:100%}
+.wrap{max-width:440px;margin:0 auto}
+.hdr{text-align:center;color:#fff;padding:26px 0 22px}
+.hdr h1{font-size:25px;font-weight:800;margin-bottom:6px}
+.hdr p{font-size:12.5px;color:#64748b}
+.card{background:var(--card);border-radius:14px;padding:17px 19px;margin-bottom:11px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25);display:flex;align-items:center;gap:15px}
+.card:active{opacity:.85}
+.icon{width:46px;height:46px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.c1 .icon{background:#dbeafe}.c2 .icon{background:#d1fae5}.c3 .icon{background:#fce7f3}.c4 .icon{background:#ede9fe}
+.ct .title{font-size:15.5px;font-weight:700;color:var(--ink)}
+.ct .sub{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+.semana{background:#1e293b;border-radius:12px;padding:15px 17px;margin-bottom:18px}
+.semana h3{color:#fff;font-size:12px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.5px}
+.sr{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #334155;font-size:12.5px}
+.sr:last-child{border-bottom:none}
+.sd{color:#94a3b8;font-weight:600}
+.sv{color:#fff}
+.footer{text-align:center;color:#334155;font-size:11px;padding:22px 0}
 </style>
 </head>
 <body>
 <div class="wrap">
+<div class="hdr"><h1>Treino · Ciclo 2</h1><p>12 semanas · 26 set a 20 dez 2026</p></div>
 
-  <div class="hdr">
-    <h1>🏋️ Treino</h1>
-    <p>Ciclo 12 semanas · Maio–Agosto 2026</p>
-  </div>
+<div class="semana">
+<h3>Sua semana</h3>
+<div class="sr"><div class="sd">Sábado</div><div class="sv">Push</div></div>
+<div class="sr"><div class="sd">Domingo</div><div class="sv">Pull + Lower</div></div>
+<div class="sr"><div class="sd">Terça</div><div class="sv">Corrida leve</div></div>
+<div class="sr"><div class="sd">Quinta</div><div class="sv">Corrida forte</div></div>
+</div>
 
-  <a href="diario_treino.html" class="card c1">
-    <div class="icon">📓</div>
-    <div class="card-text">
-      <div class="title">Diário de Treino</div>
-      <div class="sub">Registrar cargas, reps e observações · exportar histórico</div>
-    </div>
-  </a>
+<a href="ficha_sabado.html" class="card c1"><div class="icon">💪</div><div class="ct"><div class="title">Ficha Sábado · Push</div><div class="sub">Peito, costas, ombro, tríceps · 8 exercícios</div></div></a>
 
-  <a href="ficha_sabado.html" class="card c2">
-    <div class="icon">💪</div>
-    <div class="card-text">
-      <div class="title">Ficha Sábado — Push</div>
-      <div class="sub">Peito · Ombro · Tríceps · 7 exercícios</div>
-    </div>
-  </a>
+<a href="ficha_domingo.html" class="card c2"><div class="icon">🏋️</div><div class="ct"><div class="title">Ficha Domingo · Pull + Lower</div><div class="sub">Costas, peito, perna, lombar, bíceps · 8 exercícios</div></div></a>
 
-  <a href="ficha_domingo.html" class="card c3">
-    <div class="icon">🏋️</div>
-    <div class="card-text">
-      <div class="title">Ficha Domingo — Pull</div>
-      <div class="sub">Costas · Pernas · Lombar · Bíceps · 8 exercícios</div>
-    </div>
-  </a>
+<a href="nomes_treinos.html" class="card c3"><div class="icon">📋</div><div class="ct"><div class="title">Nomes para o App Fitness</div><div class="sub">Push e Pull nos blocos R, A e B</div></div></a>
 
-  <a href="nomes_treinos.html" class="card c4">
-    <div class="icon">📋</div>
-    <div class="card-text">
-      <div class="title">Nomes para o App Fitness</div>
-      <div class="sub">Copiar e colar no Apple Fitness · Push e Pull A/B/C</div>
-    </div>
-  </a>
+<a href="guia_ciclo_2.html" class="card c4"><div class="icon">🗺️</div><div class="ct"><div class="title">Guia do Ciclo 2</div><div class="sub">Cronograma, blocos e protocolos de ajuste</div></div></a>
 
-  <a href="guia_ciclo_12_semanas.html" class="card c5">
-    <div class="icon">🗺️</div>
-    <div class="card-text">
-      <div class="title">Guia do Ciclo</div>
-      <div class="sub">Cronograma · Blocos A/B/C · Protocolos de ajuste</div>
-    </div>
-  </a>
-
-  <div class="footer">Programa elaborado em maio 2026 · Reavaliar em agosto 2026</div>
+<div class="footer">Reavaliação em 19 e 20 de dezembro</div>
 </div>
 </body>
 </html>

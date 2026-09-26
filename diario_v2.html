@@ -56,6 +56,7 @@
     .machine-input::placeholder{color:var(--text3);font-style:italic}
 
     /* last ref */
+    .ex-nota{padding:10px 16px;font-size:12.5px;color:var(--text2);background:var(--card2);border-left:3px solid var(--orange);line-height:1.5}
     .last-ref{padding:8px 16px;font-size:12px;color:var(--text3);border-bottom:.5px solid var(--border)}
     .last-ref strong{color:var(--text2)}
 
@@ -342,7 +343,7 @@
     <div class="welcome-logo">💪</div>
     <h1 class="welcome-title">Treino v3</h1>
     <div id="welcome-badge" class="week-badge" style="margin:0 auto 24px;display:none"></div>
-    <a href="guia_ciclo_12_semanas.html" class="welcome-diag-link" style="margin:-12px 0 20px">📖 Programa de treino atual (guia do ciclo)</a>
+    <a href="guia_ciclo_2.html" class="welcome-diag-link" style="margin:-12px 0 20px">📖 Programa de treino atual (guia do ciclo)</a>
     <div id="retorno-widget" style="margin-bottom:20px"></div>
 
     <div class="welcome-section">
@@ -507,6 +508,163 @@ const CICLOS = [{
       {id:'panturrilha',    nome:"Panturrilha em Pé",            prescricao:"2×20 reps · Descanso: 45 s",       series:2}
     ]
   }
+},{
+  nome:"Ciclo 2 · Set–Dez 2026",
+  inicio:"2026-09-26",
+  blocos:[
+    {id:'R',      semanas:3, cor:'#475569'},
+    {id:'A',      semanas:4, cor:'#1d4ed8'},
+    {id:'B',      semanas:4, cor:'#be185d'},
+    {id:'Deload', semanas:1, cor:'#047857'}
+  ],
+  push:{
+    R:[
+      {id:'supino-reto',      nome:"Supino Reto na Máquina",       prescricao:"4×10-12 reps · Descanso: 2 min", series:4,
+        nota:"Carga principal do dia. Reps mudam por bloco: R 10-12, A 8-10, B 6-8."},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina",  prescricao:"4×10-12 reps · Descanso: 2 min", series:4,
+        nota:"Peito superior. Foi o que melhor reteve carga no intervalo, aproveite."},
+      {id:'remada-sentada',   nome:"Remada Sentada na Máquina",    prescricao:"4×10-12 reps · Descanso: 2 min", series:4,
+        nota:"Veio do domingo — costas agora é treinada 2x por semana. Peitoral apoiado, retração escapular antes de puxar."},
+      {id:'crossover',        nome:"Crossover — Polia Alta",       prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Caiu de 15 para 12,5 kg no intervalo — refaça o caminho sem pressa. Dropset na última série a partir do Bloco A: ao falhar, baixe ~30% da carga e siga até falhar de novo."},
+      {id:'supino-declinado', nome:"Supino Declinado na Máquina",  prescricao:"3×10-12 reps · Descanso: 90 s", series:3,
+        nota:"Teto anterior: 50 kg × 8. Voltou pra 40 kg — meta do ciclo é superar 50."},
+      {id:'face-pull',        nome:"Face Pulls — Polia Alta",      prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Reps fixas em 12-15 nos três blocos. Puxar em direção ao rosto, cotovelos altos. Dropset na última série a partir do Bloco A."},
+      {id:'elevacao-lateral', nome:"Elevação Lateral (Halteres)",  prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Mudou pra halteres. Semana 1: teste 6, 8 e 10 kg por haltere — anote o peso que permite 15 reps com 2 na reserva, esse vira o ponto zero. Reps fixas nos três blocos. Dropset na última série a partir do Bloco A."},
+      {id:'triceps-polia',    nome:"Tríceps na Polia — Corda",     prescricao:"3×10-12 reps · Descanso: 1 min", series:3,
+        nota:"Teto seguro anotado por você: 30 kg. Respeite."}
+    ],
+    A:[
+      {id:'supino-reto',      nome:"Supino Reto na Máquina",       prescricao:"4×8-10 reps · Descanso: 2 min", series:4,
+        nota:"Carga principal do dia. Reps mudam por bloco: R 10-12, A 8-10, B 6-8."},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina",  prescricao:"4×8-10 reps · Descanso: 2 min", series:4,
+        nota:"Peito superior. Foi o que melhor reteve carga no intervalo, aproveite."},
+      {id:'remada-sentada',   nome:"Remada Sentada na Máquina",    prescricao:"4×8-10 reps · Descanso: 2 min", series:4,
+        nota:"Veio do domingo — costas agora é treinada 2x por semana. Peitoral apoiado, retração escapular antes de puxar."},
+      {id:'crossover',        nome:"Crossover — Polia Alta",       prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Caiu de 15 para 12,5 kg no intervalo — refaça o caminho sem pressa. Dropset na última série: ao falhar, baixe ~30% da carga e siga até falhar de novo."},
+      {id:'supino-declinado', nome:"Supino Declinado na Máquina",  prescricao:"3×8-10 reps · Descanso: 90 s", series:3,
+        nota:"Teto anterior: 50 kg × 8. Voltou pra 40 kg — meta do ciclo é superar 50."},
+      {id:'face-pull',        nome:"Face Pulls — Polia Alta",      prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Reps fixas em 12-15 nos três blocos. Puxar em direção ao rosto, cotovelos altos. Dropset na última série."},
+      {id:'elevacao-lateral', nome:"Elevação Lateral (Halteres)",  prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Reps fixas nos três blocos. Dropset na última série."},
+      {id:'triceps-polia',    nome:"Tríceps na Polia — Corda",     prescricao:"3×8-10 reps · Descanso: 1 min", series:3,
+        nota:"Teto seguro anotado por você: 30 kg. Respeite."}
+    ],
+    B:[
+      {id:'supino-reto',      nome:"Supino Reto na Máquina",       prescricao:"4×6-8 reps · Descanso: 2 min", series:4,
+        nota:"Carga principal do dia. Reps mudam por bloco: R 10-12, A 8-10, B 6-8."},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina",  prescricao:"4×6-8 reps · Descanso: 2 min", series:4,
+        nota:"Peito superior. Foi o que melhor reteve carga no intervalo, aproveite."},
+      {id:'remada-sentada',   nome:"Remada Sentada na Máquina",    prescricao:"4×6-8 reps · Descanso: 2 min", series:4,
+        nota:"Veio do domingo — costas agora é treinada 2x por semana. Peitoral apoiado, retração escapular antes de puxar."},
+      {id:'crossover',        nome:"Crossover — Polia Alta",       prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Dropset na última série: ao falhar, baixe ~30% da carga e siga até falhar de novo."},
+      {id:'supino-declinado', nome:"Supino Declinado na Máquina",  prescricao:"3×6-8 reps · Descanso: 90 s", series:3,
+        nota:"Meta do ciclo: superar 50 kg × 8."},
+      {id:'face-pull',        nome:"Face Pulls — Polia Alta",      prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Reps fixas em 12-15 nos três blocos. Dropset na última série."},
+      {id:'elevacao-lateral', nome:"Elevação Lateral (Halteres)",  prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Reps fixas nos três blocos. Dropset na última série. Semanas 10-11: tentativa de PR."},
+      {id:'triceps-polia',    nome:"Tríceps na Polia — Corda",     prescricao:"3×6-8 reps · Descanso: 1 min", series:3,
+        nota:"Teto seguro anotado por você: 30 kg. Respeite."}
+    ],
+    Deload:[
+      {id:'supino-reto',      nome:"Supino Reto na Máquina",       prescricao:"2×10-12 reps · Descanso: 2 min · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem buscar progressão."},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina",  prescricao:"2×10-12 reps · Descanso: 2 min · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem buscar progressão."},
+      {id:'remada-sentada',   nome:"Remada Sentada na Máquina",    prescricao:"2×10-12 reps · Descanso: 2 min · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem buscar progressão."},
+      {id:'crossover',        nome:"Crossover — Polia Alta",       prescricao:"2×12-15 reps · Descanso: 90 s · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem dropset."},
+      {id:'supino-declinado', nome:"Supino Declinado na Máquina",  prescricao:"2×10-12 reps · Descanso: 90 s · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem buscar progressão."},
+      {id:'face-pull',        nome:"Face Pulls — Polia Alta",      prescricao:"2×12-15 reps · Descanso: 90 s · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem dropset."},
+      {id:'elevacao-lateral', nome:"Elevação Lateral (Halteres)",  prescricao:"2×12-15 reps · Descanso: 90 s · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem dropset."},
+      {id:'triceps-polia',    nome:"Tríceps na Polia — Corda",     prescricao:"2×10-12 reps · Descanso: 1 min · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem buscar progressão."}
+    ]
+  },
+  pull:{
+    R:[
+      {id:'puxada-alta',      nome:"Puxada Alta na Máquina",       prescricao:"4×10-12 reps · Descanso: 2 min", series:4,
+        nota:"Reteve 100% da carga (102,5 kg) mesmo após 59 dias parado — a barra de terça e quinta explica isso."},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina",  prescricao:"3×10-12 reps · Descanso: 2 min", series:3,
+        nota:"Veio do sábado — peito agora é treinado 2x por semana. Use a mesma carga do sábado ou levemente menor."},
+      {id:'leg-press',        nome:"Leg Press 45°",                prescricao:"4×10-12 reps · Descanso: 150 s", series:4,
+        nota:"PONTO CRÍTICO — caiu 27% (220→160 kg). Bloco R: 160-180 kg, sem falha. Bloco A: 190-210. Bloco B: 220-235. Não pule etapas."},
+      {id:'flexora',          nome:"Cadeira Flexora",              prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Reteve quase tudo (65 de 67,5 kg). Pausa de 1s no topo, excêntrica controlada. Dropset na última série a partir do Bloco A."},
+      {id:'stiff',            nome:"Stiff na Máquina",             prescricao:"3×10-12 reps · Descanso: 90 s", series:3,
+        nota:"Expire na subida, sem prender o ar — foi essa correção que eliminou a tontura, mantenha."},
+      {id:'hiperextensao',    nome:"Hiperextensão Lombar 45°",     prescricao:"3×10 reps · Descanso: 90 s", series:3,
+        nota:"Começa em 10 reps, não 15 — houve dor a partir da 13ª em 20/09. Sobe pra 12 quando passar sem dor, depois 15. Só então pensar em anilha. Sem peso no Bloco R."},
+      {id:'rosca',            nome:"Rosca — Pegada Neutra",        prescricao:"3×10-12 reps · Descanso: 1 min", series:3,
+        nota:"Mudança do ciclo: martelo com halteres ou barra W, por causa de dor na munheca direita (20/09). Se sumir em 3 sessões, pode testar voltar à pegada supinada. Dropset na última série a partir do Bloco A, se a munheca estiver sem dor."},
+      {id:'panturrilha',      nome:"Panturrilha em Pé",            prescricao:"3×15-20 reps · Descanso: 45 s", series:3,
+        nota:"Caiu 33% (60→40 kg). Bloco R: 40, 45, 50 kg nas três semanas. Depois volta a progredir rumo aos 60. Reps fixas nos três blocos."}
+    ],
+    A:[
+      {id:'puxada-alta',      nome:"Puxada Alta na Máquina",       prescricao:"4×8-10 reps · Descanso: 2 min", series:4,
+        nota:"Reteve 100% da carga (102,5 kg) mesmo após 59 dias parado — a barra de terça e quinta explica isso."},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina",  prescricao:"3×8-10 reps · Descanso: 2 min", series:3,
+        nota:"Veio do sábado — peito agora é treinado 2x por semana. Use a mesma carga do sábado ou levemente menor."},
+      {id:'leg-press',        nome:"Leg Press 45°",                prescricao:"4×8-10 reps · Descanso: 150 s", series:4,
+        nota:"Bloco A: 190-210 kg. Não pule etapas — só sobe se o Bloco R fechou sem falha e sem dor."},
+      {id:'flexora',          nome:"Cadeira Flexora",              prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Pausa de 1s no topo, excêntrica controlada. Dropset na última série."},
+      {id:'stiff',            nome:"Stiff na Máquina",             prescricao:"3×8-10 reps · Descanso: 90 s", series:3,
+        nota:"Expire na subida, sem prender o ar — foi essa correção que eliminou a tontura, mantenha."},
+      {id:'hiperextensao',    nome:"Hiperextensão Lombar 45°",     prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Sobe pra 12-15 só se passou sem dor no Bloco R. Se voltar dor, recue pra 8 reps e suspenda o stiff naquele dia."},
+      {id:'rosca',            nome:"Rosca — Pegada Neutra",        prescricao:"3×8-10 reps · Descanso: 1 min", series:3,
+        nota:"Martelo com halteres ou barra W. Dropset na última série, se a munheca estiver sem dor."},
+      {id:'panturrilha',      nome:"Panturrilha em Pé",            prescricao:"3×15-20 reps · Descanso: 45 s", series:3,
+        nota:"Reps fixas nos três blocos. Progride rumo aos 60 kg."}
+    ],
+    B:[
+      {id:'puxada-alta',      nome:"Puxada Alta na Máquina",       prescricao:"4×6-8 reps · Descanso: 2 min", series:4,
+        nota:"Reteve 100% da carga (102,5 kg) mesmo após 59 dias parado — a barra de terça e quinta explica isso."},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina",  prescricao:"3×6-8 reps · Descanso: 2 min", series:3,
+        nota:"Veio do sábado — peito agora é treinado 2x por semana."},
+      {id:'leg-press',        nome:"Leg Press 45°",                prescricao:"4×6-8 reps · Descanso: 150 s", series:4,
+        nota:"Bloco B: 220-235 kg. Semanas 10-11: tentativa de PR."},
+      {id:'flexora',          nome:"Cadeira Flexora",              prescricao:"3×10-12 reps · Descanso: 90 s", series:3,
+        nota:"Pausa de 1s no topo, excêntrica controlada. Dropset na última série."},
+      {id:'stiff',            nome:"Stiff na Máquina",             prescricao:"3×6-8 reps · Descanso: 90 s", series:3,
+        nota:"Expire na subida, sem prender o ar."},
+      {id:'hiperextensao',    nome:"Hiperextensão Lombar 45°",     prescricao:"3×12-15 reps · Descanso: 90 s", series:3,
+        nota:"Se a dor lombar voltar, recue pra 8 reps e suspenda o stiff naquele dia."},
+      {id:'rosca',            nome:"Rosca — Pegada Neutra",        prescricao:"3×6-8 reps · Descanso: 1 min", series:3,
+        nota:"Martelo com halteres ou barra W. Dropset na última série, se a munheca estiver sem dor."},
+      {id:'panturrilha',      nome:"Panturrilha em Pé",            prescricao:"3×15-20 reps · Descanso: 45 s", series:3,
+        nota:"Reps fixas nos três blocos."}
+    ],
+    Deload:[
+      {id:'puxada-alta',      nome:"Puxada Alta na Máquina",       prescricao:"2×10-12 reps · Descanso: 2 min · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem buscar progressão."},
+      {id:'supino-inclinado', nome:"Supino Inclinado na Máquina",  prescricao:"2×10-12 reps · Descanso: 2 min · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem buscar progressão."},
+      {id:'leg-press',        nome:"Leg Press 45°",                prescricao:"2×10-12 reps · Descanso: 150 s · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem falha."},
+      {id:'flexora',          nome:"Cadeira Flexora",              prescricao:"2×12-15 reps · Descanso: 90 s · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem dropset."},
+      {id:'stiff',            nome:"Stiff na Máquina",             prescricao:"2×10-12 reps · Descanso: 90 s · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4."},
+      {id:'hiperextensao',    nome:"Hiperextensão Lombar 45°",     prescricao:"2×10 reps · Descanso: 90 s · 🔽 Deload", series:2,
+        nota:"🔽 Deload: sem peso, RIR 3-4."},
+      {id:'rosca',            nome:"Rosca — Pegada Neutra",        prescricao:"2×10-12 reps · Descanso: 1 min · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4, sem dropset."},
+      {id:'panturrilha',      nome:"Panturrilha em Pé",            prescricao:"2×15-20 reps · Descanso: 45 s · 🔽 Deload", series:2,
+        nota:"🔽 Deload: ~70% da carga normal, RIR 3-4."}
+    ]
+  }
 }];
 
 // ── localStorage ─────────────────────────────────────────────────────────────
@@ -537,7 +695,14 @@ function getBlocoAtual(){
 
 function getExercicios(tipo){
   const b = getBlocoAtual();
-  const base = b ? b.cicloObj[tipo][b.bloco] : CICLOS[CICLOS.length-1][tipo]['C'];
+  let base;
+  if(b){
+    base = b.cicloObj[tipo][b.bloco];
+  } else {
+    const u = CICLOS[CICLOS.length-1];
+    const ultimoBlocoId = u.blocos[u.blocos.length-1].id;
+    base = u[tipo][ultimoBlocoId];
+  }
   return aplicarModoRetorno(tipo, base);
 }
 
@@ -1294,6 +1459,10 @@ function renderExPanel(tipo){
     <div class="ex-name">${esc(ex.nome)}</div>
     <div class="ex-presc">${esc(ex.prescricao)}</div>
   </div>`;
+
+  if(ex.nota){
+    html += `<div class="ex-nota">💡 ${esc(ex.nota)}</div>`;
+  }
 
   // Machine config
   html += `<div class="machine-row">

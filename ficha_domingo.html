@@ -2,242 +2,116 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ficha Domingo – Pull + Lower</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ficha Domingo · Pull + Lower · Ciclo 2</title>
 <style>
-  body { margin: 0; padding: 12px; background: #0f172a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: #1e293b; }
-  .wrap { max-width: 440px; margin: 0 auto; }
-
-  .hdr { text-align: center; color: #fff; padding: 20px 0 16px; }
-  .hdr h1 { font-size: 26px; margin: 0 0 4px; }
-  .hdr p  { font-size: 13px; color: #94a3b8; margin: 0; }
-
-  .card { background: #fff; border-radius: 14px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 4px 16px rgba(0,0,0,.25); }
-
-  .top { padding: 14px 18px 12px; }
-  .c1 .top { background: #047857; }
-  .c2 .top { background: #0f766e; }
-  .c3 .top { background: #1d4ed8; }
-  .c4 .top { background: #6d28d9; }
-  .c5 .top { background: #be185d; }
-  .c6 .top { background: #b45309; }
-  .c7 .top { background: #ea580c; }
-  .c8 .top { background: #475569; }
-
-  .top .num  { font-size: 11px; color: rgba(255,255,255,.75); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
-  .top .nome { font-size: 19px; color: #fff; font-weight: 700; margin-top: 4px; line-height: 1.25; }
-
-  .infos { display: grid; grid-template-columns: 1fr 1fr 1fr; border-bottom: 1px solid #e2e8f0; }
-  .info-box { padding: 12px 8px; text-align: center; border-right: 1px solid #e2e8f0; }
-  .info-box:last-child { border-right: none; }
-  .info-box .lbl { font-size: 10px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
-  .info-box .val { font-size: 16px; font-weight: 700; color: #1e293b; }
-
-  .series-area { padding: 14px 16px; }
-  .series-area .slbl { font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 10px; }
-  .series-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
-  .serie-item { display: flex; align-items: center; gap: 10px; padding: 11px 12px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 9px; cursor: pointer; }
-  .serie-item input[type=checkbox] { width: 20px; height: 20px; cursor: pointer; accent-color: #047857; flex-shrink: 0; }
-  .serie-item label { font-size: 14px; font-weight: 600; color: #1e293b; cursor: pointer; }
-
-  .nota { margin: 0 16px 16px; padding: 11px 12px; background: #fffbeb; border-left: 3px solid #f59e0b; border-radius: 6px; font-size: 13px; color: #78350f; font-weight: 500; line-height: 1.5; }
-
-  .footer { text-align: center; color: #475569; font-size: 13px; padding: 20px 0 28px; line-height: 1.8; }
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#0f172a;--card:#ffffff;--ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--soft:#f8fafc;--note-bg:#fffbeb;--note-ink:#78350f;--note-br:#f59e0b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--card:#f8fafc}}
+:root[data-theme="dark"]{--bg:#0b1220;--card:#f8fafc}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:12px;color:var(--ink)}
+.wrap{max-width:440px;margin:0 auto}
+.hdr{text-align:center;color:#fff;padding:18px 0 12px}
+.hdr h1{font-size:24px;margin:0 0 5px}
+.hdr p{font-size:12px;color:#94a3b8}
+.bloco-tag{display:inline-block;margin-top:9px;padding:5px 13px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.4px;background:#064e3b;color:#a7f3d0}
+.card{background:var(--card);border-radius:14px;margin-bottom:15px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.top{padding:13px 17px 11px}
+.c1 .top{background:#047857}.c2 .top{background:#0f766e}.c3 .top{background:#1d4ed8}.c4 .top{background:#6d28d9}
+.c5 .top{background:#be185d}.c6 .top{background:#b45309}.c7 .top{background:#ea580c}.c8 .top{background:#475569}
+.top .num{font-size:10px;color:rgba(255,255,255,.75);font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.top .nome{font-size:19px;color:#fff;font-weight:700;margin-top:3px;line-height:1.22}
+.infos{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--line)}
+.ib{padding:11px 6px;text-align:center;border-right:1px solid var(--line)}
+.ib:last-child{border-right:none}
+.ib .lbl{font-size:9px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.ib .val{font-size:15px;font-weight:800;color:var(--ink)}
+.sa{padding:13px 15px}
+.sa .slbl{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.si{display:flex;align-items:center;gap:9px;padding:10px 11px;background:var(--soft);border:2px solid var(--line);border-radius:9px;cursor:pointer}
+.si input{width:19px;height:19px;accent-color:#047857;flex-shrink:0;cursor:pointer}
+.si label{font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
+.nota{margin:0 15px 15px;padding:10px 12px;background:var(--note-bg);border-left:3px solid var(--note-br);border-radius:6px;font-size:12.5px;color:var(--note-ink);font-weight:500;line-height:1.5}
+.footer{text-align:center;color:#64748b;font-size:12px;padding:16px 0 26px;line-height:1.8}
 </style>
 </head>
 <body>
 <div class="wrap">
+<div class="hdr">
+<h1>Domingo · Pull + Lower</h1>
+<p>Costas · Peito · Perna · Lombar · Bíceps</p>
+<div class="bloco-tag">CICLO 2</div>
+</div>
 
-  <div class="hdr">
-    <h1>📋 Domingo — Pull + Lower</h1>
-    <p>Costas · Pernas · Lombar · Bíceps · 60-75 min</p>
-  </div>
+<div class="card c1"><div class="top"><div class="num">Exercício 1</div><div class="nome">Puxada Alta Máquina</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">4</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:10-12</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">2:00</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label>
+<label class="si"><input type="checkbox"><label>Série 4</label></label></div></div>
+<div class="nota">Reteve 100% da carga (102,5 kg) mesmo após 59 dias. A barra de terça e quinta explica isso.</div></div>
 
-  <!-- EX 1 -->
-  <div class="card c1">
-    <div class="top">
-      <div class="num">Exercício 1</div>
-      <div class="nome">Puxada Alta na Máquina</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">4×8-12</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">2→1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">2 min</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 4</label></label>
-      </div>
-    </div>
-    <div class="nota">Pegada aberta, pronada. Cotovelos descem em direção às costelas. Foco no latíssimo.</div>
-  </div>
+<div class="card c2"><div class="top"><div class="num">Exercício 2 · NOVO</div><div class="nome">Supino Inclinado Máquina</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">3</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:10-12</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">2:00</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label></div></div>
+<div class="nota">VEIO DO SÁBADO. Peito agora é treinado 2x por semana. Use a mesma carga do sábado ou levemente menor.</div></div>
 
-  <!-- EX 2 -->
-  <div class="card c2">
-    <div class="top">
-      <div class="num">Exercício 2</div>
-      <div class="nome">Remada Sentada na Máquina</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">4×8-12</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">2→1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">2 min</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 4</label></label>
-      </div>
-    </div>
-    <div class="nota">Peitoral apoiado. Retração escapular antes do puxar. Excêntrica controlada.</div>
-  </div>
+<div class="card c3"><div class="top"><div class="num">Exercício 3 · REENTRADA</div><div class="nome">Leg Press 45°</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">4</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:10-12</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">2:30</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label>
+<label class="si"><input type="checkbox"><label>Série 4</label></label></div></div>
+<div class="nota">PONTO CRÍTICO. Caiu 27% (220 para 160 kg). Bloco R: 160 a 180 kg, sem falha. Bloco A: 190 a 210. Bloco B: 220 a 235. Não pule etapas.</div></div>
 
-  <!-- EX 3 -->
-  <div class="card c3">
-    <div class="top">
-      <div class="num">Exercício 3</div>
-      <div class="nome">Leg Press 45°</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">4×8-15</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">2→1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">2-3 min</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 4</label></label>
-      </div>
-    </div>
-    <div class="nota">Pés mais altos na plataforma (ativa glúteo e protege lombar). Não trave o joelho no topo.</div>
-  </div>
+<div class="card c4"><div class="top"><div class="num">Exercício 4</div><div class="nome">Cadeira Flexora</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">3</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:12-15</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">1:30</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label></div></div>
+<div class="nota">Reteve quase tudo (65 de 67,5 kg). Pausa de 1s no topo, excêntrica controlada.<br><br><strong>DROPSET na última série</strong> (a partir do Bloco A).</div></div>
 
-  <!-- EX 4 -->
-  <div class="card c4">
-    <div class="top">
-      <div class="num">Exercício 4</div>
-      <div class="nome">Cadeira Flexora</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×10-15</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">90 s</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-      </div>
-    </div>
-    <div class="nota">Contração total no topo (pausa de 1 segundo). Excêntrica controlada na descida.</div>
-  </div>
+<div class="card c5"><div class="top"><div class="num">Exercício 5</div><div class="nome">Stiff na Máquina</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">3</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:10-12</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">1:30</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label></div></div>
+<div class="nota">Expire na subida, sem prender o ar. Foi essa correção que eliminou a tontura, mantenha.</div></div>
 
-  <!-- EX 5 -->
-  <div class="card c5">
-    <div class="top">
-      <div class="num">Exercício 5</div>
-      <div class="nome">Stiff na Máquina ou Pull-Through</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×8-12</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">2→1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">90 s</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-      </div>
-    </div>
-    <div class="nota">Lombar neutra. Descer até sentir alongamento no posterior, sem arredondar a coluna.</div>
-  </div>
+<div class="card c6"><div class="top"><div class="num">Exercício 6 · AJUSTADO</div><div class="nome">Hiperextensão Lombar 45°</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">3</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">10</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">1:30</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label></div></div>
+<div class="nota">COMEÇA EM 10 REPS, não 15. Houve dor a partir da 13ª em 20/09. Sobe para 12 quando passar sem dor, depois 15. Só então pense em anilha. Sem peso no Bloco R.</div></div>
 
-  <!-- EX 6 -->
-  <div class="card c6">
-    <div class="top">
-      <div class="num">Exercício 6</div>
-      <div class="nome">Hiperextensão Lombar (banco 45°)</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×12-15</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">60-90 s</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-      </div>
-    </div>
-    <div class="nota">⚠️ NÃO PULAR. Endereça diretamente o "elo fraco" da lombar. Sem peso nas 2 primeiras semanas; depois, anilha de 5-10 kg.</div>
-  </div>
+<div class="card c7"><div class="top"><div class="num">Exercício 7 · NOVO</div><div class="nome">Rosca PEGADA NEUTRA</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">3</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:10-12</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">1:00</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label></div></div>
+<div class="nota">MUDANÇA DO CICLO. Martelo com halteres ou barra W, por causa da dor na munheca direita em 20/09. Se sumir em 3 sessões, pode testar voltar à pegada supinada.<br><br><strong>DROPSET na última série</strong> (a partir do Bloco A), desde que a munheca esteja sem dor.</div></div>
 
-  <!-- EX 7 -->
-  <div class="card c7">
-    <div class="top">
-      <div class="num">Exercício 7</div>
-      <div class="nome">Rosca Direta — Máquina ou Scott</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×10-12</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">60 s</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-      </div>
-    </div>
-    <div class="nota">Cotovelos fixos. Não impulsionar com o tronco. Foco isolado no bíceps.</div>
-  </div>
+<div class="card c8"><div class="top"><div class="num">Exercício 8 · REENTRADA</div><div class="nome">Panturrilha em Pé</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">3</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">15-20</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">0:45</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label></div></div>
+<div class="nota">Caiu 33% (60 para 40 kg). Bloco R: 40, 45, 50 kg nas três semanas. Depois volta a progredir rumo aos 60. Reps fixas nos três blocos.</div></div>
 
-  <!-- EX 8 -->
-  <div class="card c8">
-    <div class="top">
-      <div class="num">Exercício 8 (Opcional)</div>
-      <div class="nome">Panturrilha em Pé na Máquina</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×15-20</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">45 s</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-      </div>
-    </div>
-    <div class="nota">Faça se sobrar tempo. Amplitude completa, pausa de 1 segundo no topo.</div>
-  </div>
-
-  <div class="footer">
-    ✅ Total: 7-8 exercícios · 24-27 séries<br>
-    🏃 Após: 20 min de esteira a 6,8 km/h
-  </div>
-
+<div class="footer">8 exercícios · 26 séries · alvo ~80 min<br>Bloco R (sem 1-3): nenhuma série até a falha, sem dropset</div>
 </div>
 </body>
 </html>

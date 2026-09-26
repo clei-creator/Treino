@@ -2,249 +2,117 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ficha Sábado – Push</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Ficha Sábado · Push · Ciclo 2</title>
 <style>
-  body {
-    margin: 0;
-    padding: 12px;
-    background: #0f172a;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    color: #1e293b;
-  }
-  .wrap { max-width: 440px; margin: 0 auto; }
-
-  /* HEADER */
-  .hdr {
-    text-align: center;
-    color: #fff;
-    padding: 20px 0 16px;
-  }
-  .hdr h1 { font-size: 26px; margin: 0 0 4px; }
-  .hdr p  { font-size: 13px; color: #94a3b8; margin: 0; }
-
-  /* CARD */
-  .card {
-    background: #fff;
-    border-radius: 14px;
-    margin-bottom: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0,0,0,.25);
-  }
-
-  /* FAIXA COLORIDA NO TOPO */
-  .top { padding: 14px 18px 12px; }
-  .c1 .top { background: #1d4ed8; }
-  .c2 .top { background: #0369a1; }
-  .c3 .top { background: #6d28d9; }
-  .c4 .top { background: #be185d; }
-  .c5 .top { background: #b45309; }
-  .c6 .top { background: #047857; }
-  .c7 .top { background: #0f766e; }
-
-  .top .num  { font-size: 11px; color: rgba(255,255,255,.75); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
-  .top .nome { font-size: 19px; color: #fff; font-weight: 700; margin-top: 4px; line-height: 1.25; }
-
-  /* INFO GRID */
-  .infos {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    border-bottom: 1px solid #e2e8f0;
-  }
-  .info-box {
-    padding: 12px 8px;
-    text-align: center;
-    border-right: 1px solid #e2e8f0;
-  }
-  .info-box:last-child { border-right: none; }
-  .info-box .lbl { font-size: 10px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
-  .info-box .val { font-size: 16px; font-weight: 700; color: #1e293b; }
-
-  /* SÉRIES */
-  .series-area { padding: 14px 16px; }
-  .series-area .slbl { font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 10px; }
-  .series-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
-  .serie-item { display: flex; align-items: center; gap: 10px; padding: 11px 12px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 9px; cursor: pointer; }
-  .serie-item input[type=checkbox] { width: 20px; height: 20px; cursor: pointer; accent-color: #1d4ed8; flex-shrink: 0; }
-  .serie-item label { font-size: 14px; font-weight: 600; color: #1e293b; cursor: pointer; }
-
-  /* NOTA */
-  .nota { margin: 0 16px 16px; padding: 11px 12px; background: #fffbeb; border-left: 3px solid #f59e0b; border-radius: 6px; font-size: 13px; color: #78350f; font-weight: 500; line-height: 1.5; }
-
-  /* RODAPÉ */
-  .footer { text-align: center; color: #475569; font-size: 13px; padding: 20px 0 28px; line-height: 1.8; }
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#0f172a;--card:#ffffff;--ink:#1e293b;--muted:#64748b;--line:#e2e8f0;--soft:#f8fafc;--note-bg:#fffbeb;--note-ink:#78350f;--note-br:#f59e0b}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1220;--card:#f8fafc}}
+:root[data-theme="dark"]{--bg:#0b1220;--card:#f8fafc}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;padding:12px;color:var(--ink)}
+.wrap{max-width:440px;margin:0 auto}
+.hdr{text-align:center;color:#fff;padding:18px 0 12px}
+.hdr h1{font-size:24px;margin:0 0 5px}
+.hdr p{font-size:12px;color:#94a3b8}
+.bloco-tag{display:inline-block;margin-top:9px;padding:5px 13px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.4px;background:#1e3a8a;color:#bfdbfe}
+.card{background:var(--card);border-radius:14px;margin-bottom:15px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+.top{padding:13px 17px 11px}
+.c1 .top{background:#1d4ed8}.c2 .top{background:#0369a1}.c3 .top{background:#6d28d9}
+.c4 .top{background:#6d28d9}.c5 .top{background:#be185d}.c6 .top{background:#b45309}.c7 .top{background:#047857}.c8 .top{background:#0f766e}
+.top .num{font-size:10px;color:rgba(255,255,255,.75);font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.top .nome{font-size:19px;color:#fff;font-weight:700;margin-top:3px;line-height:1.22}
+.infos{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--line)}
+.ib{padding:11px 6px;text-align:center;border-right:1px solid var(--line)}
+.ib:last-child{border-right:none}
+.ib .lbl{font-size:9px;color:#94a3b8;font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px}
+.ib .val{font-size:15px;font-weight:800;color:var(--ink)}
+.sa{padding:13px 15px}
+.sa .slbl{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px;margin-bottom:9px}
+.sg{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+.si{display:flex;align-items:center;gap:9px;padding:10px 11px;background:var(--soft);border:2px solid var(--line);border-radius:9px;cursor:pointer}
+.si input{width:19px;height:19px;accent-color:#1d4ed8;flex-shrink:0;cursor:pointer}
+.si label{font-size:13px;font-weight:600;color:var(--ink);cursor:pointer}
+.nota{margin:0 15px 15px;padding:10px 12px;background:var(--note-bg);border-left:3px solid var(--note-br);border-radius:6px;font-size:12.5px;color:var(--note-ink);font-weight:500;line-height:1.5}
+.footer{text-align:center;color:#64748b;font-size:12px;padding:16px 0 26px;line-height:1.8}
 </style>
 </head>
 <body>
 <div class="wrap">
+<div class="hdr">
+<h1>Sábado · Push</h1>
+<p>Peito · Costas · Ombro · Tríceps</p>
+<div class="bloco-tag">CICLO 2</div>
+</div>
 
-  <div class="hdr">
-    <h1>📋 Sábado — Push</h1>
-    <p>Peito prioritário · Ombro · Tríceps · 60-75 min</p>
-  </div>
+<div class="card c1"><div class="top"><div class="num">Exercício 1</div><div class="nome">Supino Reto Máquina</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">4</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:10-12</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">2:00</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label>
+<label class="si"><input type="checkbox"><label>Série 4</label></label></div></div>
+<div class="nota">Carga principal do dia. Reps mudam por bloco: R 10-12, A 8-10, B 6-8.</div></div>
 
-  <!-- EX 1 -->
-  <div class="card c1">
-    <div class="top">
-      <div class="num">Exercício 1</div>
-      <div class="nome">Supino Reto na Máquina</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">4×6-10</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">2→1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">2 min</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 4</label></label>
-      </div>
-    </div>
-    <div class="nota">Carga primária do dia. Última série pesada.</div>
-  </div>
+<div class="card c2"><div class="top"><div class="num">Exercício 2</div><div class="nome">Supino Inclinado Máquina</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">4</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:10-12</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">2:00</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label>
+<label class="si"><input type="checkbox"><label>Série 4</label></label></div></div>
+<div class="nota">Peito superior. Foi o que melhor reteve carga no intervalo, aproveite.</div></div>
 
-  <!-- EX 2 -->
-  <div class="card c2">
-    <div class="top">
-      <div class="num">Exercício 2</div>
-      <div class="nome">Supino Inclinado Máquina</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">4×8-12</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">2→1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">2 min</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 4</label></label>
-      </div>
-    </div>
-    <div class="nota">Peito superior. Mantém o que você já fazia.</div>
-  </div>
+<div class="card c3"><div class="top"><div class="num">Exercício 3 · NOVO</div><div class="nome">Remada Sentada Máquina</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">4</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:10-12</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">2:00</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label>
+<label class="si"><input type="checkbox"><label>Série 4</label></label></div></div>
+<div class="nota">VEIO DO DOMINGO. Costas agora é treinada 2x por semana. Peitoral apoiado, retração escapular antes de puxar.</div></div>
 
-  <!-- EX 3 -->
-  <div class="card c3">
-    <div class="top">
-      <div class="num">Exercício 3</div>
-      <div class="nome">Crossover — Polia Alta</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×10-15</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">90 s</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-      </div>
-    </div>
-    <div class="nota">Pico de contração. Foco em sentir o peito na fase final.</div>
-  </div>
+<div class="card c4"><div class="top"><div class="num">Exercício 4</div><div class="nome">Crossover Polia Alta</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">3</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:12-15</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">1:30</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label></div></div>
+<div class="nota">Caiu de 15 para 12,5 kg no intervalo. Refaça o caminho sem pressa.<br><br><strong>DROPSET na última série</strong> (a partir do Bloco A): ao falhar, baixe 30% da carga e siga até falhar de novo.</div></div>
 
-  <!-- EX 4 -->
-  <div class="card c4">
-    <div class="top">
-      <div class="num">Exercício 4</div>
-      <div class="nome">Supino Declinado Máquina</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×8-12</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">1-2</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">90 s</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-      </div>
-    </div>
-    <div class="nota">Fibras inferiores. Alterne com paralelas a cada 4 semanas.</div>
-  </div>
+<div class="card c5"><div class="top"><div class="num">Exercício 5</div><div class="nome">Supino Declinado Máquina</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">3</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:10-12</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">1:30</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label></div></div>
+<div class="nota">Teto anterior: 50 kg × 8. Voltou para 40 kg. Meta do ciclo: superar 50.</div></div>
 
-  <!-- EX 5 -->
-  <div class="card c5">
-    <div class="top">
-      <div class="num">Exercício 5</div>
-      <div class="nome">Face Pulls — Polia Alta</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×12-15</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">60-90 s</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-      </div>
-    </div>
-    <div class="nota">⚠️ NÃO PULAR. Puxar em direção ao rosto, cotovelos altos. Deltoide posterior + trapézio.</div>
-  </div>
+<div class="card c6"><div class="top"><div class="num">Exercício 6</div><div class="nome">Face Pulls Polia Alta</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">3</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">12-15</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">1:30</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label></div></div>
+<div class="nota">Reps fixas em 12-15 nos três blocos. Puxar em direção ao rosto, cotovelos altos.<br><br><strong>DROPSET na última série</strong> (a partir do Bloco A).</div></div>
 
-  <!-- EX 6 -->
-  <div class="card c6">
-    <div class="top">
-      <div class="num">Exercício 6</div>
-      <div class="nome">Elevação Lateral — Cabo ou Máquina</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×12-15</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">60 s</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-      </div>
-    </div>
-    <div class="nota">Deltoide médio. Foco total na contração lateral.</div>
-  </div>
+<div class="card c7"><div class="top"><div class="num">Exercício 7 · NOVO</div><div class="nome">Elevação Lateral HALTERES</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">3</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">12-15</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">1:30</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label></div></div>
+<div class="nota">MUDANÇA DO CICLO. Semana 1: teste 6, 8 e 10 kg por haltere. Anote o peso que permite 15 reps com 2 na reserva. Esse vira seu ponto zero. Reps fixas nos três blocos.<br><br><strong>DROPSET na última série</strong> (a partir do Bloco A): halteres facilitam, é só pegar o par mais leve.</div></div>
 
-  <!-- EX 7 -->
-  <div class="card c7">
-    <div class="top">
-      <div class="num">Exercício 7</div>
-      <div class="nome">Tríceps na Polia — Corda</div>
-    </div>
-    <div class="infos">
-      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×10-12</div></div>
-      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
-      <div class="info-box"><div class="lbl">Descanso</div><div class="val">60-90 s</div></div>
-    </div>
-    <div class="series-area">
-      <div class="slbl">Marque as séries concluídas</div>
-      <div class="series-grid">
-        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
-        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
-      </div>
-    </div>
-    <div class="nota">Trabalho indireto pesado já veio nos 4 supinos. Foco no isolamento.</div>
-  </div>
+<div class="card c8"><div class="top"><div class="num">Exercício 8</div><div class="nome">Tríceps Polia Corda</div></div>
+<div class="infos"><div class="ib"><div class="lbl">Séries</div><div class="val">3</div></div><div class="ib"><div class="lbl">Reps</div><div class="val">R:10-12</div></div><div class="ib"><div class="lbl">Descanso</div><div class="val">1:00</div></div></div>
+<div class="sa"><div class="slbl">Séries concluídas</div><div class="sg">
+<label class="si"><input type="checkbox"><label>Série 1</label></label>
+<label class="si"><input type="checkbox"><label>Série 2</label></label>
+<label class="si"><input type="checkbox"><label>Série 3</label></label></div></div>
+<div class="nota">Você mesmo anotou: 30 kg é o teto seguro deste movimento. Respeite.</div></div>
 
-  <div class="footer">
-    ✅ Total: 7 exercícios · 23 séries<br>
-    🏃 Após: 20 min de esteira a 6,8 km/h
-  </div>
-
+<div class="footer">8 exercícios · 27 séries · alvo ~85 min<br>Bloco R (sem 1-3): nenhuma série até a falha, sem dropset</div>
 </div>
 </body>
 </html>
