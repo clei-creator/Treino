@@ -1,6 +1,57 @@
 {
   "push": [
     {
+      "data": "2026-09-26",
+      "tipo": "push",
+      "ciclo": "Ciclo 2 · Set–Dez 2026",
+      "bloco": "R",
+      "academia": "Srmart Fit Prudente",
+      "exercicios": [
+        {
+          "exercicioId": "supino-reto",
+          "nome": "Supino Reto na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "50",
+              "reps": "12",
+              "obs": "",
+              "rir": "2",
+              "duracao": 188,
+              "descanso": 120
+            },
+            {
+              "serie": 2,
+              "kg": "57.2",
+              "reps": "12",
+              "obs": "",
+              "rir": "0",
+              "duracao": 90,
+              "descanso": 129
+            },
+            {
+              "serie": 3,
+              "kg": "57.2",
+              "reps": "12",
+              "obs": "",
+              "rir": "0",
+              "duracao": 56,
+              "descanso": 121
+            },
+            {
+              "serie": 4,
+              "kg": "50",
+              "reps": "12",
+              "obs": "57,5 reduzindo para fechar as 12 rep. ",
+              "rir": "0",
+              "duracao": 57,
+              "descanso": 121
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-09-19",
       "tipo": "push",
       "ciclo": "—",
@@ -4344,5 +4395,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-09-20T18:55:29.740Z"
+  "at": "2026-09-26T15:16:36.867Z"
 }
