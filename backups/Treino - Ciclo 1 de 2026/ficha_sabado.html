@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ficha Sábado – Push</title>
+<style>
+  body {
+    margin: 0;
+    padding: 12px;
+    background: #0f172a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1e293b;
+  }
+  .wrap { max-width: 440px; margin: 0 auto; }
+
+  /* HEADER */
+  .hdr {
+    text-align: center;
+    color: #fff;
+    padding: 20px 0 16px;
+  }
+  .hdr h1 { font-size: 26px; margin: 0 0 4px; }
+  .hdr p  { font-size: 13px; color: #94a3b8; margin: 0; }
+
+  /* CARD */
+  .card {
+    background: #fff;
+    border-radius: 14px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  }
+
+  /* FAIXA COLORIDA NO TOPO */
+  .top { padding: 14px 18px 12px; }
+  .c1 .top { background: #1d4ed8; }
+  .c2 .top { background: #0369a1; }
+  .c3 .top { background: #6d28d9; }
+  .c4 .top { background: #be185d; }
+  .c5 .top { background: #b45309; }
+  .c6 .top { background: #047857; }
+  .c7 .top { background: #0f766e; }
+
+  .top .num  { font-size: 11px; color: rgba(255,255,255,.75); font-weight: 600; text-transform: uppercase; letter-spacing: .5px; }
+  .top .nome { font-size: 19px; color: #fff; font-weight: 700; margin-top: 4px; line-height: 1.25; }
+
+  /* INFO GRID */
+  .infos {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .info-box {
+    padding: 12px 8px;
+    text-align: center;
+    border-right: 1px solid #e2e8f0;
+  }
+  .info-box:last-child { border-right: none; }
+  .info-box .lbl { font-size: 10px; color: #94a3b8; font-weight: 600; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 4px; }
+  .info-box .val { font-size: 16px; font-weight: 700; color: #1e293b; }
+
+  /* SÉRIES */
+  .series-area { padding: 14px 16px; }
+  .series-area .slbl { font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; margin-bottom: 10px; }
+  .series-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  .serie-item { display: flex; align-items: center; gap: 10px; padding: 11px 12px; background: #f8fafc; border: 2px solid #e2e8f0; border-radius: 9px; cursor: pointer; }
+  .serie-item input[type=checkbox] { width: 20px; height: 20px; cursor: pointer; accent-color: #1d4ed8; flex-shrink: 0; }
+  .serie-item label { font-size: 14px; font-weight: 600; color: #1e293b; cursor: pointer; }
+
+  /* NOTA */
+  .nota { margin: 0 16px 16px; padding: 11px 12px; background: #fffbeb; border-left: 3px solid #f59e0b; border-radius: 6px; font-size: 13px; color: #78350f; font-weight: 500; line-height: 1.5; }
+
+  /* RODAPÉ */
+  .footer { text-align: center; color: #475569; font-size: 13px; padding: 20px 0 28px; line-height: 1.8; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hdr">
+    <h1>📋 Sábado — Push</h1>
+    <p>Peito prioritário · Ombro · Tríceps · 60-75 min</p>
+  </div>
+
+  <!-- EX 1 -->
+  <div class="card c1">
+    <div class="top">
+      <div class="num">Exercício 1</div>
+      <div class="nome">Supino Reto na Máquina</div>
+    </div>
+    <div class="infos">
+      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">4×6-10</div></div>
+      <div class="info-box"><div class="lbl">RIR</div><div class="val">2→1</div></div>
+      <div class="info-box"><div class="lbl">Descanso</div><div class="val">2 min</div></div>
+    </div>
+    <div class="series-area">
+      <div class="slbl">Marque as séries concluídas</div>
+      <div class="series-grid">
+        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 4</label></label>
+      </div>
+    </div>
+    <div class="nota">Carga primária do dia. Última série pesada.</div>
+  </div>
+
+  <!-- EX 2 -->
+  <div class="card c2">
+    <div class="top">
+      <div class="num">Exercício 2</div>
+      <div class="nome">Supino Inclinado Máquina</div>
+    </div>
+    <div class="infos">
+      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">4×8-12</div></div>
+      <div class="info-box"><div class="lbl">RIR</div><div class="val">2→1</div></div>
+      <div class="info-box"><div class="lbl">Descanso</div><div class="val">2 min</div></div>
+    </div>
+    <div class="series-area">
+      <div class="slbl">Marque as séries concluídas</div>
+      <div class="series-grid">
+        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 4</label></label>
+      </div>
+    </div>
+    <div class="nota">Peito superior. Mantém o que você já fazia.</div>
+  </div>
+
+  <!-- EX 3 -->
+  <div class="card c3">
+    <div class="top">
+      <div class="num">Exercício 3</div>
+      <div class="nome">Crossover — Polia Alta</div>
+    </div>
+    <div class="infos">
+      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×10-15</div></div>
+      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
+      <div class="info-box"><div class="lbl">Descanso</div><div class="val">90 s</div></div>
+    </div>
+    <div class="series-area">
+      <div class="slbl">Marque as séries concluídas</div>
+      <div class="series-grid">
+        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
+      </div>
+    </div>
+    <div class="nota">Pico de contração. Foco em sentir o peito na fase final.</div>
+  </div>
+
+  <!-- EX 4 -->
+  <div class="card c4">
+    <div class="top">
+      <div class="num">Exercício 4</div>
+      <div class="nome">Supino Declinado Máquina</div>
+    </div>
+    <div class="infos">
+      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×8-12</div></div>
+      <div class="info-box"><div class="lbl">RIR</div><div class="val">1-2</div></div>
+      <div class="info-box"><div class="lbl">Descanso</div><div class="val">90 s</div></div>
+    </div>
+    <div class="series-area">
+      <div class="slbl">Marque as séries concluídas</div>
+      <div class="series-grid">
+        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
+      </div>
+    </div>
+    <div class="nota">Fibras inferiores. Alterne com paralelas a cada 4 semanas.</div>
+  </div>
+
+  <!-- EX 5 -->
+  <div class="card c5">
+    <div class="top">
+      <div class="num">Exercício 5</div>
+      <div class="nome">Face Pulls — Polia Alta</div>
+    </div>
+    <div class="infos">
+      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×12-15</div></div>
+      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
+      <div class="info-box"><div class="lbl">Descanso</div><div class="val">60-90 s</div></div>
+    </div>
+    <div class="series-area">
+      <div class="slbl">Marque as séries concluídas</div>
+      <div class="series-grid">
+        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
+      </div>
+    </div>
+    <div class="nota">⚠️ NÃO PULAR. Puxar em direção ao rosto, cotovelos altos. Deltoide posterior + trapézio.</div>
+  </div>
+
+  <!-- EX 6 -->
+  <div class="card c6">
+    <div class="top">
+      <div class="num">Exercício 6</div>
+      <div class="nome">Elevação Lateral — Cabo ou Máquina</div>
+    </div>
+    <div class="infos">
+      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×12-15</div></div>
+      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
+      <div class="info-box"><div class="lbl">Descanso</div><div class="val">60 s</div></div>
+    </div>
+    <div class="series-area">
+      <div class="slbl">Marque as séries concluídas</div>
+      <div class="series-grid">
+        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
+      </div>
+    </div>
+    <div class="nota">Deltoide médio. Foco total na contração lateral.</div>
+  </div>
+
+  <!-- EX 7 -->
+  <div class="card c7">
+    <div class="top">
+      <div class="num">Exercício 7</div>
+      <div class="nome">Tríceps na Polia — Corda</div>
+    </div>
+    <div class="infos">
+      <div class="info-box"><div class="lbl">Séries×Reps</div><div class="val">3×10-12</div></div>
+      <div class="info-box"><div class="lbl">RIR</div><div class="val">1</div></div>
+      <div class="info-box"><div class="lbl">Descanso</div><div class="val">60-90 s</div></div>
+    </div>
+    <div class="series-area">
+      <div class="slbl">Marque as séries concluídas</div>
+      <div class="series-grid">
+        <label class="serie-item"><input type="checkbox"><label>Série 1</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 2</label></label>
+        <label class="serie-item"><input type="checkbox"><label>Série 3</label></label>
+      </div>
+    </div>
+    <div class="nota">Trabalho indireto pesado já veio nos 4 supinos. Foco no isolamento.</div>
+  </div>
+
+  <div class="footer">
+    ✅ Total: 7 exercícios · 23 séries<br>
+    🏃 Após: 20 min de esteira a 6,8 km/h
+  </div>
+
+</div>
+</body>
+</html>
