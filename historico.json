@@ -48,6 +48,48 @@
               "descanso": 121
             }
           ]
+        },
+        {
+          "exercicioId": "supino-inclinado",
+          "nome": "Supino Inclinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": "1",
+              "duracao": 7,
+              "descanso": 120
+            },
+            {
+              "serie": 2,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": "1",
+              "duracao": 42,
+              "descanso": 120
+            },
+            {
+              "serie": 3,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": "0",
+              "duracao": 55,
+              "descanso": 121
+            },
+            {
+              "serie": 4,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": "0",
+              "duracao": 51,
+              "descanso": 121
+            }
+          ]
         }
       ]
     },
@@ -4395,5 +4437,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-09-26T15:16:36.867Z"
+  "at": "2026-09-26T15:29:11.872Z"
 }
