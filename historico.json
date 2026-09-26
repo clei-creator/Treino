@@ -231,6 +231,39 @@
               "descanso": 107
             }
           ]
+        },
+        {
+          "exercicioId": "elevacao-lateral",
+          "nome": "Elevação Lateral (Halteres)",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 39,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "8",
+              "reps": "17",
+              "obs": "",
+              "rir": "0",
+              "duracao": 46,
+              "descanso": 90
+            },
+            {
+              "serie": 3,
+              "kg": "10",
+              "reps": "13",
+              "obs": "Drop. 10; 8; 6. ",
+              "rir": "3+",
+              "duracao": 83,
+              "descanso": 90
+            }
+          ]
         }
       ]
     },
@@ -4578,5 +4611,5 @@
       "face-pull": "62 / 4"
     }
   },
-  "at": "2026-09-26T16:08:05.766Z"
+  "at": "2026-09-26T16:16:37.767Z"
 }
