@@ -2696,6 +2696,39 @@
               "descanso": 120
             }
           ]
+        },
+        {
+          "exercicioId": "supino-inclinado",
+          "nome": "Supino Inclinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": "2",
+              "duracao": 49,
+              "descanso": 121
+            },
+            {
+              "serie": 2,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": "1",
+              "duracao": 58,
+              "descanso": 120
+            },
+            {
+              "serie": 3,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": "0",
+              "duracao": 48,
+              "descanso": 121
+            }
+          ]
         }
       ]
     },
@@ -4695,8 +4728,9 @@
       "face-pull": "62 / 4"
     },
     "Srmart Fit Prudente": {
-      "puxada-alta": "33"
+      "puxada-alta": "33",
+      "supino-inclinado": "Máquina amarela / 6"
     }
   },
-  "at": "2026-09-27T15:08:45.753Z"
+  "at": "2026-09-27T15:18:23.048Z"
 }
