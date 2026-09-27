@@ -2804,6 +2804,39 @@
               "descanso": 91
             }
           ]
+        },
+        {
+          "exercicioId": "stiff",
+          "nome": "Stiff na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "12",
+              "obs": "",
+              "rir": "2",
+              "duracao": 59,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "12",
+              "obs": "",
+              "rir": "2",
+              "duracao": 68,
+              "descanso": 90
+            },
+            {
+              "serie": 3,
+              "kg": "40",
+              "reps": "12",
+              "obs": "",
+              "rir": "2",
+              "duracao": 105,
+              "descanso": 91
+            }
+          ]
         }
       ]
     },
@@ -4805,8 +4838,9 @@
     "Srmart Fit Prudente": {
       "puxada-alta": "33",
       "supino-inclinado": "Máquina amarela / 6",
-      "flexora": "03"
+      "flexora": "03",
+      "stiff": "Barra livre "
     }
   },
-  "at": "2026-09-27T15:39:22.310Z"
+  "at": "2026-09-27T15:49:35.746Z"
 }
