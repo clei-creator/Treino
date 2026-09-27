@@ -2649,6 +2649,57 @@
   ],
   "pull": [
     {
+      "data": "2026-09-27",
+      "tipo": "pull",
+      "ciclo": "Ciclo 2 · Set–Dez 2026",
+      "bloco": "R",
+      "academia": "Srmart Fit Prudente",
+      "exercicios": [
+        {
+          "exercicioId": "puxada-alta",
+          "nome": "Puxada Alta na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "30",
+              "reps": "15",
+              "obs": "",
+              "rir": "2",
+              "duracao": 58,
+              "descanso": 120
+            },
+            {
+              "serie": 2,
+              "kg": "80",
+              "reps": "12",
+              "obs": "",
+              "rir": "2",
+              "duracao": 93,
+              "descanso": 121
+            },
+            {
+              "serie": 3,
+              "kg": "80",
+              "reps": "12",
+              "obs": "",
+              "rir": null,
+              "duracao": 75,
+              "descanso": 121
+            },
+            {
+              "serie": 4,
+              "kg": "80",
+              "reps": "12",
+              "obs": "",
+              "rir": "0",
+              "duracao": 45,
+              "descanso": 120
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-09-20",
       "tipo": "pull",
       "ciclo": "—",
@@ -4642,7 +4693,10 @@
       "crossover": "61 / 2",
       "supino-declinado": "24 / 7 / pernas e abd contraídos ",
       "face-pull": "62 / 4"
+    },
+    "Srmart Fit Prudente": {
+      "puxada-alta": "33"
     }
   },
-  "at": "2026-09-26T16:25:04.787Z"
+  "at": "2026-09-27T15:08:45.753Z"
 }
