@@ -2894,6 +2894,39 @@
               "descanso": 93
             }
           ]
+        },
+        {
+          "exercicioId": "panturrilha",
+          "nome": "Panturrilha em Pé",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "18",
+              "obs": "Cadeira ",
+              "rir": "1",
+              "duracao": 62,
+              "descanso": 45
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 47,
+              "descanso": 45
+            },
+            {
+              "serie": 3,
+              "kg": "30",
+              "reps": "15",
+              "obs": "Não é o peso, são as repetições que não sobem.",
+              "rir": "0",
+              "duracao": 77,
+              "descanso": 46
+            }
+          ]
         }
       ]
     },
@@ -4898,8 +4931,9 @@
       "flexora": "03",
       "stiff": "Barra livre ",
       "hiperextensao": "46 / 3",
-      "rosca": "Barra W"
+      "rosca": "Barra W",
+      "panturrilha": "07"
     }
   },
-  "at": "2026-09-27T16:03:36.727Z"
+  "at": "2026-09-27T16:11:07.004Z"
 }
