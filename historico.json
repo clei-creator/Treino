@@ -2837,6 +2837,63 @@
               "descanso": 91
             }
           ]
+        },
+        {
+          "exercicioId": "hiperextensao",
+          "nome": "Hiperextensão Lombar 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "1",
+              "reps": "10",
+              "obs": "Barra sem peso. ",
+              "rir": "2",
+              "duracao": 4,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "1",
+              "reps": "10",
+              "obs": "",
+              "rir": "1",
+              "duracao": 55,
+              "descanso": 91
+            }
+          ]
+        },
+        {
+          "exercicioId": "rosca",
+          "nome": "Rosca — Pegada Neutra",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": null,
+              "duracao": 43,
+              "descanso": 60
+            },
+            {
+              "serie": 2,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": "1",
+              "duracao": 44,
+              "descanso": 61
+            },
+            {
+              "serie": 3,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": "0",
+              "duracao": 41,
+              "descanso": 93
+            }
+          ]
         }
       ]
     },
@@ -4839,8 +4896,10 @@
       "puxada-alta": "33",
       "supino-inclinado": "Máquina amarela / 6",
       "flexora": "03",
-      "stiff": "Barra livre "
+      "stiff": "Barra livre ",
+      "hiperextensao": "46 / 3",
+      "rosca": "Barra W"
     }
   },
-  "at": "2026-09-27T15:49:35.746Z"
+  "at": "2026-09-27T16:03:36.727Z"
 }
