@@ -2729,6 +2729,48 @@
               "descanso": 121
             }
           ]
+        },
+        {
+          "exercicioId": "leg-press",
+          "nome": "Leg Press 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "160",
+              "reps": "12",
+              "obs": "",
+              "rir": "2",
+              "duracao": 610,
+              "descanso": 150
+            },
+            {
+              "serie": 2,
+              "kg": "180",
+              "reps": "12",
+              "obs": "",
+              "rir": "1",
+              "duracao": 48,
+              "descanso": 151
+            },
+            {
+              "serie": 3,
+              "kg": "180",
+              "reps": "12",
+              "obs": "",
+              "rir": "2",
+              "duracao": 59,
+              "descanso": 151
+            },
+            {
+              "serie": 4,
+              "kg": "180",
+              "reps": "12",
+              "obs": "",
+              "rir": "2",
+              "duracao": 63,
+              "descanso": 195
+            }
+          ]
         }
       ]
     },
@@ -4729,8 +4771,9 @@
     },
     "Srmart Fit Prudente": {
       "puxada-alta": "33",
-      "supino-inclinado": "Máquina amarela / 6"
+      "supino-inclinado": "Máquina amarela / 6",
+      "flexora": "03"
     }
   },
-  "at": "2026-09-27T15:18:23.048Z"
+  "at": "2026-09-27T15:32:47.673Z"
 }
