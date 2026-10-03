@@ -231,6 +231,39 @@
               "descanso": 121
             }
           ]
+        },
+        {
+          "exercicioId": "elevacao-lateral",
+          "nome": "Elevação Lateral (Halteres)",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 45,
+              "descanso": 91
+            },
+            {
+              "serie": 2,
+              "kg": "10",
+              "reps": "15",
+              "obs": "1:45 de descanso é melhor ",
+              "rir": "1",
+              "duracao": 33,
+              "descanso": 110
+            },
+            {
+              "serie": 3,
+              "kg": "10",
+              "reps": "15",
+              "obs": "Drop 5; 5. ",
+              "rir": "3+",
+              "duracao": 125,
+              "descanso": 90
+            }
+          ]
         }
       ]
     },
@@ -5169,5 +5202,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-10-03T15:16:11.659Z"
+  "at": "2026-10-03T15:25:57.320Z"
 }
