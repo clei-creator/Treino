@@ -8,6 +8,48 @@
       "academia": "Srmart Fit Prudente",
       "exercicios": [
         {
+          "exercicioId": "supino-reto",
+          "nome": "Supino Reto na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "50",
+              "reps": "12",
+              "obs": "",
+              "rir": "2",
+              "duracao": 20,
+              "descanso": 111
+            },
+            {
+              "serie": 2,
+              "kg": "57.2",
+              "reps": "12",
+              "obs": "",
+              "rir": "0",
+              "duracao": 54,
+              "descanso": 121
+            },
+            {
+              "serie": 3,
+              "kg": "57.2",
+              "reps": "12",
+              "obs": "Pesado",
+              "rir": "0",
+              "duracao": 56,
+              "descanso": 121
+            },
+            {
+              "serie": 4,
+              "kg": "50",
+              "reps": "12",
+              "obs": "Tríceps esquerdo reclamando. ",
+              "rir": "1",
+              "duracao": 47,
+              "descanso": 120
+            }
+          ]
+        },
+        {
           "exercicioId": "remada-sentada",
           "nome": "Remada Sentada na Máquina",
           "series": [
@@ -4986,5 +5028,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-10-03T14:22:14.884Z"
+  "at": "2026-10-03T14:34:40.857Z"
 }
