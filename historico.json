@@ -50,6 +50,48 @@
           ]
         },
         {
+          "exercicioId": "supino-inclinado",
+          "nome": "Supino Inclinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": "0",
+              "duracao": 65,
+              "descanso": 120
+            },
+            {
+              "serie": 2,
+              "kg": "25",
+              "reps": "12",
+              "obs": "",
+              "rir": "0",
+              "duracao": 61,
+              "descanso": 101
+            },
+            {
+              "serie": 3,
+              "kg": "25",
+              "reps": "10",
+              "obs": "",
+              "rir": "0",
+              "duracao": 47,
+              "descanso": 120
+            },
+            {
+              "serie": 4,
+              "kg": "20",
+              "reps": "12",
+              "obs": "Ok. Corri 5,9 km a menos de 24h, parece que to com menos força, hoje. ",
+              "rir": "1",
+              "duracao": 44,
+              "descanso": 815
+            }
+          ]
+        },
+        {
           "exercicioId": "remada-sentada",
           "nome": "Remada Sentada na Máquina",
           "series": [
@@ -88,6 +130,30 @@
               "rir": "3+",
               "duracao": 138,
               "descanso": 121
+            }
+          ]
+        },
+        {
+          "exercicioId": "crossover",
+          "nome": "Crossover — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "13.75",
+              "reps": "13",
+              "obs": "",
+              "rir": null,
+              "duracao": 74,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "13.75",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 64,
+              "descanso": 91
             }
           ]
         }
@@ -5028,5 +5094,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-10-03T14:34:40.857Z"
+  "at": "2026-10-03T14:57:53.281Z"
 }
