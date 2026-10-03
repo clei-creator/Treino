@@ -165,6 +165,39 @@
               "descanso": 91
             }
           ]
+        },
+        {
+          "exercicioId": "supino-declinado",
+          "nome": "Supino Declinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "30",
+              "reps": "12",
+              "obs": "",
+              "rir": "2",
+              "duracao": 33,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "45",
+              "reps": "12",
+              "obs": "Descanso de 1:30 depois da última série de drop não está sendo suficiente ",
+              "rir": "0",
+              "duracao": 41,
+              "descanso": 121
+            },
+            {
+              "serie": 3,
+              "kg": "45",
+              "reps": "12",
+              "obs": "",
+              "rir": "1",
+              "duracao": 36,
+              "descanso": 91
+            }
+          ]
         }
       ]
     },
@@ -5103,5 +5136,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-10-03T14:58:27.413Z"
+  "at": "2026-10-03T15:06:28.333Z"
 }
