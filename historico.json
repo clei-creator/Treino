@@ -72,6 +72,39 @@
               "descanso": 120
             }
           ]
+        },
+        {
+          "exercicioId": "remada-sentada",
+          "nome": "Remada Sentada na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "12",
+              "obs": "",
+              "rir": "1",
+              "duracao": 119,
+              "descanso": 120
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "12",
+              "obs": "",
+              "rir": "1",
+              "duracao": 39,
+              "descanso": 120
+            },
+            {
+              "serie": 3,
+              "kg": "40",
+              "reps": "12",
+              "obs": "",
+              "rir": "1",
+              "duracao": 34,
+              "descanso": 144
+            }
+          ]
         }
       ]
     },
@@ -5313,5 +5346,5 @@
       "supino-reto": "20 / 6"
     }
   },
-  "at": "2026-11-07T14:50:22.019Z"
+  "at": "2026-11-07T15:00:20.408Z"
 }
