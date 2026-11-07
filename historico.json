@@ -177,6 +177,30 @@
               "descanso": 91
             }
           ]
+        },
+        {
+          "exercicioId": "elevacao-lateral",
+          "nome": "Elevação Lateral (Halteres)",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "8",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 38,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "8",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 41,
+              "descanso": 126
+            }
+          ]
         }
       ]
     },
@@ -5418,5 +5442,5 @@
       "supino-reto": "20 / 6"
     }
   },
-  "at": "2026-11-07T15:19:33.507Z"
+  "at": "2026-11-07T15:24:58.298Z"
 }
