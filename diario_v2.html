@@ -14,7 +14,8 @@
       --blue:#0a84ff;--green:#30d158;--yellow:#ffd60a;--orange:#ff9f0a;--red:#ff453a;
     }
     body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;min-height:100vh;overflow-x:hidden}
-    body.modo-retorno-tema{--bg:#1a1a1a}
+    .retorno-frame{position:fixed;inset:0;z-index:1200;pointer-events:none;display:none;border:6px solid var(--yellow);box-sizing:border-box}
+    body.modo-retorno-tema .retorno-frame{display:block}
 
     /* topbar */
     .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(0,0,0,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:center;padding:0 16px;z-index:100;border-bottom:.5px solid var(--border)}
@@ -160,6 +161,10 @@
     .extra-form-btns{display:flex;gap:10px}
     .btn-extra-salvar{flex:1;background:var(--orange);color:#000;border:none;border-radius:10px;padding:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
     .btn-extra-cancelar{background:transparent;border:1.5px solid var(--border);color:var(--text3);border-radius:10px;padding:12px 16px;font-size:14px;cursor:pointer;font-family:inherit}
+    .academia-opcao{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--card2);border:1.5px solid var(--border);border-radius:10px;margin-bottom:8px;cursor:pointer;font-size:15px;color:var(--text2);-webkit-tap-highlight-color:transparent}
+    .academia-opcao.ativa{border-color:var(--blue);color:var(--text)}
+    .academia-opcao-check{color:var(--blue);font-weight:700}
+    .btn-academia-add{width:100%;padding:12px;background:transparent;border:1.5px dashed var(--border);color:var(--text3);border-radius:10px;font-size:14px;cursor:pointer;font-family:inherit;margin-top:4px;margin-bottom:10px}
     .extra-list-item{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--card);border-radius:12px;padding:12px 14px;margin-bottom:10px;border-left:4px solid var(--orange)}
     .extra-item-name{font-size:14px;font-weight:700;color:var(--text2)}
     .extra-item-meta{font-size:12px;color:var(--text3);margin-top:2px}
@@ -297,9 +302,11 @@
 </head>
 <body>
 
+<div class="retorno-frame" id="retorno-frame"></div>
+
 <div class="topbar">
   <span class="topbar-title">Treino v3 <span class="week-badge" id="week-badge"></span></span>
-  <span class="academia-pill" id="academia-pill" onclick="trocarAcademia()">🏢 …</span>
+  <span class="academia-pill" id="academia-pill" onclick="abrirSeletorAcademia()">🏢 …</span>
 </div>
 
 <div class="tabbar">
@@ -338,6 +345,15 @@
       <button class="modal-btn modal-cancel" onclick="closeModal()">Cancelar</button>
       <button class="modal-btn modal-confirm" id="modal-confirm-btn"></button>
     </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="academia-overlay" onclick="fecharSeletorAcademia()" style="display:none">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-title" style="margin-bottom:14px">🏢 Escolher academia</div>
+    <div id="academia-lista"></div>
+    <button class="btn-academia-add" onclick="adicionarNovaAcademia()">➕ Adicionar nova academia</button>
+    <button class="btn-extra-cancelar" style="width:100%;margin-top:10px" onclick="fecharSeletorAcademia()">Fechar</button>
   </div>
 </div>
 
@@ -863,18 +879,58 @@ function academiaAtual(){
   const v = store.get('academia_atual') || 'Academia Principal';
   return ACADEMIA_NOMES_PROIBIDOS.includes(v) ? 'Academia Principal' : v;
 }
-function trocarAcademia(){
+
+let _academiaOpcoesAtual = [];
+
+function abrirSeletorAcademia(){
   const atual = academiaAtual();
-  const nova  = prompt('Nome da academia atual:', atual);
+  const todas = Object.keys(getConfigAll());
+  if(!todas.includes(atual)) todas.push(atual);
+  todas.sort((a,b) => a.localeCompare(b));
+  _academiaOpcoesAtual = todas;
+
+  const lista = document.getElementById('academia-lista');
+  lista.innerHTML = todas.map((nome,i) => `<div class="academia-opcao${nome===atual?' ativa':''}" onclick="escolherAcademiaPorIndice(${i})">
+    <span>${esc(nome)}</span>
+    ${nome===atual?'<span class="academia-opcao-check">✓</span>':''}
+  </div>`).join('');
+
+  document.getElementById('academia-overlay').style.display = 'flex';
+}
+
+function escolherAcademiaPorIndice(i){
+  const nome = _academiaOpcoesAtual[i];
+  if(nome == null) return;
+  store.set('academia_atual', nome);
+  atualizarAcademiaPill();
+  fecharSeletorAcademia();
+  needsFullRender = true;
+  renderAll();
+  showToast('🏢 Academia: ' + nome);
+}
+
+function fecharSeletorAcademia(){
+  document.getElementById('academia-overlay').style.display = 'none';
+}
+
+function adicionarNovaAcademia(){
+  const nova = prompt('Nome da nova academia:');
   if(nova === null) return;
   const val = nova.trim();
   if(!val) return;
   if(ACADEMIA_NOMES_PROIBIDOS.includes(val)){ showToast('⚠ Nome de academia inválido.'); return; }
-  store.set('academia_atual', val);
+
+  // evita criar um nome quase-duplicado por diferença de maiúsculas/espaços
+  const existentes  = Object.keys(getConfigAll());
+  const equivalente = existentes.find(n => n.trim().toLowerCase() === val.toLowerCase());
+  const nomeFinal   = equivalente || val;
+
+  store.set('academia_atual', nomeFinal);
   atualizarAcademiaPill();
+  fecharSeletorAcademia();
   needsFullRender = true;
   renderAll();
-  showToast('🏢 Academia: ' + val);
+  showToast(equivalente ? '🏢 Já existia "'+equivalente+'" — usando ela.' : '🏢 Academia adicionada: '+nomeFinal);
 }
 function atualizarAcademiaPill(){
   const el = document.getElementById('academia-pill');
