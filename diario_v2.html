@@ -60,6 +60,13 @@
     /* last ref */
     .ex-nota{padding:10px 16px;font-size:12.5px;color:var(--text2);background:var(--card2);border-left:3px solid var(--orange);line-height:1.5}
     .last-ref{padding:8px 16px;font-size:12px;color:var(--text3);border-bottom:.5px solid var(--border)}
+    .hist-completo{padding:10px 16px;border-bottom:.5px solid var(--border)}
+    .hist-completo-titulo{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px}
+    .hist-completo-sessao{margin-bottom:8px}
+    .hist-completo-sessao:last-child{margin-bottom:0}
+    .hist-completo-data{font-size:11px;color:var(--text3);margin-bottom:3px}
+    .hist-completo-series{display:flex;flex-wrap:wrap;gap:6px}
+    .hist-completo-sr{font-size:12px;color:var(--text2);background:var(--card2);border-radius:6px;padding:3px 7px}
     .last-ref strong{color:var(--text2)}
 
     /* completed series */
@@ -992,6 +999,21 @@ function getLastSerie(exId, tipo, serieNum){
   return null;
 }
 
+function getUltimasSessoesExercicio(exId, tipo, n){
+  const hoje = hojeISO();
+  const hist = getHistorico(tipo);
+  const resultado = [];
+  for(const sessao of hist){
+    if(sessao.data === hoje) continue;
+    const ex = (sessao.exercicios||[]).find(e => e.exercicioId === exId);
+    if(ex && ex.series && ex.series.length){
+      resultado.push({ data: sessao.data, series: ex.series });
+      if(resultado.length >= n) break;
+    }
+  }
+  return resultado;
+}
+
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let activeTab   = 'push';
 let exIdxPush   = 0;
@@ -1672,14 +1694,19 @@ function renderExPanel(tipo){
       oninput="setConfig('${ex.id}',this.value)">
   </div>`;
 
-  // Last session reference for current series
-  const serieParaRef = state.curSerie <= ex.series ? state.curSerie : ex.series;
-  const lastSr = getLastSerie(ex.id, tipo, serieParaRef);
-  if(lastSr){
-    html += `<div class="last-ref">
-      Série ${serieParaRef} anterior: <strong>${esc(lastSr.kg)} kg × ${esc(lastSr.reps)} reps</strong>
-      ${lastSr.obs ? ' · <em>'+esc(lastSr.obs)+'</em>' : ''}
-      <span style="color:var(--text3)"> · ${diasAtras(lastSr.data)}</span>
+  // Histórico completo do exercício (últimas 3 sessões, todas as séries de cada uma)
+  const ultimasSessoes = getUltimasSessoesExercicio(ex.id, tipo, 3);
+  if(ultimasSessoes.length){
+    html += `<div class="hist-completo">
+      <div class="hist-completo-titulo">📋 Histórico</div>
+      ${ultimasSessoes.map(sessao => `
+        <div class="hist-completo-sessao">
+          <div class="hist-completo-data">${fmtData(sessao.data)} · ${diasAtras(sessao.data)}</div>
+          <div class="hist-completo-series">
+            ${sessao.series.map(sr => `<span class="hist-completo-sr">S${sr.serie} ${esc(sr.kg)}kg×${esc(sr.reps)}</span>`).join('')}
+          </div>
+        </div>
+      `).join('')}
     </div>`;
   }
 
