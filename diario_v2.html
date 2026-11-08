@@ -348,6 +348,17 @@
   </div>
 </div>
 
+<div class="modal-overlay" id="confirmar-academia-overlay" style="display:none">
+  <div class="modal-box">
+    <div class="modal-title">🏢 Confirme a academia</div>
+    <div class="modal-body" id="confirmar-academia-texto"></div>
+    <div class="modal-actions">
+      <button class="modal-btn modal-cancel" onclick="trocarAcademiaDoPopupInicio()">Trocar</button>
+      <button class="modal-btn modal-confirm blue" onclick="confirmarAcademiaEIniciar()">OK, é essa</button>
+    </div>
+  </div>
+</div>
+
 <div class="modal-overlay" id="academia-overlay" onclick="fecharSeletorAcademia()" style="display:none">
   <div class="modal-box" onclick="event.stopPropagation()">
     <div class="modal-title" style="margin-bottom:14px">🏢 Escolher academia</div>
@@ -460,7 +471,7 @@
       </div>
     </div>
 
-    <button class="btn-welcome-start" onclick="fecharBemVindo()">Começar Treino</button>
+    <button class="btn-welcome-start" onclick="mostrarConfirmacaoAcademia()">Começar Treino</button>
     <a href="diagnostico.html" class="welcome-diag-link">🔍 Diagnóstico do armazenamento local</a>
     <div style="height:env(safe-area-inset-bottom)"></div>
   </div>
@@ -1208,6 +1219,19 @@ function fecharBemVindo(){
   document.getElementById('welcome-overlay').style.display = 'none';
   needsFullRender = true;
   renderAll();
+}
+function mostrarConfirmacaoAcademia(){
+  document.getElementById('confirmar-academia-texto').textContent =
+    'Você está prestes a treinar em: ' + academiaAtual();
+  document.getElementById('confirmar-academia-overlay').style.display = 'flex';
+}
+function confirmarAcademiaEIniciar(){
+  document.getElementById('confirmar-academia-overlay').style.display = 'none';
+  fecharBemVindo();
+}
+function trocarAcademiaDoPopupInicio(){
+  document.getElementById('confirmar-academia-overlay').style.display = 'none';
+  abrirSeletorAcademia();
 }
 function iniciarBemVindo(){
   const b = getBlocoAtual();
