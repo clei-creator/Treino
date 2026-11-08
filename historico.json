@@ -5438,7 +5438,7 @@
     }
   ],
   "config": {
-    "Academia Principal": {
+    "Smart Fit Midway": {
       "puxada-alta": "Maq. 32 / 9",
       "remada-sentada": "Maq. 31 / 9",
       "leg-press": "09 /",
@@ -5453,7 +5453,7 @@
       "supino-declinado": "24 / 7 / pernas e abd contraídos ",
       "face-pull": "62 / 4"
     },
-    "Srmart Fit Prudente": {
+    "Smart Fit Prudente": {
       "puxada-alta": "33",
       "supino-inclinado": "Máquina amarela / 6",
       "flexora": "03",
@@ -5461,9 +5461,6 @@
       "hiperextensao": "46 / 3",
       "rosca": "Barra W",
       "panturrilha": "07"
-    },
-    "Srmart Fit Principal": {
-      "supino-reto": "20 / 6"
     }
   },
   "at": "2026-11-07T15:29:04.279Z"

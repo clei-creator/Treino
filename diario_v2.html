@@ -876,8 +876,8 @@ function confirmarDesativarRetorno(){
 // ── ACADEMIA (GYM CONTEXT) ──────────────────────────────────────────────────
 const ACADEMIA_NOMES_PROIBIDOS = ['__proto__', 'constructor', 'prototype'];
 function academiaAtual(){
-  const v = store.get('academia_atual') || 'Academia Principal';
-  return ACADEMIA_NOMES_PROIBIDOS.includes(v) ? 'Academia Principal' : v;
+  const v = store.get('academia_atual') || 'Smart Fit Midway';
+  return ACADEMIA_NOMES_PROIBIDOS.includes(v) ? 'Smart Fit Midway' : v;
 }
 
 let _academiaOpcoesAtual = [];
