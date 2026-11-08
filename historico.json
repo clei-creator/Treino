@@ -3272,6 +3272,30 @@
               "descanso": 151
             }
           ]
+        },
+        {
+          "exercicioId": "flexora",
+          "nome": "Cadeira Flexora",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "35",
+              "reps": "16",
+              "obs": "",
+              "rir": "1",
+              "duracao": 51,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "35",
+              "reps": "16",
+              "obs": "",
+              "rir": "0",
+              "duracao": 48,
+              "descanso": 128
+            }
+          ]
         }
       ]
     },
@@ -5562,5 +5586,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-11-08T13:56:45.956Z"
+  "at": "2026-11-08T14:02:10.835Z"
 }
