@@ -3215,6 +3215,30 @@
               "descanso": 120
             }
           ]
+        },
+        {
+          "exercicioId": "supino-inclinado",
+          "nome": "Supino Inclinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "20",
+              "reps": "15",
+              "obs": "",
+              "rir": "2",
+              "duracao": 62,
+              "descanso": 120
+            },
+            {
+              "serie": 2,
+              "kg": "20",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 69,
+              "descanso": 120
+            }
+          ]
         }
       ]
     },
@@ -5505,5 +5529,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-11-08T13:36:16.056Z"
+  "at": "2026-11-08T13:45:45.860Z"
 }
