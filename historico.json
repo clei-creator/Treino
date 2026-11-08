@@ -3239,6 +3239,39 @@
               "descanso": 120
             }
           ]
+        },
+        {
+          "exercicioId": "leg-press",
+          "nome": "Leg Press 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "120",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 1,
+              "descanso": 151
+            },
+            {
+              "serie": 2,
+              "kg": "120",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 60,
+              "descanso": 151
+            },
+            {
+              "serie": 3,
+              "kg": "120",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 65,
+              "descanso": 151
+            }
+          ]
         }
       ]
     },
@@ -5529,5 +5562,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-11-08T13:45:45.860Z"
+  "at": "2026-11-08T13:56:45.956Z"
 }
