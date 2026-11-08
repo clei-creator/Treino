@@ -3320,6 +3320,30 @@
               "descanso": 145
             }
           ]
+        },
+        {
+          "exercicioId": "hiperextensao",
+          "nome": "Hiperextensão Lombar 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "0",
+              "reps": "15",
+              "obs": "",
+              "rir": null,
+              "duracao": 49,
+              "descanso": 91
+            },
+            {
+              "serie": 2,
+              "kg": "0",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 51,
+              "descanso": 91
+            }
+          ]
         }
       ]
     },
@@ -5610,5 +5634,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-11-08T14:09:02.551Z"
+  "at": "2026-11-08T14:14:20.510Z"
 }
