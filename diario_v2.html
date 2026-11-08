@@ -14,6 +14,7 @@
       --blue:#0a84ff;--green:#30d158;--yellow:#ffd60a;--orange:#ff9f0a;--red:#ff453a;
     }
     body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text',sans-serif;min-height:100vh;overflow-x:hidden}
+    body.modo-retorno-tema{--bg:#1a1a1a}
 
     /* topbar */
     .topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(0,0,0,.88);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;align-items:center;padding:0 16px;z-index:100;border-bottom:.5px solid var(--border)}
@@ -187,6 +188,8 @@
     .hist-ex-name{font-size:13px;font-weight:700;color:var(--text2);margin-bottom:5px}
     .hist-series-grid{display:flex;flex-direction:column;gap:4px}
     .hist-sr{display:flex;align-items:baseline;gap:8px;font-size:13px}
+    .hist-sr-editavel{cursor:pointer;-webkit-tap-highlight-color:transparent}
+    .hist-sr-editavel:active{opacity:.6}
     .hist-sr-label{font-size:10px;font-weight:700;color:var(--text3);min-width:22px;flex-shrink:0}
     .hist-sr-data{font-weight:600;color:var(--text);flex-shrink:0}
     .hist-sr-obs{font-size:11px;color:var(--text3);font-style:italic;flex:1;line-height:1.3}
@@ -242,7 +245,7 @@
     .hist-del-bar button{width:100%;padding:16px;background:var(--red);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit}
 
     /* welcome overlay */
-    .welcome-overlay{position:fixed;inset:0;background:#000;z-index:1000;overflow-y:auto}
+    .welcome-overlay{position:fixed;inset:0;background:var(--bg);z-index:1000;overflow-y:auto}
     .welcome-content{padding:60px 20px 40px;max-width:500px;margin:0 auto}
     .welcome-logo{font-size:48px;text-align:center;margin-bottom:8px}
     .welcome-title{font-size:28px;font-weight:800;text-align:center;margin-bottom:12px}
@@ -334,6 +337,36 @@
     <div class="modal-actions">
       <button class="modal-btn modal-cancel" onclick="closeModal()">Cancelar</button>
       <button class="modal-btn modal-confirm" id="modal-confirm-btn"></button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="edit-serie-overlay" onclick="fecharEdicaoSerie()" style="display:none">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-title" id="edit-serie-titulo"></div>
+    <div class="input-row">
+      <div class="input-group">
+        <label>Carga que fez</label>
+        <input class="big-input" id="edit-sr-kg" type="number" inputmode="decimal" min="0" step="0.5" placeholder="kg">
+      </div>
+      <div class="input-group">
+        <label>Reps que fez</label>
+        <input class="big-input" id="edit-sr-reps" type="number" inputmode="numeric" min="1" max="99" step="1" placeholder="reps">
+      </div>
+    </div>
+    <div class="rir-row">
+      <span class="rir-row-label">RIR</span>
+      <div class="rir-chips">
+        <button class="rir-chip rir-chip-edit" data-val="0" onclick="setRirEdicao('0')">0</button>
+        <button class="rir-chip rir-chip-edit" data-val="1" onclick="setRirEdicao('1')">1</button>
+        <button class="rir-chip rir-chip-edit" data-val="2" onclick="setRirEdicao('2')">2</button>
+        <button class="rir-chip rir-chip-edit" data-val="3+" onclick="setRirEdicao('3+')">3+</button>
+      </div>
+    </div>
+    <textarea class="obs-input" id="edit-sr-obs" placeholder="💬 Comentário (opcional)..." style="margin-bottom:16px"></textarea>
+    <div class="modal-actions">
+      <button class="modal-btn modal-cancel" onclick="fecharEdicaoSerie()">Cancelar</button>
+      <button class="modal-btn modal-confirm blue" onclick="salvarEdicaoSerie()">Salvar</button>
     </div>
   </div>
 </div>
@@ -709,11 +742,21 @@ function getExercicios(tipo){
 function aplicarModoRetorno(tipo, exs){
   const r = getRetornoAtivo();
   if(!r || !r.restantes || !r.restantes[tipo]) return exs;
-  return exs.map(ex => ({
-    ...ex,
-    series: Math.max(2, ex.series - 1),
-    prescricao: ex.prescricao + ' · 🩹 Retorno: ~60-70% da carga anterior, RIR 3-4 (sem ir à falha)'
-  }));
+  return exs.map(ex => {
+    const novaSeries     = Math.max(2, ex.series - 1);
+    const repsAtuais      = getRepsAlvo(ex.prescricao);
+    const limiteInferior  = parseInt(repsAtuais) || 0;
+    // Carga menor é compensada com mais reps: faixas normais sobem pra 12-15;
+    // o que já era 12-15 (ou mais) sobe mais um nível, pra 15-20.
+    const novasReps       = limiteInferior >= 12 ? '15-20' : '12-15';
+    const descansoMatch   = ex.prescricao.match(/Descanso:\s*[^·]+/i);
+    const descansoTexto   = descansoMatch ? descansoMatch[0].trim() : 'Descanso: 90 s';
+    return {
+      ...ex,
+      series: novaSeries,
+      prescricao: `${novaSeries}×${novasReps} reps · ${descansoTexto} · 🩹 Retorno: carga ~60-70% menor, reps sobem pra compensar (RIR 3-4, sem ir à falha)`
+    };
+  });
 }
 
 // ── UTILITIES ─────────────────────────────────────────────────────────────────
@@ -765,8 +808,14 @@ function esc(s){
 function getRetornoAtivo(){
   try{ return JSON.parse(store.get('retorno_ativo')||'null'); }catch(e){ return null; }
 }
+function atualizarTemaRetorno(){
+  const r = getRetornoAtivo();
+  const ativo = !!(r && r.restantes && (r.restantes.push || r.restantes.pull));
+  document.body.classList.toggle('modo-retorno-tema', ativo);
+}
 function ativarModoRetorno(){
   store.set('retorno_ativo', JSON.stringify({ativadoEm: hojeISO(), restantes:{push:1, pull:1}}));
+  atualizarTemaRetorno();
   needsFullRender = true;
   renderAll();
   iniciarBemVindo();
@@ -774,6 +823,7 @@ function ativarModoRetorno(){
 }
 function desativarModoRetorno(){
   store.remove('retorno_ativo');
+  atualizarTemaRetorno();
   needsFullRender = true;
   renderAll();
   iniciarBemVindo();
@@ -785,6 +835,7 @@ function consumirModoRetorno(tipo){
   r.restantes[tipo] = 0;
   if(!r.restantes.push && !r.restantes.pull) store.remove('retorno_ativo');
   else store.set('retorno_ativo', JSON.stringify(r));
+  atualizarTemaRetorno();
   atualizarRetornoWidget();
 }
 function confirmarAtivarRetorno(){
@@ -1277,6 +1328,73 @@ function confirmarApagarSelecionados(){
   });
 }
 
+// ── EDITAR SÉRIE DO HISTÓRICO ───────────────────────────────────────────────
+let edicaoSerieAtual = null;
+
+function abrirEdicaoSerie(tipo, data, exercicioId, serieNum){
+  const sessao = getHistorico(tipo).find(s => s.data === data);
+  const ex     = sessao && (sessao.exercicios||[]).find(e => e.exercicioId === exercicioId);
+  const sr     = ex && (ex.series||[]).find(s => s.serie === serieNum);
+  if(!sr){ showToast('⚠ Série não encontrada.'); return; }
+
+  edicaoSerieAtual = { tipo, data, exercicioId, serieNum, rir: sr.rir || null };
+
+  document.getElementById('edit-serie-titulo').textContent = `Editar Série ${serieNum} — ${ex.nome}`;
+  document.getElementById('edit-sr-kg').value   = sr.kg;
+  document.getElementById('edit-sr-reps').value = sr.reps;
+  document.getElementById('edit-sr-obs').value  = sr.obs || '';
+  document.querySelectorAll('.rir-chip-edit').forEach(el => {
+    el.classList.toggle('active', el.dataset.val === (sr.rir||''));
+  });
+  document.getElementById('edit-serie-overlay').style.display = 'flex';
+}
+
+function setRirEdicao(val){
+  if(!edicaoSerieAtual) return;
+  edicaoSerieAtual.rir = (edicaoSerieAtual.rir === val) ? null : val;
+  document.querySelectorAll('.rir-chip-edit').forEach(el => el.classList.remove('active'));
+  if(edicaoSerieAtual.rir !== null){
+    const btn = document.querySelector(`.rir-chip-edit[data-val="${edicaoSerieAtual.rir}"]`);
+    if(btn) btn.classList.add('active');
+  }
+}
+
+function fecharEdicaoSerie(){
+  document.getElementById('edit-serie-overlay').style.display = 'none';
+  edicaoSerieAtual = null;
+}
+
+function salvarEdicaoSerie(){
+  if(!edicaoSerieAtual) return;
+  const { tipo, data, exercicioId, serieNum, rir } = edicaoSerieAtual;
+
+  const kgVal   = (document.getElementById('edit-sr-kg').value||'').trim();
+  const repsVal = (document.getElementById('edit-sr-reps').value||'').trim();
+  const obsVal  = document.getElementById('edit-sr-obs').value||'';
+
+  if(!kgVal || !repsVal){ showToast('⚠️ Preencha kg e reps.'); return; }
+  if(parseFloat(kgVal) < 0 || parseInt(repsVal) < 1){ showToast('⚠️ Valores inválidos.'); return; }
+
+  const hist   = getHistorico(tipo);
+  const sessao = hist.find(s => s.data === data);
+  const ex     = sessao && (sessao.exercicios||[]).find(e => e.exercicioId === exercicioId);
+  const sr     = ex && (ex.series||[]).find(s => s.serie === serieNum);
+  if(!sr){ showToast('⚠ Não foi possível salvar — série não encontrada.'); fecharEdicaoSerie(); return; }
+
+  sr.kg   = kgVal;
+  sr.reps = repsVal;
+  sr.obs  = obsVal;
+  sr.rir  = rir;
+
+  store.set('historico_v2_'+tipo, JSON.stringify(hist));
+  ghSync(true);
+
+  fecharEdicaoSerie();
+  needsFullRender = true;
+  renderAll();
+  showToast('✅ Série corrigida.');
+}
+
 // ── RENDER ────────────────────────────────────────────────────────────────────
 function renderAll(){
   // Week badge (always cheap)
@@ -1702,7 +1820,7 @@ function renderHistPanel(){
         <div class="hist-ex-name">${esc(ex.nome)}</div>
         <div class="hist-series-grid">`;
       for(const sr of (ex.series||[])){
-        html += `<div class="hist-sr">
+        html += `<div class="hist-sr${histModoEdicao?'':' hist-sr-editavel'}" ${histModoEdicao?'':`onclick="abrirEdicaoSerie('${s.tipo}','${s.data}','${esc(ex.exercicioId)}',${sr.serie})"`}>
           <span class="hist-sr-label">S${sr.serie}</span>
           <span class="hist-sr-data">${esc(sr.kg)} kg × ${esc(sr.reps)}</span>
           ${sr.rir ? `<span class="hist-sr-rir">RIR ${esc(sr.rir)}</span>` : ''}
@@ -2037,6 +2155,7 @@ loadRascunho('push');
 loadRascunho('pull');
 iniciarBemVindo();
 atualizarAcademiaPill();
+atualizarTemaRetorno();
 renderAll();
 setInterval(renderAll, 1000);
 
