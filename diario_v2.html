@@ -251,6 +251,7 @@
     /* history header + edit mode */
     .hist-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
     .hist-header-title{font-size:17px;font-weight:700}
+    .hist-dica{padding:0 0 14px;font-size:12px;color:var(--text3)}
     #btn-hist-editar{background:transparent;border:none;color:#0a84ff;font-size:15px;font-weight:600;cursor:pointer;padding:4px}
     .hist-card.hist-selected{border:1.5px solid #0a84ff;background:rgba(10,132,255,.08)}
     .hist-check{font-size:22px;color:#0a84ff;margin-bottom:6px}
@@ -1903,8 +1904,11 @@ function renderHistPanel(){
 
   let html = `<div class="hist-header">
     <span class="hist-header-title">Histórico</span>
-    <button id="btn-hist-editar" onclick="toggleHistEdicao()">${histModoEdicao?'Cancelar':'Editar'}</button>
+    <button id="btn-hist-editar" onclick="toggleHistEdicao()">${histModoEdicao?'Cancelar':'Selecionar'}</button>
   </div>`;
+  if(!histModoEdicao){
+    html += `<div class="hist-dica">💡 Toque numa série pra corrigir carga, reps, RIR ou comentário.</div>`;
+  }
 
   if(all.length === 0){
     container.innerHTML = html + `<div class="hist-empty">
