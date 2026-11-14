@@ -226,6 +226,15 @@
             }
           ]
         }
+      ],
+      "extras": [
+        {
+          "nome": "Corrida esteira",
+          "duracaoMin": "15",
+          "distanciaKm": "1.75",
+          "obs": "",
+          "substituido": false
+        }
       ]
     },
     {
@@ -5910,5 +5919,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-11-14T15:12:32.254Z"
+  "at": "2026-11-14T15:31:22.707Z"
 }
