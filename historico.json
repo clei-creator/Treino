@@ -28,6 +28,15 @@
               "rir": "0",
               "duracao": 49,
               "descanso": 120
+            },
+            {
+              "serie": 3,
+              "kg": "55",
+              "reps": "15",
+              "obs": "Pesado para 15x",
+              "rir": "0",
+              "duracao": 60,
+              "descanso": 135
             }
           ]
         },
@@ -5748,5 +5757,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-11-14T14:32:49.692Z"
+  "at": "2026-11-14T14:34:30.092Z"
 }
