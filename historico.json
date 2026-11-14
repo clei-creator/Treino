@@ -153,6 +153,30 @@
               "descanso": 91
             }
           ]
+        },
+        {
+          "exercicioId": "face-pull",
+          "nome": "Face Pulls — Polia Alta",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "25",
+              "reps": "20",
+              "obs": "",
+              "rir": "1",
+              "duracao": 76,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "25",
+              "reps": "20",
+              "obs": "",
+              "rir": "0",
+              "duracao": 63,
+              "descanso": 90
+            }
+          ]
         }
       ]
     },
@@ -5838,5 +5862,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-11-14T14:56:11.407Z"
+  "at": "2026-11-14T15:02:29.918Z"
 }
