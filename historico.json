@@ -1,6 +1,72 @@
 {
   "push": [
     {
+      "data": "2026-11-14",
+      "tipo": "push",
+      "ciclo": "Ciclo 2 · Set–Dez 2026",
+      "bloco": "B",
+      "academia": "Smart Fit Midway",
+      "exercicios": [
+        {
+          "exercicioId": "supino-reto",
+          "nome": "Supino Reto na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "57.2",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 58,
+              "descanso": 120
+            },
+            {
+              "serie": 2,
+              "kg": "57.2",
+              "reps": "15",
+              "obs": "Pesado",
+              "rir": "0",
+              "duracao": 49,
+              "descanso": 120
+            }
+          ]
+        },
+        {
+          "exercicioId": "supino-inclinado",
+          "nome": "Supino Inclinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "57.2",
+              "reps": "12",
+              "obs": "Dor cotovelo ",
+              "rir": "0",
+              "duracao": 2,
+              "descanso": 18
+            },
+            {
+              "serie": 2,
+              "kg": "52.5",
+              "reps": "13",
+              "obs": "Parou a dor. ",
+              "rir": "0",
+              "duracao": 1,
+              "descanso": 41
+            },
+            {
+              "serie": 3,
+              "kg": "45",
+              "reps": "12",
+              "obs": "OK",
+              "rir": "1",
+              "duracao": 63,
+              "descanso": 573
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-11-07",
       "tipo": "push",
       "ciclo": "Ciclo 2 · Set–Dez 2026",
@@ -5682,5 +5748,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-11-14T14:21:07.264Z"
+  "at": "2026-11-14T14:32:49.692Z"
 }
