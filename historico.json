@@ -3414,6 +3414,117 @@
   ],
   "pull": [
     {
+      "data": "2026-11-15",
+      "tipo": "pull",
+      "ciclo": "Ciclo 2 · Set–Dez 2026",
+      "bloco": "B",
+      "academia": "Smart Fit Prudente",
+      "exercicios": [
+        {
+          "exercicioId": "puxada-alta",
+          "nome": "Puxada Alta na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "50",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 94,
+              "descanso": 80
+            },
+            {
+              "serie": 2,
+              "kg": "50",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 44,
+              "descanso": 121
+            }
+          ]
+        },
+        {
+          "exercicioId": "leg-press",
+          "nome": "Leg Press 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "160",
+              "reps": "15",
+              "obs": "",
+              "rir": "2",
+              "duracao": 68,
+              "descanso": 110
+            },
+            {
+              "serie": 2,
+              "kg": "160",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 51,
+              "descanso": 90
+            }
+          ]
+        },
+        {
+          "exercicioId": "flexora",
+          "nome": "Cadeira Flexora",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "42",
+              "reps": "16",
+              "obs": "",
+              "rir": "2",
+              "duracao": 55,
+              "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "57.5",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 52,
+              "descanso": 413
+            }
+          ]
+        },
+        {
+          "exercicioId": "stiff",
+          "nome": "Stiff na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 103,
+              "descanso": 90
+            }
+          ]
+        },
+        {
+          "exercicioId": "hiperextensao",
+          "nome": "Hiperextensão Lombar 45°",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "0",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 1,
+              "descanso": 143
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-11-08",
       "tipo": "pull",
       "ciclo": "Ciclo 2 · Set–Dez 2026",
@@ -5910,14 +6021,14 @@
       "face-pull": "62 / 4"
     },
     "Smart Fit Prudente": {
-      "puxada-alta": "33",
+      "puxada-alta": "3 / 8",
       "supino-inclinado": "Máquina amarela / 6",
-      "flexora": "03",
+      "flexora": "03 / 3 / 0 / L",
       "stiff": "Barra livre ",
       "hiperextensao": "46 / 3",
       "rosca": "Barra W",
       "panturrilha": "07"
     }
   },
-  "at": "2026-11-14T15:31:22.707Z"
+  "at": "2026-11-15T16:46:55.747Z"
 }
