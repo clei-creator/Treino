@@ -3445,6 +3445,21 @@
           ]
         },
         {
+          "exercicioId": "supino-inclinado",
+          "nome": "Supino Inclinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "20",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 45,
+              "descanso": 100
+            }
+          ]
+        },
+        {
           "exercicioId": "leg-press",
           "nome": "Leg Press 45°",
           "series": [
@@ -3513,6 +3528,15 @@
               "rir": "0",
               "duracao": 103,
               "descanso": 90
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 57,
+              "descanso": 353
             }
           ]
         },
@@ -6039,5 +6063,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-11-15T16:47:02.771Z"
+  "at": "2026-11-15T16:52:27.269Z"
 }
