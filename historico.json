@@ -3456,6 +3456,15 @@
               "rir": "1",
               "duracao": 45,
               "descanso": 100
+            },
+            {
+              "serie": 2,
+              "kg": "15",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 61,
+              "descanso": 274
             }
           ]
         },
@@ -3552,6 +3561,30 @@
               "rir": "0",
               "duracao": 1,
               "descanso": 143
+            },
+            {
+              "serie": 2,
+              "kg": "0",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 2,
+              "descanso": 340
+            }
+          ]
+        },
+        {
+          "exercicioId": "rosca",
+          "nome": "Rosca — Pegada Neutra",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "17.5",
+              "reps": "15",
+              "obs": "",
+              "rir": "2",
+              "duracao": 2,
+              "descanso": 61
             }
           ]
         }
@@ -6063,5 +6096,5 @@
       "panturrilha": "07"
     }
   },
-  "at": "2026-11-15T16:52:27.269Z"
+  "at": "2026-11-15T16:56:50.658Z"
 }
