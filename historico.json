@@ -222,6 +222,63 @@
               "descanso": 409
             }
           ]
+        },
+        {
+          "exercicioId": "elevacao-lateral",
+          "nome": "Elevação Lateral (Halteres)",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 72,
+              "descanso": 91
+            },
+            {
+              "serie": 2,
+              "kg": "10",
+              "reps": "15",
+              "obs": "",
+              "rir": "1",
+              "duracao": 42,
+              "descanso": 91
+            }
+          ]
+        },
+        {
+          "exercicioId": "triceps-polia",
+          "nome": "Tríceps na Polia — Corda",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "28.75",
+              "reps": "9",
+              "obs": "",
+              "rir": "3+",
+              "duracao": 70,
+              "descanso": 60
+            },
+            {
+              "serie": 2,
+              "kg": "31.2",
+              "reps": "8",
+              "obs": "",
+              "rir": "0",
+              "duracao": 68,
+              "descanso": 61
+            },
+            {
+              "serie": 3,
+              "kg": "31.25",
+              "reps": "6",
+              "obs": "",
+              "rir": "0",
+              "duracao": 67,
+              "descanso": 60
+            }
+          ]
         }
       ]
     },
@@ -6343,5 +6400,5 @@
       "supino-declinado": "Amarela / 10"
     }
   },
-  "at": "2026-11-20T17:05:58.839Z"
+  "at": "2026-11-20T17:19:56.175Z"
 }
