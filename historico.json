@@ -1,6 +1,90 @@
 {
   "push": [
     {
+      "data": "2026-11-20",
+      "tipo": "push",
+      "ciclo": "Ciclo 2 · Set–Dez 2026",
+      "bloco": "B",
+      "academia": "Smart Fit Prudente",
+      "exercicios": [
+        {
+          "exercicioId": "supino-reto",
+          "nome": "Supino Reto na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "57.5",
+              "reps": "8",
+              "obs": "",
+              "rir": "2",
+              "duracao": 126,
+              "descanso": 120
+            },
+            {
+              "serie": 2,
+              "kg": "57.5",
+              "reps": "8",
+              "obs": "Estranhamente pesado. ",
+              "rir": "2",
+              "duracao": 36,
+              "descanso": 128
+            },
+            {
+              "serie": 3,
+              "kg": "57.5",
+              "reps": "8",
+              "obs": "",
+              "rir": "0",
+              "duracao": 51,
+              "descanso": 121
+            }
+          ]
+        },
+        {
+          "exercicioId": "supino-inclinado",
+          "nome": "Supino Inclinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "40",
+              "reps": "6",
+              "obs": "",
+              "rir": "0",
+              "duracao": 1,
+              "descanso": 121
+            },
+            {
+              "serie": 2,
+              "kg": "30",
+              "reps": "8",
+              "obs": "",
+              "rir": "2",
+              "duracao": 29,
+              "descanso": 120
+            },
+            {
+              "serie": 3,
+              "kg": "35",
+              "reps": "8",
+              "obs": "Essa academia não tem\nMáquina. Aqui, é a máquina “amarela” com menos articulações. A carga naturalmente baixa. ",
+              "rir": "0",
+              "duracao": 32,
+              "descanso": 121
+            },
+            {
+              "serie": 4,
+              "kg": "35",
+              "reps": "8",
+              "obs": "",
+              "rir": "0",
+              "duracao": 47,
+              "descanso": 121
+            }
+          ]
+        }
+      ]
+    },
+    {
       "data": "2026-11-14",
       "tipo": "push",
       "ciclo": "Ciclo 2 · Set–Dez 2026",
@@ -6111,8 +6195,9 @@
       "stiff": "Barra livre ",
       "hiperextensao": "46 / 3",
       "rosca": "Barra W",
-      "panturrilha": "07"
+      "panturrilha": "07",
+      "supino-reto": "20 / 6"
     }
   },
-  "at": "2026-11-15T16:57:14.751Z"
+  "at": "2026-11-20T16:30:01.208Z"
 }
