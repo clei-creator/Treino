@@ -178,6 +178,15 @@
               "rir": "3+",
               "duracao": 28,
               "descanso": 90
+            },
+            {
+              "serie": 3,
+              "kg": "50",
+              "reps": "8",
+              "obs": "Pesado",
+              "rir": "0",
+              "duracao": 43,
+              "descanso": 91
             }
           ]
         },
@@ -6334,5 +6343,5 @@
       "supino-declinado": "Amarela / 10"
     }
   },
-  "at": "2026-11-20T17:04:48.559Z"
+  "at": "2026-11-20T17:05:58.839Z"
 }
