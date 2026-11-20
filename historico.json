@@ -158,6 +158,30 @@
           ]
         },
         {
+          "exercicioId": "supino-declinado",
+          "nome": "Supino Declinado na Máquina",
+          "series": [
+            {
+              "serie": 1,
+              "kg": "30",
+              "reps": "8",
+              "obs": "",
+              "rir": "3+",
+              "duracao": 34,
+              "descanso": 91
+            },
+            {
+              "serie": 2,
+              "kg": "40",
+              "reps": "8",
+              "obs": "",
+              "rir": "3+",
+              "duracao": 28,
+              "descanso": 90
+            }
+          ]
+        },
+        {
           "exercicioId": "face-pull",
           "nome": "Face Pulls — Polia Alta",
           "series": [
@@ -178,6 +202,15 @@
               "rir": "1",
               "duracao": 51,
               "descanso": 91
+            },
+            {
+              "serie": 3,
+              "kg": "28.75",
+              "reps": "15",
+              "obs": "",
+              "rir": "0",
+              "duracao": 58,
+              "descanso": 409
             }
           ]
         }
@@ -6297,8 +6330,9 @@
       "panturrilha": "07",
       "supino-reto": "20 / 6",
       "remada-sentada": "Amarela / ",
-      "crossover": "62 / segunda altura mais altas "
+      "crossover": "62 / segunda altura mais altas ",
+      "supino-declinado": "Amarela / 10"
     }
   },
-  "at": "2026-11-20T16:58:23.997Z"
+  "at": "2026-11-20T17:04:48.559Z"
 }
