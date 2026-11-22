@@ -104,11 +104,20 @@ body{margin:0}
       <label for="q-usd">Pesos por US$ 1<span class="hint">pagando em dólar</span>
         <input id="q-usd" inputmode="decimal" autocomplete="off" placeholder="ex.: 1.400">
       </label>
-      <label for="q-cost">R$ por US$ 1<span class="hint">quanto o dólar te custou</span>
+      <label for="q-cost">R$ por US$ 1<span class="hint">cotação do dólar hoje</span>
         <input id="q-cost" inputmode="decimal" autocomplete="off" placeholder="ex.: 5,80">
       </label>
     </div>
     <p class="note">Campo vazio = você não tem aquela moeda hoje. Salva automaticamente.</p>
+  </section>
+
+  <section>
+    <h2>Trocar no câmbio</h2>
+    <div class="result" id="fx-verdict"></div>
+    <label for="fx-amount">Quanto em reais quer trocar? <span class="hint">opcional</span>
+      <input id="fx-amount" inputmode="decimal" autocomplete="off" placeholder="ex.: 1.000">
+    </label>
+    <div class="result" id="fx-sim"></div>
   </section>
 
   <section>
@@ -203,7 +212,7 @@ body{margin:0}
       (viaBrl!=null?'<span class="v">'+brl(viaBrl)+'</span><span class="s">1 real = '+show(e.brl)+' pesos</span>':'<span class="s">Sem reais hoje</span>')+'</div>';
     html+='<div class="opt'+(best==='usd'?' best':'')+(usdNeeded==null?' off':'')+'"><span class="k">Pagando em dólar</span>';
     if(viaUsd!=null)html+='<span class="v">'+brl(viaUsd)+'</span><span class="s">US$ '+fmt(usdNeeded,2)+' · 1 real rende '+show(e.usd/e.cost)+' pesos</span>';
-    else if(usdNeeded!=null)html+='<span class="v">US$ '+fmt(usdNeeded,2)+'</span><span class="s">Informe quanto o dólar custou em reais para comparar</span>';
+    else if(usdNeeded!=null)html+='<span class="v">US$ '+fmt(usdNeeded,2)+'</span><span class="s">Informe a cotação do dólar em reais para comparar</span>';
     else html+='<span class="s">Sem dólar hoje</span>';
     html+='</div></div>';
 
@@ -239,7 +248,40 @@ body{margin:0}
     $('hist').innerHTML=h+'</tbody></table>';
   }
 
-  function render(){renderResult();renderHist()}
+  function renderFx(){
+    var vb=$('fx-verdict'), sb=$('fx-sim');
+    var e=hist[today];
+    if(!e){vb.innerHTML='<p class="empty">Informe as cotações de hoje para comparar.</p>';sb.innerHTML='';return}
+    var y=yields(e);
+    var v;
+    if(y.brl!=null&&y.usd!=null){
+      var implied=e.usd/e.brl;
+      var diff=Math.abs(y.brl-y.usd), lo=Math.min(y.brl,y.usd);
+      var head=diff/lo<0.0005?'<div class="verdict">Tanto faz: real e dólar rendem o mesmo.</div>':
+        '<div class="verdict good">Hoje compensa trocar '+(y.brl>y.usd?'REAIS':'DÓLAR')+': rende '+fmt(diff/lo*100,1)+'% mais pesos.</div>';
+      v=head+'<div class="opts">'+
+        '<div class="opt'+(y.brl>=y.usd?' best':'')+'"><span class="k">Trocando reais</span><span class="v">'+show(y.brl)+'</span><span class="s">pesos por R$ 1</span></div>'+
+        '<div class="opt'+(y.usd>y.brl?' best':'')+'"><span class="k">Trocando dólar</span><span class="v">'+show(y.usd)+'</span><span class="s">pesos por R$ 1 em dólar</span></div></div>'+
+        '<p class="note">O câmbio paga o dólar como se valesse R$ '+fmt(implied,2)+'; a cotação do dia é R$ '+fmt(e.cost,2)+'.</p>';
+    }else if(y.brl!=null&&e.usd==null)v='<div class="verdict">Hoje você só tem reais: R$ 1 = '+show(e.brl)+' pesos.</div>';
+    else if(y.brl==null&&e.usd!=null)v='<div class="verdict">Hoje você só tem dólar: US$ 1 = '+show(e.usd)+' pesos.</div>';
+    else if(y.brl!=null)v='<div class="verdict">Informe a cotação do dólar em reais para comparar.</div>';
+    else v='<div class="verdict">Nenhuma moeda informada para hoje.</div>';
+    vb.innerHTML=v;
+
+    var r=parse($('fx-amount').value);
+    if(!r){sb.innerHTML='';return}
+    var h='<div class="opts">';
+    h+='<div class="opt'+(y.brl!=null&&(y.usd==null||y.brl>=y.usd)?' best':'')+(y.brl==null?' off':'')+'"><span class="k">Trocando '+brl(r)+'</span>'+
+      (y.brl!=null?'<span class="v">'+fmt(r*y.brl,0)+' ARS</span>':'<span class="s">Sem reais hoje</span>')+'</div>';
+    h+='<div class="opt'+(y.usd!=null&&(y.brl==null||y.usd>y.brl)?' best':'')+(y.usd==null?' off':'')+'"><span class="k">Trocando dólar</span>'+
+      (y.usd!=null?'<span class="v">'+fmt(r*y.usd,0)+' ARS</span><span class="s">US$ '+fmt(r/e.cost,2)+' (equivale a '+brl(r)+')</span>':'<span class="s">Sem dólar hoje</span>')+'</div>';
+    h+='</div>';
+    if(y.brl!=null&&y.usd!=null)h+='<p class="note">Diferença: '+fmt(Math.abs(r*y.brl-r*y.usd),0)+' pesos.</p>';
+    sb.innerHTML=h;
+  }
+
+  function render(){renderFx();renderResult();renderHist()}
 
   $('hist').addEventListener('click',function(ev){
     var b=ev.target.closest('button.del');if(!b)return;
@@ -253,6 +295,7 @@ body{margin:0}
 
   ['brl','usd','cost'].forEach(function(n){inputs[n].addEventListener('change',storeToday)});
   $('amount').addEventListener('input',renderResult);
+  $('fx-amount').addEventListener('input',renderFx);
 
   function checkBanner(){
     var prev=lastBefore();
