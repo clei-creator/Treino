@@ -74,6 +74,28 @@ td.dash{color:var(--muted)}
 .pill{display:inline-block;font-size:.75rem;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--good-soft);color:var(--on-strong)}
 .pill.none{background:var(--accent-soft);color:var(--fg)}
 .empty{color:var(--muted);font-size:.9rem;margin:0}
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--surface);border:2px solid var(--line);border-radius:12px;padding:5px}
+.tabs a{text-align:center;font-weight:700;padding:10px 8px;border-radius:8px;text-decoration:none;color:var(--fg)}
+.tabs a[aria-current="page"]{background:var(--accent);color:#fff}
+.tabs a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.view{display:flex;flex-direction:column;gap:18px}
+.casa h3{font-family:var(--f-display);font-size:1.1rem;margin:0;display:flex;flex-wrap:wrap;align-items:center;gap:6px}
+.contact{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:.92rem}
+.contact a{color:var(--accent);font-weight:600}
+.contact .tel{user-select:all;font-family:var(--f-num)}
+.fields.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:460px){.fields.two{grid-template-columns:repeat(2,minmax(0,1fr))}}
+button.sm{padding:8px 12px;font-size:.88rem}
+button:disabled{opacity:.4;cursor:not-allowed}
+.best-list{display:flex;flex-direction:column;gap:8px}
+.best-item{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border-radius:8px;border:2px solid var(--line)}
+.best-item.top{background:var(--good-soft);border-color:var(--good-soft);color:var(--on-strong)}
+.best-item .k{font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.best-item .v{font-family:var(--f-num);font-weight:500;font-size:1.1rem}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(16px + env(safe-area-inset-bottom,0px));background:var(--fg);color:var(--bg);font-weight:600;padding:12px 16px;border-radius:10px;max-width:calc(100% - 32px);z-index:20}
+.from{font-size:.8rem;color:var(--accent);font-weight:600;text-transform:none;letter-spacing:0}
+.form-casa input{font-family:var(--f-body)}
+.err{color:var(--warn);font-weight:600;font-size:.88rem;margin:0}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 [hidden]{display:none!important}
 body{margin:0}
@@ -87,6 +109,13 @@ body{margin:0}
     <p id="today-label">Base: Real (R$)</p>
   </header>
 
+  <nav class="tabs" aria-label="Seções">
+    <a href="#cotacoes" id="tab-main">Cotações</a>
+    <a href="#casas" id="tab-casas">Casas de câmbio</a>
+  </nav>
+
+  <div class="view" id="view-main">
+
   <section class="banner" id="banner" hidden>
     <p><strong>Novo dia.</strong> Ainda não há cotação para hoje. A última foi em <span id="b-date"></span>:</p>
     <p class="vals" id="b-vals"></p>
@@ -99,10 +128,10 @@ body{margin:0}
   <section>
     <h2>Cotações de hoje <small id="save-status"></small></h2>
     <div class="fields">
-      <label for="q-brl">Pesos por R$ 1<span class="hint">pagando em reais</span>
+      <label for="q-brl">Pesos por R$ 1<span class="hint">pagando em reais</span><span class="from" id="from-brl"></span>
         <input id="q-brl" inputmode="decimal" autocomplete="off" placeholder="ex.: 260">
       </label>
-      <label for="q-usd">Pesos por US$ 1<span class="hint">pagando em dólar</span>
+      <label for="q-usd">Pesos por US$ 1<span class="hint">pagando em dólar</span><span class="from" id="from-usd"></span>
         <input id="q-usd" inputmode="decimal" autocomplete="off" placeholder="ex.: 1.400">
       </label>
       <label for="q-cost">R$ por US$ 1<span class="hint">cotação do dólar hoje</span>
@@ -133,7 +162,36 @@ body{margin:0}
     <h2>Histórico <small id="hist-count"></small></h2>
     <div class="tbl" id="hist"></div>
   </section>
+  </div>
+
+  <div class="view" id="view-casas" hidden>
+    <section>
+      <h2>Melhor escolha hoje</h2>
+      <div id="casas-best"></div>
+    </section>
+
+    <div class="view" id="casas-list"></div>
+
+    <section class="form-casa">
+      <h2 id="casa-form-title">Adicionar casa de câmbio</h2>
+      <label for="c-nome">Nome
+        <input id="c-nome" autocomplete="off" placeholder="ex.: Cambio Florida 500">
+      </label>
+      <label for="c-tel">Telefone / WhatsApp <span class="hint">opcional</span>
+        <input id="c-tel" inputmode="tel" autocomplete="off" placeholder="ex.: +54 9 11 5555-1234">
+      </label>
+      <label for="c-link">Link do Google Maps <span class="hint">opcional</span>
+        <input id="c-link" inputmode="url" autocomplete="off" placeholder="https://maps.app.goo.gl/...">
+      </label>
+      <p class="err" id="c-err" hidden></p>
+      <div class="row">
+        <button id="c-save" type="button">Adicionar casa</button>
+        <button id="c-cancel" type="button" class="ghost" hidden>Cancelar edição</button>
+      </div>
+    </section>
+  </div>
 </div>
+<div class="toast" id="toast" role="status" hidden></div>
 
 <script>
 (function(){
@@ -177,7 +235,11 @@ body{margin:0}
   }
 
   function storeToday(){
-    hist[today]={brl:parse(inputs.brl.value),usd:parse(inputs.usd.value),cost:parse(inputs.cost.value)};
+    var old=hist[today]||{};
+    var e={brl:parse(inputs.brl.value),usd:parse(inputs.usd.value),cost:parse(inputs.cost.value)};
+    if(old.casaBrl&&old.brl===e.brl)e.casaBrl=old.casaBrl;
+    if(old.casaUsd&&old.usd===e.usd)e.casaUsd=old.casaUsd;
+    hist[today]=e;
     var ok=save(hist);
     $('save-status').innerHTML=ok?'<span class="saved">Salvo</span>':'Não foi possível salvar neste navegador';
     $('banner').hidden=true;
@@ -282,7 +344,149 @@ body{margin:0}
     sb.innerHTML=h;
   }
 
-  function render(){renderFx();renderResult();renderHist()}
+  function renderFrom(){
+    var e=hist[today]||{};
+    $('from-brl').textContent=e.casaBrl?'de '+e.casaBrl:'';
+    $('from-usd').textContent=e.casaUsd?'de '+e.casaUsd:'';
+  }
+
+  function render(){renderFx();renderResult();renderHist();renderFrom()}
+
+  /* ---------- Casas de câmbio ---------- */
+  var CKEY='cambio-ar-casas-v1';
+  var casas;
+  try{casas=JSON.parse(localStorage.getItem(CKEY))||[]}catch(e){casas=[]}
+  function saveCasas(){try{localStorage.setItem(CKEY,JSON.stringify(casas))}catch(e){}}
+  function esc(t){return String(t==null?'':t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  var editing=null;
+
+  var toastTimer;
+  function toast(msg){var t=$('toast');t.textContent=msg;t.hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(function(){t.hidden=true},3500)}
+
+  function q(c){return (c.quotes&&c.quotes[today])||{}}
+  function lastQ(c){
+    var ks=Object.keys(c.quotes||{}).filter(function(k){return k<today}).sort();
+    return ks.length?{date:ks[ks.length-1],q:c.quotes[ks[ks.length-1]]}:null;
+  }
+
+  function renderBest(){
+    var box=$('casas-best');
+    var withBrl=casas.filter(function(c){return q(c).brl!=null}).sort(function(a,b){return q(b).brl-q(a).brl});
+    var withUsd=casas.filter(function(c){return q(c).usd!=null}).sort(function(a,b){return q(b).usd-q(a).usd});
+    if(!withBrl.length&&!withUsd.length){
+      box.innerHTML='<p class="empty">'+(casas.length?'Informe a cotação de hoje em pelo menos uma casa.':'Adicione uma casa de câmbio abaixo e informe a cotação do dia.')+'</p>';return}
+    var cost=(hist[today]||{}).cost;
+    var h='';
+    if(withBrl.length&&withUsd.length&&cost){
+      var bB=q(withBrl[0]).brl, bU=q(withUsd[0]).usd/cost;
+      var winBrl=bB>=bU, lo=Math.min(bB,bU), diff=Math.abs(bB-bU);
+      h+='<div class="verdict good">Hoje: troque '+(winBrl?'REAIS em '+esc(withBrl[0].nome):'DÓLAR em '+esc(withUsd[0].nome))+
+        (diff/lo<0.0005?'':' (rende '+fmt(diff/lo*100,1)+'% mais pesos)')+'.</div>';
+    }else if(withBrl.length&&withUsd.length){
+      h+='<p class="note">Informe a cotação do dólar em reais na aba Cotações para comparar real com dólar.</p>';
+    }
+    h+='<div class="best-list">';
+    if(withBrl.length)h+='<div class="best-item top"><span><span class="k">Melhor para reais</span><br>'+esc(withBrl[0].nome)+'</span><span class="v">R$ 1 = '+show(q(withBrl[0]).brl)+' ARS</span></div>';
+    if(withUsd.length)h+='<div class="best-item top"><span><span class="k">Melhor para dólar</span><br>'+esc(withUsd[0].nome)+'</span><span class="v">US$ 1 = '+show(q(withUsd[0]).usd)+' ARS</span></div>';
+    h+='</div>';
+    box.innerHTML=h;
+  }
+
+  function renderCasas(){
+    var list=$('casas-list');
+    var maxB=null,maxU=null;
+    casas.forEach(function(c){var x=q(c);if(x.brl!=null&&(maxB==null||x.brl>maxB))maxB=x.brl;if(x.usd!=null&&(maxU==null||x.usd>maxU))maxU=x.usd});
+    var order=casas.slice().sort(function(a,b){
+      var sa=(q(a).brl===maxB&&maxB!=null)||(q(a).usd===maxU&&maxU!=null)?0:1;
+      var sb=(q(b).brl===maxB&&maxB!=null)||(q(b).usd===maxU&&maxU!=null)?0:1;
+      return sa-sb||a.nome.localeCompare(b.nome)});
+    list.innerHTML=order.map(function(c){
+      var x=q(c), lq=lastQ(c), id=c.id;
+      var badges='';
+      if(x.brl!=null&&x.brl===maxB&&casas.length>1)badges+=' <span class="pill">Melhor p/ reais</span>';
+      if(x.usd!=null&&x.usd===maxU&&casas.length>1)badges+=' <span class="pill">Melhor p/ dólar</span>';
+      var contact='';
+      if(c.tel)contact+='<span>Tel: <span class="tel">'+esc(c.tel)+'</span></span>';
+      if(c.link)contact+='<a href="'+esc(c.link)+'" target="_blank" rel="noopener">Abrir no Google Maps</a>';
+      return '<section class="casa" data-id="'+id+'">'+
+        '<h3>'+esc(c.nome)+badges+'</h3>'+
+        (contact?'<div class="contact">'+contact+'</div>':'')+
+        '<div class="fields two">'+
+          '<label for="cq-brl-'+id+'">Pesos por R$ 1<input id="cq-brl-'+id+'" data-f="brl" inputmode="decimal" autocomplete="off" placeholder="—" value="'+(x.brl!=null?show(x.brl):'')+'"></label>'+
+          '<label for="cq-usd-'+id+'">Pesos por US$ 1<input id="cq-usd-'+id+'" data-f="usd" inputmode="decimal" autocomplete="off" placeholder="—" value="'+(x.usd!=null?show(x.usd):'')+'"></label>'+
+        '</div>'+
+        (lq?'<p class="note">Última cotação ('+fmtDate(lq.date)+'): R$ 1 = '+show(lq.q.brl)+' · US$ 1 = '+show(lq.q.usd)+'</p>':'')+
+        '<div class="row">'+
+          '<button type="button" class="sm" data-act="trade-brl"'+(x.brl==null?' disabled':'')+'>Troquei reais aqui</button>'+
+          '<button type="button" class="sm" data-act="trade-usd"'+(x.usd==null?' disabled':'')+'>Troquei dólar aqui</button>'+
+        '</div>'+
+        '<div class="row"><button type="button" class="del" data-act="edit">Editar dados</button><button type="button" class="del" data-act="remove">Excluir casa</button></div>'+
+      '</section>';
+    }).join('');
+    renderBest();
+  }
+
+  $('casas-list').addEventListener('change',function(ev){
+    var inp=ev.target; if(!inp.dataset.f)return;
+    var c=casas.find(function(k){return k.id===inp.closest('.casa').dataset.id}); if(!c)return;
+    c.quotes=c.quotes||{};
+    var cur=c.quotes[today]||{};
+    cur[inp.dataset.f]=parse(inp.value);
+    if(cur.brl==null&&cur.usd==null)delete c.quotes[today];else c.quotes[today]=cur;
+    saveCasas(); renderCasas();
+  });
+
+  $('casas-list').addEventListener('click',function(ev){
+    var b=ev.target.closest('button[data-act]'); if(!b)return;
+    var c=casas.find(function(k){return k.id===b.closest('.casa').dataset.id}); if(!c)return;
+    var act=b.dataset.act;
+    if(act==='trade-brl'||act==='trade-usd'){
+      var f=act==='trade-brl'?'brl':'usd';
+      var e=hist[today]||{brl:null,usd:null,cost:null};
+      e[f]=q(c)[f];
+      e[f==='brl'?'casaBrl':'casaUsd']=c.nome;
+      hist[today]=e; save(hist);
+      fillForm(e); $('save-status').innerHTML='<span class="saved">Salvo</span>'; $('banner').hidden=true;
+      render();
+      location.hash='#cotacoes';
+      toast((f==='brl'?'Pesos por real':'Pesos por dólar')+' de '+c.nome+' levado para a cotação de hoje.');
+    }else if(act==='remove'){
+      if(b.dataset.confirm!=='1'){b.dataset.confirm='1';b.textContent='Confirmar exclusão?';
+        setTimeout(function(){if(b.isConnected){b.dataset.confirm='';b.textContent='Excluir casa'}},3000);return}
+      casas=casas.filter(function(k){return k!==c}); saveCasas(); renderCasas();
+    }else if(act==='edit'){
+      editing=c.id;
+      $('c-nome').value=c.nome;$('c-tel').value=c.tel||'';$('c-link').value=c.link||'';
+      $('casa-form-title').textContent='Editar '+c.nome;$('c-save').textContent='Salvar alterações';$('c-cancel').hidden=false;
+      $('c-nome').focus();
+    }
+  });
+
+  function resetForm(){
+    editing=null;$('c-nome').value='';$('c-tel').value='';$('c-link').value='';$('c-err').hidden=true;
+    $('casa-form-title').textContent='Adicionar casa de câmbio';$('c-save').textContent='Adicionar casa';$('c-cancel').hidden=true;
+  }
+  $('c-cancel').addEventListener('click',resetForm);
+  $('c-save').addEventListener('click',function(){
+    var nome=$('c-nome').value.trim(), tel=$('c-tel').value.trim(), link=$('c-link').value.trim();
+    var err=$('c-err');
+    if(!nome){err.textContent='Digite o nome da casa.';err.hidden=false;$('c-nome').focus();return}
+    if(link&&!/^https?:\/\//i.test(link))link='https://'+link;
+    if(editing){var c=casas.find(function(k){return k.id===editing});if(c){c.nome=nome;c.tel=tel;c.link=link}}
+    else casas.push({id:'c'+Date.now().toString(36),nome:nome,tel:tel,link:link,quotes:{}});
+    saveCasas(); var wasEdit=!!editing; resetForm(); renderCasas();
+    toast(wasEdit?'Casa atualizada.':'Casa adicionada. Informe a cotação de hoje nela.');
+  });
+
+  function route(){
+    var casasView=location.hash==='#casas';
+    $('view-main').hidden=casasView; $('view-casas').hidden=!casasView;
+    $('tab-main').setAttribute('aria-current',casasView?'false':'page');
+    $('tab-casas').setAttribute('aria-current',casasView?'page':'false');
+    if(casasView)renderCasas();
+    window.scrollTo(0,0);
+  }
+  window.addEventListener('hashchange',route);
 
   $('hist').addEventListener('click',function(ev){
     var b=ev.target.closest('button.del');if(!b)return;
@@ -314,6 +518,7 @@ body{margin:0}
   if(hist[today])$('save-status').textContent='Salvo';
   checkBanner();
   render();
+  route();
 
   // Se a página ficar aberta e virar o dia, pede a nova cotação
   document.addEventListener('visibilitychange',function(){
