@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Câmbio Argentina</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sora:wght@500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: uma coluna estreita, de cima para baixo — cotações do dia, conversor, histórico */
+:root{
+  --bg:#f3f6f9; --surface:#ffffff; --fg:#14202b; --muted:#5d6b78; --line:#d9e1e8;
+  --accent:#2f7fb8; --accent-soft:#e2eff8;
+  --good:#1d7a4c; --good-soft:#e3f4ea; --warn:#9a5b00; --warn-soft:#fbf0dc;
+  --f-display:"Sora",system-ui,sans-serif; --f-body:"Inter",system-ui,sans-serif;
+  --f-num:"JetBrains Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f161d; --surface:#17212b; --fg:#e6edf3; --muted:#93a3b2; --line:#2a3846;
+  --accent:#6cb4e6; --accent-soft:#1b3346; --good:#5fd19a; --good-soft:#163428;
+  --warn:#f0b45a; --warn-soft:#3a2c14; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f161d; --surface:#17212b; --fg:#e6edf3; --muted:#93a3b2; --line:#2a3846;
+  --accent:#6cb4e6; --accent-soft:#1b3346; --good:#5fd19a; --good-soft:#163428;
+  --warn:#f0b45a; --warn-soft:#3a2c14; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:560px;margin:0 auto;padding-block:20px 48px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;gap:18px}
+header h1{font-family:var(--f-display);font-size:1.5rem;margin:0;text-wrap:balance}
+header p{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+section{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:12px}
+h2{font-family:var(--f-display);font-size:1rem;margin:0;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+h2 small{font-family:var(--f-body);font-weight:500;color:var(--muted);font-size:.8rem}
+.num{font-family:var(--f-num);font-variant-numeric:tabular-nums}
+.fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:460px){.fields{grid-template-columns:1fr}}
+label{display:flex;flex-direction:column;gap:4px;font-size:.78rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+label span.hint{font-weight:400;text-transform:none;letter-spacing:0;font-size:.78rem}
+input{font-family:var(--f-num);font-size:1.05rem;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);width:100%}
+input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+input::placeholder{color:var(--muted);opacity:.7}
+.note{font-size:.82rem;color:var(--muted);margin:0}
+.saved{color:var(--good);font-weight:600}
+button{font:600 .9rem var(--f-body);border-radius:8px;padding:9px 14px;cursor:pointer;border:1px solid var(--accent);background:var(--accent);color:var(--surface)}
+button.ghost{background:transparent;color:var(--accent)}
+button.del{background:transparent;border:none;color:var(--muted);padding:4px 8px;font-size:.85rem}
+button.del:hover{color:var(--warn)}
+.banner{background:var(--warn-soft);border-color:var(--warn)}
+.banner p{margin:0}
+.banner .vals{font-family:var(--f-num);font-size:.9rem}
+.row{display:flex;flex-wrap:wrap;gap:8px}
+.big input{font-size:1.4rem;padding:12px 14px}
+.result{display:flex;flex-direction:column;gap:10px}
+.opts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.opt{border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:2px}
+.opt .k{font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.opt .v{font-family:var(--f-num);font-size:1.25rem}
+.opt .s{font-size:.8rem;color:var(--muted)}
+.opt.best{border-color:var(--good);background:var(--good-soft)}
+.opt.best .k{color:var(--good)}
+.opt.off{opacity:.55}
+.verdict{font-weight:600;padding:10px 12px;border-radius:8px;background:var(--accent-soft)}
+.verdict.good{background:var(--good-soft);color:var(--good)}
+.tbl{overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:.85rem}
+th,td{text-align:right;padding:7px 6px;border-bottom:1px solid var(--line);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+td.dash{color:var(--muted)}
+.pill{display:inline-block;font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--good-soft);color:var(--good)}
+.pill.none{background:var(--line);color:var(--muted)}
+.empty{color:var(--muted);font-size:.9rem;margin:0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+[hidden]{display:none!important}
+body{margin:0}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Câmbio Argentina</h1>
+    <p id="today-label">Base: Real (R$)</p>
+  </header>
+
+  <section class="banner" id="banner" hidden>
+    <p><strong>Novo dia.</strong> Ainda não há cotação para hoje. A última foi em <span id="b-date"></span>:</p>
+    <p class="vals" id="b-vals"></p>
+    <div class="row">
+      <button id="b-keep" type="button">Manter estas cotações</button>
+      <button id="b-new" type="button" class="ghost">Apagar e digitar novas</button>
+    </div>
+  </section>
+
+  <section>
+    <h2>Cotações de hoje <small id="save-status"></small></h2>
+    <div class="fields">
+      <label for="q-brl">Pesos por R$ 1<span class="hint">pagando em reais</span>
+        <input id="q-brl" inputmode="decimal" autocomplete="off" placeholder="ex.: 260">
+      </label>
+      <label for="q-usd">Pesos por US$ 1<span class="hint">pagando em dólar</span>
+        <input id="q-usd" inputmode="decimal" autocomplete="off" placeholder="ex.: 1.400">
+      </label>
+      <label for="q-cost">R$ por US$ 1<span class="hint">quanto o dólar te custou</span>
+        <input id="q-cost" inputmode="decimal" autocomplete="off" placeholder="ex.: 5,80">
+      </label>
+    </div>
+    <p class="note">Campo vazio = você não tem aquela moeda hoje. Salva automaticamente.</p>
+  </section>
+
+  <section>
+    <h2>Quanto custa?</h2>
+    <label for="amount" class="big">Valor em pesos (ARS)
+      <input id="amount" inputmode="decimal" autocomplete="off" placeholder="ex.: 25.000">
+    </label>
+    <div class="result" id="result"></div>
+  </section>
+
+  <section>
+    <h2>Histórico <small id="hist-count"></small></h2>
+    <div class="tbl" id="hist"></div>
+  </section>
+</div>
+
+<script>
+(function(){
+  var KEY='cambio-ar-historico-v1';
+  var $=function(id){return document.getElementById(id)};
+
+  function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+  function save(h){try{localStorage.setItem(KEY,JSON.stringify(h));return true}catch(e){return false}}
+
+  function todayKey(){var d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+  function fmtDate(k){var p=k.split('-');return p[2]+'/'+p[1]+'/'+p[0]}
+
+  // Aceita "1.400", "1400", "5,80", "5.80", "1.400,50"
+  function parse(s){
+    s=String(s||'').trim().replace(/\s/g,'');
+    if(!s)return null;
+    if(s.indexOf(',')>=0)s=s.replace(/\./g,'').replace(',','.');
+    else if(/^\d{1,3}(\.\d{3})+$/.test(s))s=s.replace(/\./g,'');
+    var n=parseFloat(s);
+    return isFinite(n)&&n>0?n:null;
+  }
+  function fmt(n,dec){return n.toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec})}
+  function brl(n){return 'R$ '+fmt(n,2)}
+  function show(n){return n==null?'—':fmt(n,n<100?2:0)}
+
+  var hist=load();
+  var today=todayKey();
+  var inputs={brl:$('q-brl'),usd:$('q-usd'),cost:$('q-cost')};
+
+  $('today-label').textContent='Hoje, '+fmtDate(today)+' · base: Real (R$)';
+
+  function lastBefore(){
+    var keys=Object.keys(hist).filter(function(k){return k<today}).sort();
+    return keys.length?keys[keys.length-1]:null;
+  }
+
+  function fillForm(e){
+    inputs.brl.value=e&&e.brl!=null?show(e.brl):'';
+    inputs.usd.value=e&&e.usd!=null?show(e.usd):'';
+    inputs.cost.value=e&&e.cost!=null?fmt(e.cost,2):'';
+  }
+
+  function storeToday(){
+    hist[today]={brl:parse(inputs.brl.value),usd:parse(inputs.usd.value),cost:parse(inputs.cost.value)};
+    var ok=save(hist);
+    $('save-status').innerHTML=ok?'<span class="saved">Salvo</span>':'Não foi possível salvar neste navegador';
+    $('banner').hidden=true;
+    render();
+  }
+
+  // Pesos que R$ 1 rende em cada caminho
+  function yields(e){
+    return {
+      brl: e&&e.brl!=null?e.brl:null,
+      usd: e&&e.usd!=null&&e.cost!=null?e.usd/e.cost:null
+    };
+  }
+
+  function renderResult(){
+    var box=$('result');
+    var e=hist[today];
+    var p=parse($('amount').value);
+    if(!e){box.innerHTML='<p class="empty">Informe as cotações de hoje para calcular.</p>';return}
+    if(!p){box.innerHTML='<p class="empty">Digite um valor em pesos.</p>';return}
+
+    var viaBrl=e.brl!=null?p/e.brl:null;
+    var usdNeeded=e.usd!=null?p/e.usd:null;
+    var viaUsd=usdNeeded!=null&&e.cost!=null?usdNeeded*e.cost:null;
+
+    var best=null;
+    if(viaBrl!=null&&viaUsd!=null)best=viaBrl<=viaUsd?'brl':'usd';
+    else if(viaBrl!=null)best='brl';
+    else if(viaUsd!=null)best='usd';
+
+    var html='<div class="opts">';
+    html+='<div class="opt'+(best==='brl'?' best':'')+(viaBrl==null?' off':'')+'"><span class="k">Pagando em reais</span>'+
+      (viaBrl!=null?'<span class="v">'+brl(viaBrl)+'</span><span class="s">1 real = '+show(e.brl)+' pesos</span>':'<span class="s">Sem reais hoje</span>')+'</div>';
+    html+='<div class="opt'+(best==='usd'?' best':'')+(usdNeeded==null?' off':'')+'"><span class="k">Pagando em dólar</span>';
+    if(viaUsd!=null)html+='<span class="v">'+brl(viaUsd)+'</span><span class="s">US$ '+fmt(usdNeeded,2)+' · 1 real rende '+show(e.usd/e.cost)+' pesos</span>';
+    else if(usdNeeded!=null)html+='<span class="v">US$ '+fmt(usdNeeded,2)+'</span><span class="s">Informe quanto o dólar custou em reais para comparar</span>';
+    else html+='<span class="s">Sem dólar hoje</span>';
+    html+='</div></div>';
+
+    var v;
+    if(viaBrl!=null&&viaUsd!=null){
+      var diff=Math.abs(viaBrl-viaUsd), hi=Math.max(viaBrl,viaUsd);
+      if(diff<0.005)v='<div class="verdict">Tanto faz: os dois saem pelo mesmo valor.</div>';
+      else v='<div class="verdict good">Pague em '+(best==='brl'?'reais':'dólar')+'. Economia de '+brl(diff)+' ('+fmt(diff/hi*100,1)+'%).</div>';
+    }else if(best==='brl')v='<div class="verdict">Hoje você só tem reais: '+brl(viaBrl)+'.</div>';
+    else if(best==='usd')v='<div class="verdict">Hoje você só tem dólar: US$ '+fmt(usdNeeded,2)+' ('+brl(viaUsd)+').</div>';
+    else if(usdNeeded!=null)v='<div class="verdict">Hoje você só tem dólar: US$ '+fmt(usdNeeded,2)+'.</div>';
+    else v='<div class="verdict">Nenhuma moeda informada para hoje.</div>';
+    box.innerHTML=html+v;
+  }
+
+  function renderHist(){
+    var keys=Object.keys(hist).sort().reverse();
+    $('hist-count').textContent=keys.length?keys.length+(keys.length===1?' dia':' dias'):'';
+    if(!keys.length){$('hist').innerHTML='<p class="empty">Nenhuma cotação salva ainda. As cotações de cada dia aparecem aqui.</p>';return}
+    var h='<table><thead><tr><th>Data</th><th>ARS/R$</th><th>ARS/US$</th><th>R$/US$</th><th>Melhor</th><th></th></tr></thead><tbody>';
+    keys.forEach(function(k){
+      var e=hist[k], y=yields(e), best;
+      if(y.brl!=null&&y.usd!=null)best=y.brl>=y.usd?'Reais':'Dólar';
+      else if(y.brl!=null)best='Só reais';
+      else if(e.usd!=null)best='Só dólar';
+      h+='<tr><td>'+fmtDate(k)+(k===today?' <span class="pill none">hoje</span>':'')+'</td>'+
+        '<td class="num'+(e.brl==null?' dash':'')+'">'+show(e.brl)+'</td>'+
+        '<td class="num'+(e.usd==null?' dash':'')+'">'+show(e.usd)+'</td>'+
+        '<td class="num'+(e.cost==null?' dash':'')+'">'+(e.cost==null?'—':fmt(e.cost,2))+'</td>'+
+        '<td>'+(best?'<span class="pill">'+best+'</span>':'<span class="pill none">Nenhuma</span>')+'</td>'+
+        '<td><button class="del" type="button" data-k="'+k+'" aria-label="Apagar '+fmtDate(k)+'">Apagar</button></td></tr>';
+    });
+    $('hist').innerHTML=h+'</tbody></table>';
+  }
+
+  function render(){renderResult();renderHist()}
+
+  $('hist').addEventListener('click',function(ev){
+    var b=ev.target.closest('button.del');if(!b)return;
+    var k=b.getAttribute('data-k');
+    if(b.dataset.confirm!=='1'){b.dataset.confirm='1';b.textContent='Confirmar?';
+      setTimeout(function(){if(b.isConnected){b.dataset.confirm='';b.textContent='Apagar'}},3000);return}
+    delete hist[k];save(hist);
+    if(k===today){fillForm(null);checkBanner()}
+    render();
+  });
+
+  ['brl','usd','cost'].forEach(function(n){inputs[n].addEventListener('change',storeToday)});
+  $('amount').addEventListener('input',renderResult);
+
+  function checkBanner(){
+    var prev=lastBefore();
+    if(hist[today]||!prev){$('banner').hidden=true;return}
+    var e=hist[prev];
+    $('b-date').textContent=fmtDate(prev);
+    $('b-vals').textContent='R$ 1 = '+show(e.brl)+' ARS · US$ 1 = '+show(e.usd)+' ARS · US$ 1 = R$ '+(e.cost==null?'—':fmt(e.cost,2));
+    $('banner').hidden=false;
+  }
+
+  $('b-keep').addEventListener('click',function(){fillForm(hist[lastBefore()]);storeToday()});
+  $('b-new').addEventListener('click',function(){fillForm(null);$('banner').hidden=true;inputs.brl.focus()});
+
+  fillForm(hist[today]);
+  if(hist[today])$('save-status').textContent='Salvo';
+  checkBanner();
+  render();
+
+  // Se a página ficar aberta e virar o dia, pede a nova cotação
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState==='visible'&&todayKey()!==today){location.reload()}
+  });
+})();
+</script>
+</body>
+</html>
